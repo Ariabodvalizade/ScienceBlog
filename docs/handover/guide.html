@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Journal Website Guide</title>
+<!--
+  Client handover guide. Built into a PDF by docs/handover/build.mjs, which
+  fills in {{SITE}}, {{SITE_HOST}}, {{USER}}, {{PASS}} and {{DATE}}.
+  Screenshots come from docs/handover/capture.mjs (shots/*.jpg).
+-->
+<style>
+@font-face { font-family: 'Playfair Display'; font-weight: 400; src: url('../../plugins/themes/meridian/fonts/playfair-display-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Playfair Display'; font-weight: 600; src: url('../../plugins/themes/meridian/fonts/playfair-display-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Source Sans 3'; font-weight: 400; src: url('../../plugins/themes/meridian/fonts/source-sans-3-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Source Sans 3'; font-weight: 400; font-style: italic; src: url('../../plugins/themes/meridian/fonts/source-sans-3-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Source Sans 3'; font-weight: 600; src: url('../../plugins/themes/meridian/fonts/source-sans-3-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Source Sans 3'; font-weight: 700; src: url('../../plugins/themes/meridian/fonts/source-sans-3-latin-600-normal.woff2') format('woff2'); }
+
+:root {
+	--accent: #0f5c63;
+	--accent-strong: #0a3f44;
+	--accent-soft: #e6f0ef;
+	--ink: #1b2322;
+	--muted: #56615f;
+	--line: #d9e1df;
+	--paper: #ffffff;
+	--marker: #d9480f;
+	--marker-soft: #fdeee6;
+	--display: 'Playfair Display', Georgia, serif;
+	--body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+}
+
+@page { size: A4; }
+
+* { box-sizing: border-box; }
+
+html, body {
+	font-variant-numeric: lining-nums;
+	margin: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--body);
+	font-size: 10.5pt;
+	line-height: 1.55;
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+}
+
+/* The cover is printed separately (full bleed, no footer) */
+body.body-only .cover { display: none; }
+body.cover-only > :not(.cover) { display: none; }
+
+p { margin: 0 0 2.6mm; }
+a { color: var(--accent); text-decoration: none; }
+strong { font-weight: 700; }
+
+h1, h2, h3 { break-after: avoid; }
+
+/* ------------------------------------------------ cover */
+
+.cover {
+	position: relative;
+	width: 210mm;
+	height: 297mm;
+	padding: 26mm 22mm 22mm;
+	background: var(--accent-strong);
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.cover::before {
+	/* concentric rings, echoing the journal's issue covers */
+	content: "";
+	position: absolute;
+	right: -60mm;
+	top: 70mm;
+	width: 190mm;
+	height: 190mm;
+	border-radius: 50%;
+	background: repeating-radial-gradient(circle, transparent 0 7mm, rgb(255 255 255 / .07) 7mm 7.4mm);
+}
+
+.cover__eyebrow {
+	margin: 0;
+	font-size: 10pt;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: #a9d0cc;
+}
+
+.cover h1 {
+	margin: 8mm 0 6mm;
+	max-width: 150mm;
+	font-family: var(--display);
+	font-size: 40pt;
+	font-weight: 600;
+	line-height: 1.08;
+}
+
+.cover__lead {
+	max-width: 125mm;
+	font-size: 13pt;
+	line-height: 1.5;
+	color: #dcebea;
+}
+
+.cover__site {
+	margin-top: 10mm;
+	font-family: var(--display);
+	font-size: 17pt;
+}
+
+.login-card {
+	position: relative;
+	margin-top: auto;
+	width: 118mm;
+	padding: 7mm 8mm 6mm;
+	border-radius: 4mm;
+	background: #fff;
+	color: var(--ink);
+	box-shadow: 0 3mm 10mm rgb(0 0 0 / .25);
+}
+
+.login-card h2 {
+	margin: 0 0 4mm;
+	font-family: var(--display);
+	font-size: 15pt;
+	font-weight: 600;
+	color: var(--accent-strong);
+}
+
+.login-card dl {
+	display: grid;
+	grid-template-columns: 26mm 1fr;
+	gap: 2.2mm 4mm;
+	margin: 0;
+	font-size: 11pt;
+}
+
+.login-card dt {
+	color: var(--muted);
+	font-weight: 600;
+}
+
+.login-card dd {
+	margin: 0;
+	font-family: 'Consolas', 'Menlo', monospace;
+	font-size: 10.5pt;
+	font-weight: 600;
+}
+
+.login-card p {
+	margin: 4.5mm 0 0;
+	padding-top: 3.5mm;
+	border-top: 1px solid var(--line);
+	font-size: 9pt;
+	color: var(--muted);
+}
+
+.cover__foot {
+	position: relative;
+	margin-top: 10mm;
+	display: flex;
+	justify-content: space-between;
+	font-size: 9pt;
+	color: #a9d0cc;
+}
+
+/* ------------------------------------------------ contents */
+
+.toc h2 {
+	margin: 0 0 4mm;
+	font-family: var(--display);
+	font-size: 24pt;
+	font-weight: 600;
+}
+
+.toc ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.toc li a {
+	display: grid;
+	grid-template-columns: 10mm 1fr auto;
+	gap: 3mm;
+	align-items: baseline;
+	padding: 1.5mm 0;
+	line-height: 1.35;
+	border-bottom: 1px solid var(--line);
+	color: var(--ink);
+}
+
+.toc .num {
+	font-variant-numeric: lining-nums;
+	font-family: var(--display);
+	font-size: 13pt;
+	color: var(--accent);
+}
+
+.toc .title {
+	font-size: 11pt;
+	font-weight: 600;
+}
+
+.toc .title small {
+	display: block;
+	font-size: 9pt;
+	font-weight: 400;
+	color: var(--muted);
+}
+
+.toc .page {
+	font-variant-numeric: tabular-nums;
+	color: var(--muted);
+}
+
+.how-to-read {
+	margin-top: 6mm;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 5mm;
+}
+
+/* ------------------------------------------------ chapters */
+
+.chapter {
+	break-before: page;
+}
+
+.chapter__head {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0 6mm;
+	align-items: end;
+	margin-bottom: 6mm;
+	padding-bottom: 4mm;
+	border-bottom: 2px solid var(--accent);
+}
+
+.chapter__num {
+	font-variant-numeric: lining-nums;
+	grid-row: span 2;
+	font-family: var(--display);
+	font-size: 44pt;
+	line-height: .9;
+	color: var(--accent);
+}
+
+.chapter__eyebrow {
+	margin: 0;
+	font-size: 8.5pt;
+	font-weight: 700;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+.chapter h2 {
+	margin: 0;
+	font-family: var(--display);
+	font-size: 22pt;
+	font-weight: 600;
+	line-height: 1.15;
+}
+
+.lead {
+	font-size: 11.5pt;
+	color: var(--muted);
+	margin-bottom: 5mm;
+}
+
+h3 {
+	margin: 7mm 0 2.5mm;
+	font-size: 13pt;
+	font-weight: 700;
+	color: var(--accent-strong);
+}
+
+.chapter ul, .chapter ol:not([class]) {
+	margin: 0 0 3mm;
+	padding-left: 5.5mm;
+}
+
+.chapter li { margin-bottom: 1.2mm; }
+
+/* screenshots */
+.shot {
+	margin: 3mm 0 5mm;
+	break-inside: avoid;
+}
+
+.shot img {
+	display: block;
+	max-width: 100%;
+	max-height: 150mm;
+	margin: 0 auto;
+	border: 1px solid var(--line);
+	border-radius: 2mm;
+	box-shadow: 0 .6mm 2.5mm rgb(0 0 0 / .08);
+}
+
+.shot--tall img { max-height: 172mm; }
+.shot--short img { max-height: 95mm; }
+
+.shot figcaption {
+	margin-top: 2mm;
+	font-size: 9pt;
+	color: var(--muted);
+}
+
+.shot figcaption b { color: var(--ink); }
+
+/* legend for the numbered markers in screenshots */
+.legend {
+	margin: 0 0 4mm;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2mm 6mm;
+	break-inside: avoid;
+}
+
+.legend--one { grid-template-columns: 1fr; }
+
+.legend li {
+	position: relative;
+	margin: 0;
+	padding-left: 8.5mm;
+	min-height: 6mm;
+}
+
+.legend li::before {
+	content: attr(data-n);
+	position: absolute;
+	left: 0;
+	top: .2mm;
+	display: grid;
+	place-items: center;
+	width: 6mm;
+	height: 6mm;
+	border-radius: 50%;
+	background: var(--marker);
+	color: #fff;
+	font-size: 8.5pt;
+	font-weight: 700;
+	line-height: 1;
+}
+
+/* procedures */
+.steps {
+	margin: 0 0 4mm;
+	padding: 0;
+	list-style: none;
+	counter-reset: step;
+	break-inside: avoid;
+}
+
+.steps li {
+	counter-increment: step;
+	position: relative;
+	margin: 0 0 2.2mm;
+	padding-left: 9mm;
+}
+
+.steps li::before {
+	content: counter(step);
+	position: absolute;
+	left: 0;
+	top: .2mm;
+	display: grid;
+	place-items: center;
+	width: 6mm;
+	height: 6mm;
+	border-radius: 1.5mm;
+	background: var(--accent);
+	color: #fff;
+	font-size: 8.5pt;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.path {
+	display: inline;
+	padding: .2mm 1.6mm;
+	border: 1px solid var(--line);
+	border-radius: 1.2mm;
+	background: #f6f8f8;
+	font-weight: 600;
+	font-size: .95em;
+	white-space: nowrap;
+}
+
+.ui {
+	font-weight: 700;
+	color: var(--accent-strong);
+}
+
+.box {
+	margin: 4mm 0;
+	padding: 3.5mm 4.5mm;
+	border-left: 1.2mm solid var(--accent);
+	border-radius: 0 2mm 2mm 0;
+	background: var(--accent-soft);
+	break-inside: avoid;
+}
+
+.box--warm {
+	border-left-color: var(--marker);
+	background: var(--marker-soft);
+}
+
+.box > :last-child { margin-bottom: 0; }
+
+.box__title {
+	display: block;
+	margin-bottom: 1mm;
+	font-weight: 700;
+}
+
+.two {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 6mm;
+	align-items: start;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 2mm 0 5mm;
+	font-size: 9.8pt;
+	break-inside: auto;
+}
+
+th, td {
+	padding: 2mm 2.5mm;
+	border-bottom: 1px solid var(--line);
+	text-align: left;
+	vertical-align: top;
+}
+
+th {
+	background: var(--accent-soft);
+	font-size: 8.5pt;
+	font-weight: 700;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+	color: var(--accent-strong);
+}
+
+tr { break-inside: avoid; }
+
+.pipeline {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 2mm;
+	margin: 3mm 0 5mm;
+	padding: 0;
+	list-style: none;
+	counter-reset: stage;
+}
+
+.pipeline li {
+	counter-increment: stage;
+	padding: 2.5mm 2.5mm 3mm;
+	border: 1px solid var(--line);
+	border-top: 1.2mm solid var(--tone);
+	border-radius: 1.5mm;
+	font-size: 8.8pt;
+	line-height: 1.35;
+}
+
+.pipeline b {
+	display: block;
+	margin-bottom: 1mm;
+	font-size: 9.5pt;
+}
+
+.pipeline b::before {
+	content: counter(stage) ". ";
+	color: var(--tone);
+}
+
+.t1 { --tone: #6b4fd8; }
+.t2 { --tone: #c77700; }
+.t3 { --tone: #c2417f; }
+.t4 { --tone: #1b8aa5; }
+.t5 { --tone: #8a7a12; }
+.t6 { --tone: #1f8a4c; }
+
+.faq dt {
+	margin-top: 3.5mm;
+	font-weight: 700;
+}
+
+.faq dd {
+	margin: 1mm 0 0;
+	color: var(--ink);
+}
+
+.page-break { break-before: page; }
+</style>
+</head>
+<body>
+
+<!-- ================================================== COVER -->
+<section class="cover">
+	<p class="cover__eyebrow">User guide · Administrators and editors</p>
+	<h1>Your Journal Website</h1>
+	<p class="cover__lead">A step-by-step guide to running the journal: handling submissions and peer review, publishing issues, supporting authors, and keeping the website up to date.</p>
+	<p class="cover__site">{{SITE_HOST}}</p>
+
+	<div class="login-card">
+		<h2>Your administrator login</h2>
+		<dl>
+			<dt>Website</dt><dd>{{SITE}}</dd>
+			<dt>Username</dt><dd>{{USER}}</dd>
+			<dt>Password</dt><dd>{{PASS}}</dd>
+		</dl>
+		<p>Sign in with <b>Login</b> at the top right of the website. This account can manage everything on the site. You can change the password at any time; chapter 12 shows how.</p>
+	</div>
+
+	<div class="cover__foot">
+		<span>Journal Website Guide</span>
+		<span>{{DATE}}</span>
+	</div>
+</section>
+
+<!-- ================================================== CONTENTS -->
+<section class="toc">
+	<h2>Contents</h2>
+	<ol>
+		<li><a href="#ch1"><span class="num">01</span><span class="title">Your website at a glance<small>What the site does and who does what</small></span><span class="page" data-page="ch1"></span></a></li>
+		<li><a href="#ch2"><span class="num">02</span><span class="title">Signing in and the Home page<small>Your starting point in the admin panel</small></span><span class="page" data-page="ch2"></span></a></li>
+		<li><a href="#ch3"><span class="num">03</span><span class="title">The public website<small>What readers and authors see</small></span><span class="page" data-page="ch3"></span></a></li>
+		<li><a href="#ch4"><span class="num">04</span><span class="title">Receiving new submissions<small>The Submissions list and the first check</small></span><span class="page" data-page="ch4"></span></a></li>
+		<li><a href="#ch5"><span class="num">05</span><span class="title">Peer review<small>Reviewers, deadlines and decisions</small></span><span class="page" data-page="ch5"></span></a></li>
+		<li><a href="#ch6"><span class="num">06</span><span class="title">Copyediting and production<small>Final files, galleys and references</small></span><span class="page" data-page="ch6"></span></a></li>
+		<li><a href="#ch7"><span class="num">07</span><span class="title">Issues: create and publish<small>Putting articles online</small></span><span class="page" data-page="ch7"></span></a></li>
+		<li><a href="#ch8"><span class="num">08</span><span class="title">Authors and the author area<small>Registration, submission and author pages</small></span><span class="page" data-page="ch8"></span></a></li>
+		<li><a href="#ch9"><span class="num">09</span><span class="title">Users, roles and the editorial team<small>Inviting people and showing the board</small></span><span class="page" data-page="ch9"></span></a></li>
+		<li><a href="#ch10"><span class="num">10</span><span class="title">Website settings<small>Look, menus, pages, announcements and emails</small></span><span class="page" data-page="ch10"></span></a></li>
+		<li><a href="#ch11"><span class="num">11</span><span class="title">DOIs and statistics<small>Identifiers and readership numbers</small></span><span class="page" data-page="ch11"></span></a></li>
+		<li><a href="#ch12"><span class="num">12</span><span class="title">Your password and account<small>Changing your password, refreshing the site</small></span><span class="page" data-page="ch12"></span></a></li>
+		<li><a href="#ch13"><span class="num">13</span><span class="title">Quick reference<small>Where to find things, and common questions</small></span><span class="page" data-page="ch13"></span></a></li>
+	</ol>
+
+	<div class="how-to-read">
+		<div class="box">
+			<span class="box__title">How to read the screenshots</span>
+			<p>Orange numbered circles point to parts of the screen. The list under each screenshot explains them in the same order.</p>
+		</div>
+		<div class="box box--warm">
+			<span class="box__title">About the sample content</span>
+			<p>The screenshots show sample articles, authors and a sample journal name. Your website shows your own journal, articles and people in the same places.</p>
+		</div>
+	</div>
+</section>
+
+<!-- ================================================== 1 -->
+<section class="chapter" id="ch1">
+	<div class="chapter__head"><span class="chapter__num">01</span><p class="chapter__eyebrow">CHAPTER 01</p><h2>Your website at a glance</h2></div>
+	<p class="lead">Your journal website is built on Open Journal Systems (OJS) 3.5, the software used by tens of thousands of scholarly journals. It has been given its own design, a simpler admin panel, clickable references and author pages.</p>
+
+	<h3>What the website does</h3>
+	<table>
+		<tr><th style="width:34%">Feature</th><th>What it means for you</th></tr>
+		<tr><td><b>Online submission</b></td><td>Authors register and send manuscripts through a guided form. You receive them in the admin panel.</td></tr>
+		<tr><td><b>Peer review</b></td><td>Double-anonymous review with invitations, deadlines and automatic reminders to reviewers.</td></tr>
+		<tr><td><b>Issues and archive</b></td><td>Articles are published in issues (volume, number, year) with a cover. All past issues stay in the archive.</td></tr>
+		<tr><td><b>PDF and HTML full text</b></td><td>Every article has a PDF that opens in the browser. Optionally, the full text can also be shown on the article page.</td></tr>
+		<tr><td><b>Clickable references</b></td><td>Citations such as [1] or (Smith, 2020) link to the reference list and show the reference when the reader points at them.</td></tr>
+		<tr><td><b>Author pages</b></td><td>Every published author gets a public page with photo, affiliation, ORCID, biography and articles.</td></tr>
+		<tr><td><b>Identifiers and indexing</b></td><td>DOIs through Crossref, ORCID iDs, Google Scholar metadata and OAI-PMH, which indexing services use to harvest your articles.</td></tr>
+		<tr><td><b>Email notifications</b></td><td>Authors, reviewers and editors receive emails automatically at each step.</td></tr>
+	</table>
+
+	<h3>Who does what</h3>
+	<table>
+		<tr><th style="width:24%">Role</th><th>What they can do</th></tr>
+		<tr><td><b>Administrator</b> (you)</td><td>Everything, including site-wide settings. This is the account on the cover.</td></tr>
+		<tr><td><b>Journal manager</b></td><td>All submissions, issues, settings, users and statistics of the journal.</td></tr>
+		<tr><td><b>Journal editor</b></td><td>The editor-in-chief: all submissions and editorial decisions.</td></tr>
+		<tr><td><b>Section editor</b></td><td>Only the submissions assigned to them.</td></tr>
+		<tr><td><b>Reviewer</b></td><td>Their review invitations and review forms.</td></tr>
+		<tr><td><b>Author</b></td><td>Their own submissions, messages from the editors and their public profile.</td></tr>
+		<tr><td><b>Reader</b></td><td>Anyone can read and download articles without an account.</td></tr>
+	</table>
+
+	<h3>How an article gets published</h3>
+	<p>Every article passes through the same six steps. You will see these colours throughout the admin panel.</p>
+	<ol class="pipeline">
+		<li class="t1"><b>Submission</b>An editor checks scope and format.</li>
+		<li class="t2"><b>Peer review</b>Reviewers assess the manuscript.</li>
+		<li class="t3"><b>Copyediting</b>Language and style are polished.</li>
+		<li class="t4"><b>Production</b>The final PDF (and HTML) is prepared.</li>
+		<li class="t5"><b>Scheduled</b>The article is placed in an issue.</li>
+		<li class="t6"><b>Published</b>The issue goes live on the website.</li>
+	</ol>
+	<p>Authors submit; editors publish. An article only appears on the website after an editor publishes the issue it belongs to.</p>
+</section>
+
+<!-- ================================================== 2 -->
+<section class="chapter" id="ch2">
+	<div class="chapter__head"><span class="chapter__num">02</span><p class="chapter__eyebrow">CHAPTER 02</p><h2>Signing in and the Home page</h2></div>
+	<p class="lead">Everything you manage happens in the admin panel. You reach it by signing in on the website.</p>
+
+	<h3>Sign in</h3>
+	<ol class="steps">
+		<li>Open <b>{{SITE}}</b> and click <span class="ui">Login</span> at the top right.</li>
+		<li>Enter your username and password (see the cover) and click <span class="ui">Login</span>.</li>
+		<li>You arrive on the <b>Home</b> page of the admin panel.</li>
+	</ol>
+	<figure class="shot shot--short">
+		<img src="shots/pub-login.jpg" alt="The login page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Username (or your email address).</li>
+		<li data-n="2">Password.</li>
+		<li data-n="3">The <span class="ui">Login</span> button.</li>
+		<li data-n="4"><span class="ui">Forgot your password?</span> sends a reset link to your email.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">Getting back to the admin panel</span>
+		<p>When you are on the public website and signed in, open your username at the top right and choose <span class="ui">Dashboard</span>. The admin panel also works on a phone; the menu then sits above the page.</p>
+	</div>
+
+	<h3 class="page-break">The Home page</h3>
+	<p>Home shows what needs your attention today. Every number is a link that opens the matching list of submissions.</p>
+	<figure class="shot shot--tall">
+		<img src="shots/adm-home.jpg" alt="The Home page of the admin panel">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Menu.</b> Home, Submissions, Issues, Announcements, DOIs, Settings, Statistics, Tools and Administration.</li>
+		<li data-n="2"><b>Needs your attention.</b> New submissions without an editor, submissions ready for a decision, revisions from authors and overdue reviews.</li>
+		<li data-n="3"><b>Publishing pipeline.</b> How many submissions are in each of the six steps.</li>
+		<li data-n="4"><b>Recent submissions</b> with their current status. Click a title to open it.</li>
+		<li data-n="5"><b>Current issue</b>, with links to view it on the website or manage issues.</li>
+		<li data-n="6"><b>Shortcuts</b> to common tasks.</li>
+		<li data-n="7"><span class="ui">View website</span> opens the public site in a new tab.</li>
+		<li data-n="8"><span class="ui">New submission</span> lets you submit a manuscript on someone's behalf.</li>
+	</ol>
+</section>
+
+<!-- ================================================== 3 -->
+<section class="chapter" id="ch3">
+	<div class="chapter__head"><span class="chapter__num">03</span><p class="chapter__eyebrow">CHAPTER 03</p><h2>The public website</h2></div>
+	<p class="lead">This is what readers, authors and indexing services see at {{SITE_HOST}}. Everything on it comes from the admin panel, so you can change it without any technical help.</p>
+
+	<h3>Home page</h3>
+	<figure class="shot">
+		<img src="shots/pub-home.jpg" alt="The public home page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Main menu: Current issue, Archives, About, For Authors and Announcements. You edit it in chapter 10.</li>
+		<li data-n="2"><span class="ui">Register</span> and <span class="ui">Login</span>.</li>
+		<li data-n="3">Search across all articles.</li>
+		<li data-n="4">Buttons that lead authors to submit a manuscript or read the guidelines.</li>
+		<li data-n="5">The current issue with its cover and articles. Below it: latest articles, aims and scope, announcements and indexing logos.</li>
+	</ol>
+
+	<h3 class="page-break">Article page</h3>
+	<figure class="shot">
+		<img src="shots/pub-article.jpg" alt="An article page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Authors. Each name links to the author's page; ORCID iDs show as a green icon.</li>
+		<li data-n="2">Article information: dates, issue, pages and section.</li>
+		<li data-n="3">Abstract, followed by keywords, the full text (if provided) and the reference list.</li>
+		<li data-n="4">Download the PDF or jump to the full text.</li>
+		<li data-n="5">A ready-made citation in several styles (APA, Vancouver, Harvard and more).</li>
+	</ol>
+
+	<h3>Clickable citations</h3>
+	<figure class="shot">
+		<img src="shots/pub-cite.jpg" alt="A citation preview on the article page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">A citation in the text. Pointing at it (or tapping it on a phone)…</li>
+		<li data-n="2">…shows the full reference, with its DOI link. <i>On this page</i> on the left is built automatically from the article's headings.</li>
+	</ol>
+
+	<h3 class="page-break">PDF reader and archive</h3>
+	<div class="two">
+		<figure class="shot">
+			<img src="shots/pub-pdf.jpg" alt="The PDF reader">
+			<figcaption>PDFs open inside the website. <b>Download</b> is at the top right.</figcaption>
+		</figure>
+		<figure class="shot">
+			<img src="shots/pub-archive.jpg" alt="The archive of issues">
+			<figcaption><b>Archives</b> lists every published issue with its cover.</figcaption>
+		</figure>
+	</div>
+
+	<h3>Authors and the editorial team</h3>
+	<div class="two">
+		<figure class="shot">
+			<img src="shots/pub-authors.jpg" alt="The authors directory">
+			<figcaption><b>Authors</b> (under About) lists everyone who has published in the journal.</figcaption>
+		</figure>
+		<figure class="shot">
+			<img src="shots/pub-author.jpg" alt="An author's page">
+			<figcaption>Each author's page: photo, affiliation, website, biography and articles. Authors keep it up to date themselves (chapter 8).</figcaption>
+		</figure>
+	</div>
+	<figure class="shot shot--short">
+		<img src="shots/pub-team.jpg" alt="The editorial team page">
+		<figcaption><b>Editorial Team</b> (under About) lists the editors and board members with their affiliations. Chapter 9 explains who appears here.</figcaption>
+	</figure>
+</section>
+
+<!-- ================================================== 4 -->
+<section class="chapter" id="ch4">
+	<div class="chapter__head"><span class="chapter__num">04</span><p class="chapter__eyebrow">CHAPTER 04</p><h2>Receiving new submissions</h2></div>
+	<p class="lead">When an author submits a manuscript, you receive an email and it appears under <b>New submissions</b> on Home. The next step is a first check by an editor.</p>
+
+	<h3>The Submissions list</h3>
+	<figure class="shot">
+		<img src="shots/adm-submissions.jpg" alt="The Submissions list">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Ready-made lists with counts: <i>Needs editor</i>, <i>Awaiting reviews</i>, <i>Reviews overdue</i>, each stage, <i>Published</i> and more.</li>
+		<li data-n="2"><span class="ui">Filters</span>: by section, assigned editor, issue or days since last activity.</li>
+		<li data-n="3">Search by title, author or ID.</li>
+		<li data-n="4"><span class="ui">Assign Editor</span> gives the submission to an editor.</li>
+		<li data-n="5"><span class="ui">View</span> opens the submission.</li>
+	</ol>
+
+	<h3 class="page-break">Checking a new submission</h3>
+	<figure class="shot">
+		<img src="shots/adm-wf-submission.jpg" alt="A submission in the Submission stage">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">The submission's menu. <b>Workflow</b> holds the steps (Submission, Review, Copyediting, Production); <b>Publication</b> holds the article details (title and abstract, contributors, metadata, references, galleys, issue).</li>
+		<li data-n="2">The files the author uploaded. Click a file to download it.</li>
+		<li data-n="3"><span class="ui">Send for Review</span> moves it to peer review (chapter 5).</li>
+		<li data-n="4"><span class="ui">Decline Submission</span> if it is out of scope. The author is notified by email.</li>
+		<li data-n="5"><span class="ui">Assign</span> adds an editor (or other participant) to this submission.</li>
+	</ol>
+	<ol class="steps">
+		<li>Open the submission from <b>New submissions</b> on Home or from <span class="path">Submissions › Needs editor</span>.</li>
+		<li>Under <b>Participants</b>, click <span class="ui">Assign</span> and choose the handling editor.</li>
+		<li>Check the manuscript against the journal's scope and author guidelines. Make sure the author's name is not inside the manuscript file, because review is anonymous.</li>
+		<li>Click <span class="ui">Send for Review</span>, <span class="ui">Accept and Skip Review</span> (for editorials, for example) or <span class="ui">Decline Submission</span>.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">Discussions</span>
+		<p>Use <span class="ui">Add discussion</span> on any stage to message the author or other participants. Messages are sent by email and kept with the submission.</p>
+	</div>
+</section>
+
+<!-- ================================================== 5 -->
+<section class="chapter" id="ch5">
+	<div class="chapter__head"><span class="chapter__num">05</span><p class="chapter__eyebrow">CHAPTER 05</p><h2>Peer review</h2></div>
+	<p class="lead">Reviewers are invited by email, respond online and submit their review through a form. You then record a decision.</p>
+
+	<h3>Recording a decision</h3>
+	<p>Every decision (Send for Review, Accept, Request Revisions, Decline) opens the same kind of page: first an email to the author, then the files to carry forward.</p>
+	<figure class="shot shot--short">
+		<img src="shots/adm-decision.jpg" alt="Recording a decision">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">The steps of the decision: notify the authors, then select the files.</li>
+		<li data-n="2">The email to the author, pre-written from a template. Edit it freely; it is only sent when you click <span class="ui">Record Decision</span>.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">Anonymous review</span>
+		<p>Reviewers and authors do not see each other's names. When you share reviews with the author, only the comments meant for the author are included.</p>
+	</div>
+
+	<h3 class="page-break">The Review stage</h3>
+	<figure class="shot shot--tall">
+		<img src="shots/adm-wf-review.jpg" alt="A submission in the Review stage">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="ui">Add Reviewer</span>: choose a reviewer or create a new one, set the deadlines and send the invitation.</li>
+		<li data-n="2"><span class="ui">Request Revisions</span> asks the author for changes.</li>
+		<li data-n="3"><span class="ui">Accept Submission</span> moves it to copyediting.</li>
+		<li data-n="4"><span class="ui">Decline Submission</span>.</li>
+	</ol>
+	<ol class="steps">
+		<li>Click <span class="ui">Add Reviewer</span>. Search your reviewers by name or interest, or create a new reviewer account.</li>
+		<li>Check the deadlines. By default reviewers have 7 days to respond and 21 days to complete the review. Reminders are sent automatically.</li>
+		<li>Follow progress in the <b>Reviewers</b> panel; you receive an email when a review is submitted.</li>
+		<li>When enough reviews are in, read them and record your decision. If you request revisions, the author uploads a revised file on the same page, and you can start a new review round with <span class="ui">Create New Review Round</span>.</li>
+	</ol>
+</section>
+
+<!-- ================================================== 6 -->
+<section class="chapter" id="ch6">
+	<div class="chapter__head"><span class="chapter__num">06</span><p class="chapter__eyebrow">CHAPTER 06</p><h2>Copyediting and production</h2></div>
+	<p class="lead">After acceptance, the manuscript is polished and turned into the files readers will see: a PDF and, optionally, an HTML full text.</p>
+
+	<h3>Copyediting</h3>
+	<figure class="shot">
+		<img src="shots/adm-wf-copyedit.jpg" alt="A submission in the Copyediting stage">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="ui">Send To Production</span> once the copyedited file is ready.</li>
+		<li data-n="2">Participants: assign a copyeditor here, or upload the edited file yourself under <b>Copyedited Files</b>.</li>
+	</ol>
+
+	<h3 class="page-break">Production: galleys</h3>
+	<p>A <b>galley</b> is a file readers see on the article page. Every article needs a PDF galley; an HTML galley is optional and shows the full text on the page, with clickable citations.</p>
+	<figure class="shot">
+		<img src="shots/adm-galleys.jpg" alt="The Galleys section of a submission">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="path">Publication › Galleys</span> in the submission's menu.</li>
+		<li data-n="2"><span class="ui">Add galley</span>: label it <b>PDF</b> (or <b>Full Text</b> for HTML) and upload the file.</li>
+		<li data-n="3"><span class="ui">Schedule For Publication</span> places the article in an issue (chapter 7).</li>
+	</ol>
+	<ol class="steps">
+		<li>Use a text-based PDF (not a scan) with the title and authors on the first page. Google Scholar needs this.</li>
+		<li>Before scheduling, check each part of <b>Publication</b>: Title &amp; Abstract, Contributors (with ORCID iDs), Metadata (keywords), References, Permissions &amp; Disclosure and Issue.</li>
+		<li>Click <span class="ui">Schedule For Publication</span> and choose the issue.</li>
+	</ol>
+
+	<h3 class="page-break">References</h3>
+	<figure class="shot">
+		<img src="shots/adm-references.jpg" alt="The References section of a published article">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="path">Publication › References</span>.</li>
+		<li data-n="2">Paste the reference list, one reference per line. Include the DOI whenever there is one (for example <i>https://doi.org/10.1000/xyz123</i>).</li>
+	</ol>
+	<p>The website then numbers the references, links every DOI and web address, and adds Google Scholar and Crossref look-up links to each reference. Keywords become search links automatically.</p>
+
+	<h3>HTML full text (optional)</h3>
+	<p>To show the full text on the article page, add a galley labelled <b>Full Text</b> with an HTML file. Keep the HTML simple:</p>
+	<ul>
+		<li>Use level-2 and level-3 headings (<i>1. Introduction</i>, <i>2.1 Animals</i>). They build the <i>On this page</i> menu automatically.</li>
+		<li>Write citations as [1], [1, 2], [3–5] or (Smith et al., 2020). They become clickable automatically.</li>
+		<li>Upload images as additional files of the same galley, with the same file names used in the HTML.</li>
+		<li>From Microsoft Word: <span class="path">File › Save as › Web Page, Filtered</span>, then delete the title, author list and abstract from the file, because the page already shows them.</li>
+	</ul>
+</section>
+
+<!-- ================================================== 7 -->
+<section class="chapter" id="ch7">
+	<div class="chapter__head"><span class="chapter__num">07</span><p class="chapter__eyebrow">CHAPTER 07</p><h2>Issues: create and publish</h2></div>
+	<p class="lead">Articles go live together when you publish their issue. Prepare the next issue in advance, schedule articles into it, then publish it with one click.</p>
+
+	<figure class="shot shot--short">
+		<img src="shots/adm-issues.jpg" alt="The Issues page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Future Issues</b>: issues you are preparing.</li>
+		<li data-n="2"><b>Back Issues</b>: issues already published.</li>
+		<li data-n="3"><span class="ui">Create Issue</span>.</li>
+	</ol>
+
+	<h3>Create an issue</h3>
+	<figure class="shot">
+		<img src="shots/adm-create-issue.jpg" alt="The Create Issue form">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Volume.</li>
+		<li data-n="2">Number.</li>
+		<li data-n="3">Year.</li>
+		<li data-n="4">Cover image: portrait, about 600 × 800 pixels. It appears on the home page, the issue page, the archive and article pages.</li>
+		<li data-n="5"><span class="ui">Save</span>.</li>
+	</ol>
+
+	<h3 class="page-break">Publish an issue</h3>
+	<ol class="steps">
+		<li>Schedule each article into the issue from its Production stage (chapter 6).</li>
+		<li>Go to <span class="path">Issues › Future Issues</span> and open the issue. Check the table of contents and the order of the articles.</li>
+		<li>Click <span class="ui">Publish Issue</span>. All its articles go online at once, DOIs are registered (if set up, chapter 11) and the issue becomes the <b>current issue</b> on the home page.</li>
+	</ol>
+	<figure class="shot shot--short">
+		<img src="shots/adm-back-issues.jpg" alt="Back issues">
+		<figcaption><b>Back Issues</b>: published issues. Open an issue to edit its details, add an issue PDF or unpublish it.</figcaption>
+	</figure>
+	<div class="box">
+		<span class="box__title">Correcting a published article</span>
+		<p>Open the article and click <span class="ui">Create New Version</span> in Publication. Make your changes and publish the new version; the website keeps the earlier version available for transparency.</p>
+	</div>
+</section>
+
+<!-- ================================================== 8 -->
+<section class="chapter" id="ch8">
+	<div class="chapter__head"><span class="chapter__num">08</span><p class="chapter__eyebrow">CHAPTER 08</p><h2>Authors and the author area</h2></div>
+	<p class="lead">Authors have their own area in the admin panel, where they submit manuscripts, follow them and keep their public profile up to date. This chapter shows what they see, so you can guide them.</p>
+
+	<h3>Registering and submitting</h3>
+	<ol class="steps">
+		<li>The author clicks <span class="ui">Register</span> on the website, fills in the form and confirms their email address.</li>
+		<li>They click <span class="ui">Submit Manuscript</span> on the home page (or <span class="ui">New submission</span> in their area).</li>
+		<li>They enter the title, choose a section and confirm the submission checklist, then go through <b>Details</b> (abstract, keywords, references), <b>Upload Files</b>, <b>Contributors</b>, <b>For the Editors</b> and <b>Review</b>, and submit.</li>
+		<li>They can save and finish later; unfinished submissions are kept as drafts.</li>
+	</ol>
+	<figure class="shot shot--short">
+		<img src="shots/aut-submit.jpg" alt="The first page of the submission form">
+		<figcaption>The first page of the submission form. The instructions and checklist come from your settings (chapter 10).</figcaption>
+	</figure>
+
+	<h3>The author's Home page</h3>
+	<figure class="shot">
+		<img src="shots/aut-home.jpg" alt="The author's Home page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="ui">New submission</span>.</li>
+		<li data-n="2">Their submissions with a plain status: Draft, Submitted, In review, Copyediting, Production, Scheduled, Published or Declined.</li>
+		<li data-n="3">A checklist for their public profile: photo, biography, affiliation, ORCID iD and website.</li>
+		<li data-n="4">A link to their public author page (once they have published).</li>
+	</ol>
+
+	<h3>Photo and biography</h3>
+	<figure class="shot shot--short">
+		<img src="shots/aut-profile.jpg" alt="The Public tab of the profile">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">In <span class="path">Profile › Public</span>, the profile image…</li>
+		<li data-n="2">…is uploaded with <span class="ui">Upload File</span> (a square photo of at least 150 × 150 pixels). The biography and website go below it.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">How author pages are matched</span>
+		<p>An author's page collects all their published articles. Articles are matched by ORCID iD, or otherwise by email address. The photo and biography come from the author's account with the same email address. Ask authors to add their ORCID iD to every submission.</p>
+	</div>
+</section>
+
+<!-- ================================================== 9 -->
+<section class="chapter" id="ch9">
+	<div class="chapter__head"><span class="chapter__num">09</span><p class="chapter__eyebrow">CHAPTER 09</p><h2>Users, roles and the editorial team</h2></div>
+	<p class="lead">Everyone who uses the admin panel has an account and one or more roles. You manage them in <span class="path">Settings › Users &amp; Roles</span>.</p>
+
+	<figure class="shot">
+		<img src="shots/adm-users.jpg" alt="Users and Roles">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="ui">Invite to a role</span>: enter a person's email address and choose a role (for example Section editor or Reviewer). They receive an invitation to accept.</li>
+		<li data-n="2">Search users by name, email or role.</li>
+		<li data-n="3">Each user with their roles, start date and affiliation.</li>
+		<li data-n="4">The ⋯ menu: edit the user's details and roles, or email them.</li>
+	</ol>
+
+	<h3 class="page-break">Roles</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-roles.jpg" alt="The Roles tab">
+		<figcaption>The <b>Roles</b> tab lists each role, its permission level and the stages it can access. The default roles suit most journals.</figcaption>
+	</figure>
+
+	<h3>The editorial team page</h3>
+	<p>The <b>Editorial Team</b> page on the website lists people in the editorial roles (Journal editor, Section editor, Editorial Board Member), with their affiliation. To keep it up to date:</p>
+	<ol class="steps">
+		<li>Give each board member an account with the right role (invite them, as above).</li>
+		<li>Make sure their profile has their affiliation and, ideally, their ORCID iD.</li>
+		<li>Set the order of the roles on the page in <span class="path">Settings › Website › Appearance › Editorial Masthead</span>.</li>
+	</ol>
+</section>
+
+<!-- ================================================== 10 -->
+<section class="chapter" id="ch10">
+	<div class="chapter__head"><span class="chapter__num">10</span><p class="chapter__eyebrow">CHAPTER 10</p><h2>Website settings</h2></div>
+	<p class="lead">You can change the look and content of the website yourself. Most settings are under <span class="path">Settings › Website</span> and <span class="path">Settings › Journal</span>. Click <span class="ui">Save</span> after each change.</p>
+
+	<h3>Theme options</h3>
+	<p><span class="path">Settings › Website › Appearance › Theme</span>, below the theme choice:</p>
+	<figure class="shot">
+		<img src="shots/adm-theme.jpg" alt="Theme options">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Accent colour</b> for links, buttons and highlights. The admin panel uses it too.</li>
+		<li data-n="2"><b>Home page sections</b> to show or hide.</li>
+		<li data-n="3"><b>Tagline</b> under the journal name on the home page.</li>
+		<li data-n="4"><b>Indexing logos</b>, one per line: <i>Name | logo address | link</i>.</li>
+		<li data-n="5"><span class="ui">Save</span>.</li>
+	</ol>
+	<p>The logo, favicon and footer text are in <span class="path">Settings › Website › Appearance › Setup</span>.</p>
+
+	<h3 class="page-break">Menus</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-menus.jpg" alt="Navigation menus">
+		<figcaption><span class="path">Settings › Website › Setup › Navigation</span>. Open <b>Primary Navigation Menu</b> to add, remove or reorder the items in the website's main menu; drag items to nest them under About or For Authors.</figcaption>
+	</figure>
+
+	<h3>Pages such as Aims &amp; Scope or Journal Policies</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-static.jpg" alt="Static pages">
+	</figure>
+	<ol class="legend legend--one">
+		<li data-n="1"><span class="path">Settings › Website › Static Pages</span>: <span class="ui">Add Static Page</span> creates a page with its own address (for example <i>/policies</i>). Add it to a menu to link it.</li>
+	</ol>
+
+	<h3 class="page-break">Announcements</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-announcements.jpg" alt="Announcements">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="ui">Add Announcement</span>: news such as a call for papers. The latest ones appear on the home page.</li>
+		<li data-n="2">Edit or delete existing announcements.</li>
+	</ol>
+
+	<h3>Journal information</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-journal.jpg" alt="Journal settings">
+		<figcaption><span class="path">Settings › Journal</span>: journal name, abbreviation, ISSN, publisher, the <i>About the Journal</i> text (Masthead), contact details (Contact) and the journal's sections (Sections).</figcaption>
+	</figure>
+
+	<h3 class="page-break">Emails and author guidelines</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-emails.jpg" alt="Email settings">
+		<figcaption><span class="path">Settings › Workflow › Emails</span>: the signature on every email and the text of each automatic email (<b>Manage Emails</b>).</figcaption>
+	</figure>
+	<table>
+		<tr><th style="width:45%">To change…</th><th>Go to</th></tr>
+		<tr><td>Author guidelines and the submission checklist</td><td><span class="path">Settings › Workflow › Submission</span></td></tr>
+		<tr><td>Review deadlines, reminders and review forms</td><td><span class="path">Settings › Workflow › Review</span></td></tr>
+		<tr><td>Licence and copyright</td><td><span class="path">Settings › Distribution › License</span></td></tr>
+		<tr><td>Privacy statement</td><td><span class="path">Settings › Website › Setup › Privacy Statement</span></td></tr>
+		<tr><td>Date format</td><td><span class="path">Settings › Website › Setup › Date &amp; Time</span></td></tr>
+	</table>
+</section>
+
+<!-- ================================================== 11 -->
+<section class="chapter" id="ch11">
+	<div class="chapter__head"><span class="chapter__num">11</span><p class="chapter__eyebrow">CHAPTER 11</p><h2>DOIs and statistics</h2></div>
+	<p class="lead">A DOI is a permanent link to an article, required by most indexing services. Statistics show how often your articles are read and downloaded.</p>
+
+	<h3>DOIs</h3>
+	<figure class="shot">
+		<img src="shots/adm-dois.jpg" alt="The DOIs page">
+		<figcaption>The <b>DOIs</b> page (left menu) lists every article and issue with its DOI and registration status. From here you can assign, register or update DOIs in bulk.</figcaption>
+	</figure>
+	<ol class="steps">
+		<li>Become a member of Crossref (crossref.org) to receive your DOI prefix and login.</li>
+		<li>Enter the prefix in <span class="path">Settings › Distribution › DOIs</span>. DOIs are then assigned automatically when articles are published.</li>
+		<li>Enter your Crossref login under <b>Registration</b> on the same tab, so DOIs and reference lists are registered automatically.</li>
+	</ol>
+
+	<h3 class="page-break">Statistics</h3>
+	<figure class="shot">
+		<img src="shots/adm-stats.jpg" alt="Article statistics">
+		<figcaption><span class="path">Statistics › Articles</span>: abstract views and file downloads over time, per article, with filters and a downloadable report. <b>Editorial Activity</b> shows submission numbers, acceptance rates and review times.</figcaption>
+	</figure>
+</section>
+
+<!-- ================================================== 12 -->
+<section class="chapter" id="ch12">
+	<div class="chapter__head"><span class="chapter__num">12</span><p class="chapter__eyebrow">CHAPTER 12</p><h2>Your password and account</h2></div>
+	<p class="lead">Your login is on the cover of this guide. You can change the password whenever you like; we recommend doing so after your first sign-in and keeping it in a password manager.</p>
+
+	<h3>Change your password</h3>
+	<ol class="steps">
+		<li>Click your initials at the top right of the admin panel and choose <span class="ui">Edit Profile</span>.</li>
+		<li>Open the <b>Password</b> tab.</li>
+		<li>Enter your current password, then the new password twice, and click <span class="ui">Save</span>.</li>
+	</ol>
+	<figure class="shot shot--short">
+		<img src="shots/adm-password.jpg" alt="The Password tab of the profile">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Current password.</li>
+		<li data-n="2">New password (at least 6 characters; longer is safer).</li>
+		<li data-n="3">Repeat the new password.</li>
+		<li data-n="4"><span class="ui">Save</span>.</li>
+	</ol>
+	<p>The same profile has your name, email address, affiliation and notification preferences. If you forget your password, use <span class="ui">Forgot your password?</span> on the login page; a reset link is sent to your email address.</p>
+
+	<h3 class="page-break">If a change doesn't appear on the website</h3>
+	<p>The website keeps copies of pages to stay fast. If a change to the settings doesn't show, clear them:</p>
+	<figure class="shot shot--short">
+		<img src="shots/adm-cache.jpg" alt="The Administration page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><span class="path">Administration</span> › <span class="ui">Delete Data Caches</span>.</li>
+		<li data-n="2"><span class="ui">Delete Template Cache</span>. Then reload the website page.</li>
+	</ol>
+	<div class="box box--warm">
+		<span class="box__title">Keep your account safe</span>
+		<p>Use the administrator account for administration only. For day-to-day editorial work, invite each editor with their own account (chapter 9), so everyone signs in with their own name and the activity log shows who did what.</p>
+	</div>
+</section>
+
+<!-- ================================================== 13 -->
+<section class="chapter" id="ch13">
+	<div class="chapter__head"><span class="chapter__num">13</span><p class="chapter__eyebrow">CHAPTER 13</p><h2>Quick reference</h2></div>
+
+	<h3>Where do I…?</h3>
+	<table>
+		<tr><th style="width:48%">Task</th><th>Where</th></tr>
+		<tr><td>See what needs my attention</td><td><span class="path">Home</span></td></tr>
+		<tr><td>Find a submission</td><td><span class="path">Submissions</span> (lists, search and filters)</td></tr>
+		<tr><td>Assign an editor or reviewer</td><td>Open the submission › <span class="ui">Assign</span> / <span class="ui">Add Reviewer</span></td></tr>
+		<tr><td>Accept, request revisions or decline</td><td>Open the submission › decision buttons on the right</td></tr>
+		<tr><td>Upload the final PDF</td><td>Open the submission › <span class="path">Publication › Galleys</span></td></tr>
+		<tr><td>Add or fix references</td><td>Open the submission › <span class="path">Publication › References</span></td></tr>
+		<tr><td>Create or publish an issue</td><td><span class="path">Issues</span></td></tr>
+		<tr><td>Post news</td><td><span class="path">Announcements</span></td></tr>
+		<tr><td>Change colours, home page sections, tagline</td><td><span class="path">Settings › Website › Appearance › Theme</span></td></tr>
+		<tr><td>Change the logo or footer</td><td><span class="path">Settings › Website › Appearance › Setup</span></td></tr>
+		<tr><td>Edit the main menu</td><td><span class="path">Settings › Website › Setup › Navigation</span></td></tr>
+		<tr><td>Add a page (policies, aims &amp; scope…)</td><td><span class="path">Settings › Website › Static Pages</span></td></tr>
+		<tr><td>Edit journal name, ISSN, contact</td><td><span class="path">Settings › Journal</span></td></tr>
+		<tr><td>Edit author guidelines</td><td><span class="path">Settings › Workflow › Submission</span></td></tr>
+		<tr><td>Edit automatic emails</td><td><span class="path">Settings › Workflow › Emails</span></td></tr>
+		<tr><td>Invite editors and reviewers</td><td><span class="path">Settings › Users &amp; Roles</span></td></tr>
+		<tr><td>DOIs and Crossref</td><td><span class="path">DOIs</span> and <span class="path">Settings › Distribution › DOIs</span></td></tr>
+		<tr><td>Readership numbers</td><td><span class="path">Statistics</span></td></tr>
+		<tr><td>Change my password</td><td>Your initials › <span class="ui">Edit Profile</span> › Password</td></tr>
+	</table>
+
+	<h3 class="page-break">Common questions</h3>
+	<dl class="faq">
+		<dt>Can authors publish their own articles?</dt>
+		<dd>No. Authors submit; editors publish after peer review. This is what makes the journal peer-reviewed, and indexing services such as DOAJ and Scopus require it. For sections without review, such as editorials, use <span class="ui">Accept and Skip Review</span>.</dd>
+
+		<dt>A change I made doesn't show on the website.</dt>
+		<dd>Clear the caches (chapter 12) and reload the page.</dd>
+
+		<dt>An author's photo doesn't appear on their author page.</dt>
+		<dd>The photo comes from the author's own account (<span class="path">Profile › Public</span>). The email address in the account must match the one on the article, or the article must have the author's ORCID iD.</dd>
+
+		<dt>A reviewer didn't receive the invitation.</dt>
+		<dd>Ask them to check their spam folder. In the Reviewers panel of the submission you can resend the request or email the reviewer directly.</dd>
+
+		<dt>How do I correct a published article?</dt>
+		<dd>Open it, click <span class="ui">Create New Version</span> in Publication, make the change and publish the new version (chapter 7).</dd>
+
+		<dt>How do I remove the sample content?</dt>
+		<dd>The sample articles and people shown in this guide are only for illustration. Your website contains your own journal; add your issues and articles as described in chapters 4 to 7.</dd>
+
+		<dt>Will the journal be indexed in Scopus, Web of Science or DOAJ?</dt>
+		<dd>The website meets the technical requirements of these services (metadata, DOIs, open licences, OAI-PMH). Acceptance is decided by each service, based mainly on the journal's content, publishing regularity and history. DOAJ usually expects about a year of publishing, and Scopus about two years.</dd>
+	</dl>
+</section>
+
+</body>
+</html>

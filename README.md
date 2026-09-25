@@ -29,6 +29,7 @@ A Persian how-to guide for the whole site is in [local-demo/guide-fa.html](local
 | [docs/deployment-vps.md](docs/deployment-vps.md) | VPS setup, deploy, backups, updates, security |
 | [docs/roadmap.md](docs/roadmap.md) | Milestones |
 | [docs/client-inputs.md](docs/client-inputs.md) | What the client must provide |
+| [docs/handover/Journal-Website-Guide.pdf](docs/handover/Journal-Website-Guide.pdf) | Client handover guide (English, with screenshots). Rebuild with `docs/handover/build.mjs` (login and domain at the top); refresh the screenshots with `capture.mjs` |
 
 ## Run the demo locally (Docker only)
 

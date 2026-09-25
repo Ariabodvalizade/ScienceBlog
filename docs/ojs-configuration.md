@@ -49,7 +49,7 @@ This is the exact configuration to apply after installation. Paths refer to the 
 - **Appearance › Setup:** logo, favicon, homepage image (optional), page footer (empty — Meridian renders the footer), sidebar: *none* (Meridian has its own rails).
 - **Setup › Information:** For Readers / For Authors / For Librarians text.
 - **Setup › Languages:** English (UI, forms, submissions).
-- **Setup › Navigation Menus:** build the IA from [PRD §4](PRD.md#4-information-architecture):
+- **Setup › Navigation:** build the IA from [PRD §4](PRD.md#4-information-architecture):
   - **Primary:** Home (custom URL `/`), Current, Archives, About ▾ (About the Journal, Aims & Scope [static page], Editorial Team [masthead], Journal Policies [static page], Indexing & Abstracting [static page], Contact), For Authors ▾ (Author Guidelines [submissions#authorGuidelines], Submit a Manuscript [submissions], Publication Charges [static page], Reviewer Guidelines [static page]), Announcements.
   - **User:** Register, Login, Dashboard, View Profile, Administration, Logout (the OJS defaults).
 - **Setup › Announcements:** enabled; show the 3 latest on the homepage.

@@ -127,7 +127,7 @@ them.
 |---|---|
 | Theme options: accent colour, home page sections, tagline, indexing logos | *Settings › Website › Appearance › Theme* |
 | Logo, favicon, footer text | *Settings › Website › Appearance › Setup* |
-| Menus: header and drawer | *Settings › Website › Setup › Navigation Menus* (primary menu). Add *Authors* as a Remote URL `https://[domain]/[journal]/authors` |
+| Menus: header and drawer | *Settings › Website › Setup › Navigation* (primary menu). Add *Authors* as a Remote URL `https://[domain]/[journal]/authors` |
 | Policy pages (Aims & Scope, Journal Policies, Indexing, …) | *Settings › Website › Static Pages* |
 | Announcements | *Settings › Website › Setup › Announcements*, then *Announcements* in the left menu |
 | About, Author Guidelines, Submission checklist | *Settings › Journal* and *Settings › Workflow › Submission* |
@@ -148,7 +148,7 @@ them.
 ## 9. Housekeeping
 
 - **Statistics:** *Statistics › Articles / Editorial Activity / Users*.
-- **Clear caches** after changing theme options, if pages look stale: *Administration › Clear Data Caches* and
-  *Clear Template Cache*.
+- **Clear caches** after changing theme options, if pages look stale: *Administration › Delete Data Caches* and
+  *Delete Template Cache*.
 - **Backups** run nightly on the server. Ask the administrator to test a restore every few months.
 - **Before launch**: delete the demo journal and test accounts, and change every password used during testing.
