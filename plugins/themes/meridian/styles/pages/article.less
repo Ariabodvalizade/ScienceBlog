@@ -514,6 +514,68 @@
 		}
 	}
 
+	// ---- Inline full text (scholarlyReader plugin)
+
+	.sr-fulltext {
+		padding-top: 2.5rem;
+		border-top: 1px solid @m-rule;
+	}
+
+	.sr-fulltext__body {
+		font-size: 1.0625rem;
+		line-height: 1.75;
+		color: @m-text;
+
+		h2 {
+			font-family: @m-font-display;
+			font-weight: 400;
+			font-size: 1.5rem;
+			line-height: 1.25;
+			color: @m-ink;
+			margin: 2.75rem 0 1rem;
+		}
+
+		h3 {
+			font-family: @m-font-body;
+			font-weight: 600;
+			font-size: 1.125rem;
+			line-height: 1.35;
+			color: @m-ink;
+			margin: 2rem 0 0.625rem;
+		}
+
+		> :first-child {
+			margin-top: 0;
+		}
+
+		p {
+			margin: 0 0 1.1rem;
+			line-height: 1.75;
+		}
+
+		ul,
+		ol {
+			margin: 0 0 1.1rem;
+			padding-left: 1.5rem;
+		}
+
+		caption {
+			font-family: @m-font-body;
+			font-size: 0.9375rem;
+			color: @m-text;
+
+			strong,
+			b {
+				color: @m-ink;
+			}
+		}
+
+		img {
+			display: block;
+			margin: 2rem auto;
+		}
+	}
+
 	// ---- Right rail
 
 	.m-downloads {

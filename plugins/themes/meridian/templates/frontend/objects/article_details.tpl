@@ -143,6 +143,17 @@
 				{/if}
 			</section>
 
+			<section class="m-rail-block m-share">
+				<h2 class="m-rail-block__title">{translate key="plugins.themes.meridian.share"}</h2>
+				{capture assign="shareTitle"}{$publication->getLocalizedTitle()|strip_tags}{/capture}
+				<ul class="m-share__list">
+					<li><a href="mailto:?subject={$shareTitle|escape:"url"}&amp;body={$articleUrl|trim|escape:"url"}" title="{translate|escape key="plugins.themes.meridian.shareBy" network="email"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-mail"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="email"}</span></a></li>
+					<li><a href="https://www.linkedin.com/sharing/share-offsite/?url={$articleUrl|trim|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="LinkedIn"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-linkedin"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="LinkedIn"}</span></a></li>
+					<li><a href="https://x.com/intent/post?url={$articleUrl|trim|escape:"url"}&amp;text={$shareTitle|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="X"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-x"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="X"}</span></a></li>
+					<li><a href="https://www.facebook.com/sharer/sharer.php?u={$articleUrl|trim|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="Facebook"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-facebook"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="Facebook"}</span></a></li>
+				</ul>
+			</section>
+
 			<nav class="m-rail-block m-outline" aria-label="{translate|escape key="plugins.themes.meridian.onThisPage"}" data-m-outline>
 				<h2 class="m-rail-block__title">{translate key="plugins.themes.meridian.onThisPage"}</h2>
 				<ol class="m-outline__list">
@@ -159,16 +170,6 @@
 				</ol>
 			</nav>
 
-			<section class="m-rail-block m-share">
-				<h2 class="m-rail-block__title">{translate key="plugins.themes.meridian.share"}</h2>
-				{capture assign="shareTitle"}{$publication->getLocalizedTitle()|strip_tags}{/capture}
-				<ul class="m-share__list">
-					<li><a href="mailto:?subject={$shareTitle|escape:"url"}&amp;body={$articleUrl|trim|escape:"url"}" title="{translate|escape key="plugins.themes.meridian.shareBy" network="email"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-mail"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="email"}</span></a></li>
-					<li><a href="https://www.linkedin.com/sharing/share-offsite/?url={$articleUrl|trim|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="LinkedIn"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-linkedin"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="LinkedIn"}</span></a></li>
-					<li><a href="https://x.com/intent/post?url={$articleUrl|trim|escape:"url"}&amp;text={$shareTitle|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="X"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-x"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="X"}</span></a></li>
-					<li><a href="https://www.facebook.com/sharer/sharer.php?u={$articleUrl|trim|escape:"url"}" target="_blank" rel="noopener" title="{translate|escape key="plugins.themes.meridian.shareBy" network="Facebook"}"><svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-facebook"/></svg><span class="m-sr">{translate key="plugins.themes.meridian.shareBy" network="Facebook"}</span></a></li>
-				</ul>
-			</section>
 		</aside>
 
 		{* Center: the text *}

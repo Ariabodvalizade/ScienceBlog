@@ -11,3 +11,18 @@ msgstr "Scholarly Reader"
 
 msgid "plugins.generic.scholarlyReader.description"
 msgstr "Renders HTML galleys inline on the article page with clickable in-text citations, adds Crossref and Google Scholar look-up links to references, and outputs schema.org JSON-LD and OpenGraph metadata."
+
+msgid "plugins.generic.scholarlyReader.fullText"
+msgstr "Full text"
+
+msgid "plugins.generic.scholarlyReader.googleScholar"
+msgstr "Google Scholar"
+
+msgid "plugins.generic.scholarlyReader.crossref"
+msgstr "Crossref"
+
+msgid "plugins.generic.scholarlyReader.goToReference"
+msgstr "Go to reference"
+
+msgid "plugins.generic.scholarlyReader.reference"
+msgstr "Reference"

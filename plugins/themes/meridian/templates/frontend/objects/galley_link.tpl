@@ -40,7 +40,7 @@
 	{/if}
 {/if}
 
-<a class="{if $isSupplementary}obj_galley_link_supplementary{else}obj_galley_link{/if} m-galley m-galley--{$type|escape}{if $restricted} restricted{/if}{if $galleyClass} {$galleyClass|escape}{/if}" href="{url page=$page op="view" path=$path}"{if $id} id="{$id}"{/if}{if $labelledBy} aria-labelledby="{$labelledBy}"{/if}>
+<a class="{if $isSupplementary}obj_galley_link_supplementary{else}obj_galley_link{/if} m-galley m-galley--{$type|escape}{if $restricted} restricted{/if}{if $galleyClass} {$galleyClass|escape}{/if}" href="{if $scholarlyFullTextGalleyId && $page == 'article' && $galley->getId() == $scholarlyFullTextGalleyId}#fulltext{else}{url page=$page op="view" path=$path}{/if}"{if $id} id="{$id}"{/if}{if $labelledBy} aria-labelledby="{$labelledBy}"{/if}>
 	{if $restricted}
 		<span class="pkp_screen_reader">
 			{if $purchaseArticleEnabled}{translate key="reader.subscriptionOrFeeAccess"}{else}{translate key="reader.subscriptionAccess"}{/if}
