@@ -53,8 +53,9 @@ writes `OJS_APP_KEY` and `OJS_INSTALLED=On` into `.env`, then starts the worker 
 
 Next:
 1. Log in at `https://[domain]/index/login` → *Administration › Hosted Journals › Create Journal*.
-2. Follow [ojs-configuration.md](ojs-configuration.md). The Meridian theme and scholarlyReader plugin are already
-   in the image; enable them under *Settings › Website › Plugins* and select Meridian under *Appearance*.
+2. Follow [ojs-configuration.md](ojs-configuration.md). The Meridian theme and the scholarlyReader and authorPages
+   plugins are already in the image and registered. Enable them under *Settings › Website › Plugins* and select
+   Meridian under *Appearance*. The Meridian Admin panel is on automatically.
 
 `config.inc.php` is **generated at every container start** from `.env` by `deploy/ojs/configure.php`, starting from the
 stock template of the OJS version in use. To change a setting, edit `.env` and run `docker compose up -d`.
