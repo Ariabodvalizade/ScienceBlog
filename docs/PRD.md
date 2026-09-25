@@ -167,6 +167,32 @@ Each item maps 1:1 to the contract. Priority: **P0** is needed for launch, **P1*
 - **Acceptance:** on a demo article with an HTML galley, clicking `[3]` scrolls to reference 3; hovering or focusing
   shows the reference text; every DOI in the references links to `doi.org`.
 
+### F20 — Author pages and author panel (P0 — added at client request)
+*As an author, I want my own page on the journal with my photo, affiliation, ORCID, biography and articles.*
+*As an author, I want a personal panel where I submit and manage my articles.*
+- **Author panel** (standard OJS dashboard): every registered author can
+  - submit manuscripts (F5)
+  - follow each submission's status and answer revision requests and editor messages
+  - see their published articles
+  - edit their profile: name, affiliation, ORCID, biography, website and **profile photo** (*Profile › Public*)
+- **Publishing workflow:** authors *submit*; articles are *published* by the editors after peer review (F7). This is
+  what makes the journal peer-reviewed, and indexing services (DOAJ, Scopus, WoS) require it. Sections that don't
+  need review (e.g. Editorials) can be configured without review, but the editor still presses *Publish*.
+- **Public author pages** (`authorPages` plugin):
+  - `/authors` is a directory of everyone who has published in the journal (photo or initials, affiliation, article count)
+  - `/authors/view/{id}/{name}` is one page per author: photo, name, affiliation, ORCID link, website, biography,
+    and the list of their published articles
+  - on article pages, author names link to these pages, and the author box shows the photo
+  - authors are recognised across articles by ORCID iD, otherwise by e-mail address. Photo, biography and website come
+    from the author's own account, so authors keep their page up to date themselves.
+  - schema.org `Person` metadata on each profile
+- **Admin panel** (standard OJS backend for Journal Managers and Editors): issues, submissions and workflow, users and
+  roles, e-mail templates, navigation menus, static pages, plugins, statistics, DOIs. Covered by `docs/admin-guide.md`.
+- **Acceptance:**
+  - an author uploads a photo in their profile, and it appears on their author page and article pages
+  - every published author has a working page
+  - an author's page lists all of their articles
+
 ### F18 — SSL and basic security (P0)
 - Let's Encrypt TLS with automatic renewal, HTTP → HTTPS redirect, HSTS, security headers, and `force_ssl`.
 - Login rate limiting at Nginx, captcha, least-privilege containers, firewall (22/80/443), automatic OS security updates.

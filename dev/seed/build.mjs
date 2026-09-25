@@ -230,6 +230,16 @@ for (const issue of issues) {
   </issue>`;
 }
 
+// Illustrative author avatar (not a real person) for the author-page demo
+await page.setViewportSize({ width: 150, height: 150 });
+await page.setContent(`<!doctype html><html><body style="margin:0"><svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9e6e4"/><stop offset="1" stop-color="#9dbfbb"/></linearGradient></defs>
+  <rect width="150" height="150" fill="url(#g)"/>
+  <circle cx="75" cy="60" r="27" fill="#0f5c63" opacity=".85"/>
+  <path d="M22 150c4-34 26-52 53-52s49 18 53 52z" fill="#0f5c63" opacity=".85"/>
+</svg></body></html>`);
+writeFileSync(join(OUT, 'profileImage-201.png'), await page.screenshot({ type: 'png' }));
+
 await browser.close();
 
 const xml = `<?xml version="1.0" encoding="utf-8"?>

@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "plugins.generic.authorPages.displayName"
+msgstr "Author Pages"
+
+msgid "plugins.generic.authorPages.description"
+msgstr "Public author directory and one profile page per author with photo, affiliation, ORCID, biography and published articles. Authors manage their photo and biography in their own profile."
+
+msgid "plugins.generic.authorPages.title"
+msgstr "Authors"
+
+msgid "plugins.generic.authorPages.lead"
+msgstr "Researchers who have published in the journal."
+
+msgid "plugins.generic.authorPages.articles"
+msgid_plural "plugins.generic.authorPages.articles"
+msgstr[0] "{$number} article"
+msgstr[1] "{$number} articles"
+
+msgid "plugins.generic.authorPages.publishedArticles"
+msgstr "Published articles"
+
+msgid "plugins.generic.authorPages.website"
+msgstr "Website"
+
+msgid "plugins.generic.authorPages.photoOf"
+msgstr "Photo of {$name}"
+
+msgid "plugins.generic.authorPages.empty"
+msgstr "No articles have been published yet."
+
+msgid "plugins.generic.authorPages.jumpTo"
+msgstr "Jump to letter"

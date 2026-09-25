@@ -141,6 +141,7 @@ This is the exact configuration to apply after installation. Paths refer to the 
 |---|---|
 | Meridian theme | **enabled (active theme)** |
 | scholarlyReader | **enabled** |
+| Author Pages | **enabled** — also add an *Authors* item (custom URL `/[journal]/authors`) under About in the primary menu |
 | Google Scholar Indexing | enabled |
 | Dublin Core 1.1 meta-data | enabled |
 | PDF.js PDF Viewer | enabled |

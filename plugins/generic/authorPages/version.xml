@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+<!--
+  * plugins/generic/authorPages/version.xml
+  *
+  * Public author directory and author profile pages.
+  -->
+<version>
+	<application>authorPages</application>
+	<type>plugins.generic</type>
+	<release>1.0.0.0</release>
+	<date>2026-09-25</date>
+	<lazy-load>1</lazy-load>
+	<class>AuthorPagesPlugin</class>
+</version>

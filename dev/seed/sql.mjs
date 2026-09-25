@@ -22,6 +22,17 @@ board.forEach((m, i) => {
   );
 });
 
+// A registered author account with a profile photo (matches the demo author
+// Sara Rahimi by e-mail) to demonstrate author pages.
+lines.push(
+  'DELETE FROM user_user_groups WHERE user_id = 201;',
+  'DELETE FROM user_settings WHERE user_id = 201;',
+  'DELETE FROM users WHERE user_id = 201;',
+  "INSERT INTO users (user_id, username, password, email, url, country, locales, date_registered, date_validated, disabled, inline_help) VALUES (201, 'sara.rahimi', '!disabled-demo-account', 'sara.rahimi@example.org', 'https://example.org/~rahimi', 'IR', '[]', NOW(), NOW(), 0, 1);",
+  `INSERT INTO user_settings (user_id, locale, setting_name, setting_value) VALUES (201, 'en', 'givenName', 'Sara'), (201, 'en', 'familyName', 'Rahimi'), (201, 'en', 'affiliation', 'Department of Animal Science, Northfield University'), (201, '', 'profileImage', ${q(JSON.stringify({ name: 'photo.png', uploadName: 'profileImage-201.png', width: 150, height: 150, dateUploaded: '2026-06-01 10:00:00' }))});`,
+  "INSERT INTO user_user_groups (user_group_id, user_id, masthead) SELECT ug.user_group_id, 201, 0 FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = 'Author' LIMIT 1;",
+);
+
 staticPages.forEach((p) => {
   lines.push(
     `DELETE s FROM static_page_settings s JOIN static_pages p ON p.static_page_id = s.static_page_id WHERE p.path = ${q(p.path)} AND p.context_id = @ctx;`,
@@ -42,6 +53,7 @@ const custom = [
   [103, 'Indexing & Abstracting', `${J}/indexing`],
   [104, 'For Authors', `${J}/about/submissions`],
   [105, 'Submit a Manuscript', `${J}/submission`],
+  [106, 'Authors', `${J}/authors`],
 ];
 lines.push(
   "SET @menu = (SELECT navigation_menu_id FROM navigation_menus WHERE context_id = @ctx AND area_name = 'primary' LIMIT 1);",
@@ -67,6 +79,7 @@ lines.push(
       (@menu, ${typeIdLast('NMI_TYPE_ABOUT')}, @about, 0),
       (@menu, 101, @about, 1),
       (@menu, ${typeId('NMI_TYPE_MASTHEAD')}, @about, 2),
+      (@menu, 106, @about, 2),
       (@menu, 102, @about, 3),
       (@menu, 103, @about, 4),
       (@menu, ${typeId('NMI_TYPE_CONTACT')}, @about, 5),

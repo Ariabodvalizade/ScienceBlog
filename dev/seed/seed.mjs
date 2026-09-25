@@ -87,6 +87,7 @@ const journalToken = await csrf(`/${journal.path}/management/settings/website`);
 const plugins = [
   ['themes', 'meridianplugin'],
   ['generic', 'scholarlyreaderplugin'],
+  ['generic', 'authorpagesplugin'],
   ['generic', 'googlescholarplugin'],
   ['generic', 'dublincoremetaplugin'],
   ['generic', 'pdfjsviewerplugin'],

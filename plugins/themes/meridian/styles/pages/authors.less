@@ -1,0 +1,237 @@
+/**
+ * @file plugins/themes/meridian/styles/pages/authors.less
+ *
+ * @brief Author directory and author profiles (authorPages plugin).
+ */
+
+.m-body {
+	.ap-avatar {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: none;
+		width: 64px;
+		height: 64px;
+		border-radius: 999px;
+		object-fit: cover;
+		background: @m-bg-subtle;
+		border: 1px solid @m-rule;
+	}
+
+	.ap-avatar--initials {
+		font-family: @m-font-display;
+		font-size: 1.375rem;
+		color: @m-ink;
+	}
+
+	.ap-avatar--lg {
+		width: 140px;
+		height: 140px;
+		margin: 0.5rem auto 1.5rem;
+		font-size: 2.75rem;
+	}
+
+	// ---- Directory
+	.ap-directory {
+		padding-top: 2.5rem;
+		padding-bottom: 5rem;
+	}
+
+	.ap-letters {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.25rem;
+		margin-bottom: 2.5rem;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-width: 36px;
+			height: 36px;
+			border: 1px solid @m-rule;
+			.m-meta-type();
+			font-size: 0.8125rem;
+			color: @m-ink;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				border-color: @m-accent;
+				color: @m-accent;
+			}
+		}
+	}
+
+	.ap-group + .ap-group {
+		margin-top: 2.5rem;
+	}
+
+	.ap-group__letter {
+		font-family: @m-font-display;
+		font-weight: 400;
+		font-size: 1.75rem;
+		margin: 0 0 1rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid @m-ink;
+		scroll-margin-top: ~"calc(var(--m-header-h) + 24px)";
+	}
+
+	.ap-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0 2rem;
+
+		@media @m-tablet-down {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		@media @m-mobile {
+			grid-template-columns: 1fr;
+		}
+
+		> li {
+			margin: 0;
+			border-bottom: 1px solid @m-rule;
+		}
+	}
+
+	.ap-card {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1.125rem 0;
+		color: inherit;
+		text-decoration: none;
+
+		&:hover .ap-card__name,
+		&:focus .ap-card__name {
+			color: @m-accent;
+			text-decoration: underline;
+			text-decoration-thickness: 1px;
+			text-underline-offset: 3px;
+		}
+	}
+
+	.ap-card__body {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.ap-card__name {
+		font-family: @m-font-display;
+		font-size: 1.125rem;
+		line-height: 1.3;
+		color: @m-ink;
+	}
+
+	.ap-card__affiliation {
+		font-family: @m-font-ui;
+		font-size: 0.8125rem;
+		line-height: 1.4;
+		color: @m-muted;
+	}
+
+	.ap-card__count {
+		margin-top: 0.25rem;
+		.m-meta-type();
+		color: @m-accent;
+	}
+
+	// ---- Profile
+	.ap-profile {
+		text-align: center;
+	}
+
+	.ap-profile__inner {
+		max-width: 760px;
+	}
+
+	.ap-profile__name {
+		margin-bottom: 0.5rem;
+	}
+
+	.ap-profile__affiliation {
+		font-family: @m-font-ui;
+		font-size: 1rem;
+		color: @m-muted;
+		margin: 0 0 1rem;
+	}
+
+	.ap-profile__links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 0.5rem 1.25rem;
+		margin: 0 0 1.5rem;
+		.m-meta-type();
+		color: @m-muted;
+
+		a {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.375rem;
+			color: @m-ink;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				color: @m-accent;
+			}
+		}
+
+		.ap-orcid {
+			text-transform: none;
+			letter-spacing: 0.02em;
+		}
+	}
+
+	.ap-profile__bio {
+		max-width: 62ch;
+		margin: 0 auto;
+		font-size: 1.0625rem;
+		line-height: 1.7;
+		text-align: left;
+
+		p {
+			margin: 0 0 0.75rem;
+		}
+	}
+
+	.ap-articles {
+		max-width: 900px + 2 * @m-gutter;
+		padding-top: 3rem;
+		padding-bottom: 5rem;
+	}
+
+	.ap-articles__title {
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid @m-ink;
+		margin-bottom: 0.5rem;
+	}
+
+	// ---- Links and photos on article pages
+	.m-author-link {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			color: @m-accent;
+			text-decoration: underline;
+			text-decoration-thickness: 1px;
+			text-underline-offset: 3px;
+		}
+	}
+
+	img.m-author-box__avatar {
+		object-fit: cover;
+		padding: 0;
+	}
+}

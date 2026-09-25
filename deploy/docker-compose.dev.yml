@@ -55,6 +55,7 @@ services:
       - ojs-public:/var/www/html/public
       - ../plugins/themes/meridian:/var/www/html/plugins/themes/meridian
       - ../plugins/generic/scholarlyReader:/var/www/html/plugins/generic/scholarlyReader
+      - ../plugins/generic/authorPages:/var/www/html/plugins/generic/authorPages
 
   mailpit:
     image: axllent/mailpit:latest

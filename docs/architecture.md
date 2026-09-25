@@ -108,6 +108,17 @@ Core/bundled plugins we **reuse instead of rebuilding**:
 | Captcha | Core ALTCHA (`[captcha] altcha = on`) |
 | Digital preservation | PKP PN plugin (from the Plugin Gallery) |
 
+## 4b. Plugin "authorPages" (generic)
+
+| Feature | Mechanism |
+|---|---|
+| Routes `/authors` and `/authors/view/{key}/{slug}` | Hook `LoadHandler` → `AuthorPagesHandler` (`index`, `view`) |
+| Author identity | Contributors of published articles grouped by ORCID iD, else e-mail (SHA-1 prefix in the URL, the address is never shown), else name |
+| Photo, bio, website | From the user account with the same e-mail (`profileImage`, `biography`, `url`), which authors edit in *Profile › Public* |
+| Cache | `cache/authorPages/directory-{journal}.json`, 1 h TTL, invalidated on `Publication::publish/unpublish/edit` |
+| Theme integration | On article pages it assigns `$authorPageUrls` and `$authorPagePhotos` (keyed by contributor id); Meridian links names and shows photos |
+| SEO | schema.org `Person` JSON-LD on profiles; canonical URL includes the name slug |
+
 ## 5. Scheduled tasks and jobs
 
 OJS 3.5 replaced `runScheduledTasks.php` with `lib/pkp/tools/scheduler.php`, and added a job queue. In production:

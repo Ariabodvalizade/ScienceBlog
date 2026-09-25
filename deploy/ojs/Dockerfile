@@ -13,6 +13,7 @@ RUN chmod 0755 /usr/local/bin/journal-entrypoint
 
 COPY --chown=www-data:www-data plugins/themes/meridian /var/www/html/plugins/themes/meridian
 COPY --chown=www-data:www-data plugins/generic/scholarlyReader /var/www/html/plugins/generic/scholarlyReader
+COPY --chown=www-data:www-data plugins/generic/authorPages /var/www/html/plugins/generic/authorPages
 
 USER www-data
 

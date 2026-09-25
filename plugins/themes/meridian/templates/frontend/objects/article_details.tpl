@@ -64,7 +64,7 @@
 					{foreach from=$meridianAuthors item=entry}
 						{assign var=author value=$entry.author}
 						<li>
-							<span class="m-author-name">{$author->getFullName()|escape}</span>{if $entry.marks}<sup>{foreach from=$entry.marks item=mark name=marks}{$mark}{if !$smarty.foreach.marks.last},{/if}{/foreach}</sup>{/if}
+							{if $authorPageUrls[$author->getId()]}<a class="m-author-name m-author-link" href="{$authorPageUrls[$author->getId()]|escape}">{$author->getFullName()|escape}</a>{else}<span class="m-author-name">{$author->getFullName()|escape}</span>{/if}{if $entry.marks}<sup>{foreach from=$entry.marks item=mark name=marks}{$mark}{if !$smarty.foreach.marks.last},{/if}{/foreach}</sup>{/if}
 							{if $author->getData('orcid')}
 								<a class="m-orcid" href="{$author->getData('orcid')|escape}" target="_blank" rel="noopener" title="ORCID {$author->getOrcidDisplayValue()|escape}{if !$author->hasVerifiedOrcid()} (unauthenticated){/if}">
 									{if $author->hasVerifiedOrcid()}{$orcidIcon}{else}{$orcidUnauthenticatedIcon}{/if}
@@ -237,9 +237,9 @@
 					{foreach from=$publication->getData('authors') item=author}
 						{if $author->getLocalizedData('biography')}
 							<div class="m-author-box">
-								<span class="m-author-box__avatar" aria-hidden="true">{$author->getLocalizedGivenName()|truncate:1:""|escape}{$author->getLocalizedFamilyName()|truncate:1:""|escape}</span>
+								{if $authorPagePhotos[$author->getId()]}<img class="m-author-box__avatar" src="{$authorPagePhotos[$author->getId()]|escape}" alt="" width="72" height="72" loading="lazy">{else}<span class="m-author-box__avatar" aria-hidden="true">{$author->getLocalizedGivenName()|truncate:1:""|escape}{$author->getLocalizedFamilyName()|truncate:1:""|escape}</span>{/if}
 								<div class="m-author-box__body">
-									<p class="m-author-box__name">{$author->getFullName()|escape}
+									<p class="m-author-box__name">{if $authorPageUrls[$author->getId()]}<a class="m-author-link" href="{$authorPageUrls[$author->getId()]|escape}">{$author->getFullName()|escape}</a>{else}{$author->getFullName()|escape}{/if}
 										{if $author->getData('orcid')}
 											<a class="m-orcid" href="{$author->getData('orcid')|escape}" target="_blank" rel="noopener">{if $author->hasVerifiedOrcid()}{$orcidIcon}{else}{$orcidUnauthenticatedIcon}{/if}<span class="m-sr">ORCID</span></a>
 										{/if}
