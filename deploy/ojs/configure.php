@@ -49,7 +49,7 @@ $settings = [
         'app_key' => quoted(env('OJS_APP_KEY')),
         'base_url' => quoted($baseUrl),
         'restful_urls' => 'On',
-        'allowed_hosts' => env('OJS_ALLOWED_HOSTS') ? "'" . env('OJS_ALLOWED_HOSTS') . "'" : null,
+        'allowed_hosts' => "'" . (env('OJS_ALLOWED_HOSTS') ?? json_encode([$domain])) . "'",
         'trust_x_forwarded_for' => onOff(env('OJS_TRUST_X_FORWARDED_FOR', 'On')),
         'time_zone' => quoted(env('OJS_TIME_ZONE', 'UTC')),
         'enable_beacon' => 'Off',
@@ -71,7 +71,7 @@ $settings = [
         'api_key_secret' => quoted(env('OJS_API_KEY_SECRET')),
     ],
     'email' => [
-        'default' => $smtp ? 'smtp' : env('OJS_MAIL_DEFAULT', 'log'),
+        'default' => $smtp ? 'smtp' : env('OJS_MAIL_DEFAULT', 'sendmail'),
         'smtp' => $smtp ? 'On' : null,
         'smtp_server' => env('SMTP_HOST'),
         'smtp_port' => env('SMTP_PORT'),

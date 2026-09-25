@@ -34,6 +34,7 @@ services:
       SERVERNAME: localhost
       JOURNAL_DOMAIN: localhost
       OJS_BASE_URL: http://localhost:8080
+      OJS_ALLOWED_HOSTS: '["localhost","localhost:8080"]'
       OJS_INSTALLED: ${OJS_INSTALLED:-Off}
       OJS_APP_KEY: ${OJS_APP_KEY:-}
       OJS_FORCE_SSL: "Off"

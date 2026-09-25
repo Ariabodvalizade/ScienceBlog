@@ -21,8 +21,8 @@ This is the exact configuration to apply after installation. Paths refer to the 
 | email | `force_dmarc_compliant_from` | `On` |
 | captcha | `altcha`, `altcha_on_register`, `altcha_on_login`, `altcha_on_lost_password` | `on` |
 | captcha | `altcha_hmackey` | random 64-character secret |
-| queues | `job_runner` | `Off` (handled by the cron service) |
-| schedule | `task_runner` | `Off` (handled by the cron service) |
+| queues | `job_runner` | `Off` (handled by the `worker` service) |
+| schedule | `task_runner` | `Off` (handled by the `scheduler` service) |
 | debug | `display_errors` | `Off` |
 | oai | `oai`, `repository_id` | `On`, `[domain]` |
 

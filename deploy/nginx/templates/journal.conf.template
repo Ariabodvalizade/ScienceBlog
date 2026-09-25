@@ -1,0 +1,75 @@
+# nginx site for the journal. Rendered by the nginx image's envsubst at start:
+# only ${JOURNAL_DOMAIN} is substituted (nginx's own $variables are untouched).
+
+limit_req_zone $binary_remote_addr zone=journal_login:10m rate=10r/m;
+limit_req_zone $binary_remote_addr zone=journal_api:10m rate=120r/m;
+limit_req_status 429;
+
+# Resolve the ojs container through Docker's DNS at request time, so nginx
+# keeps working when the container is recreated (new IP) during deploys.
+resolver 127.0.0.11 valid=10s ipv6=off;
+
+# HTTP: ACME challenges + redirect to HTTPS
+server {
+    listen 80;
+    server_name ${JOURNAL_DOMAIN} www.${JOURNAL_DOMAIN};
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://${JOURNAL_DOMAIN}$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ${JOURNAL_DOMAIN};
+
+    set $journal_upstream http://ojs:80;
+
+    ssl_certificate     /etc/letsencrypt/live/${JOURNAL_DOMAIN}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/${JOURNAL_DOMAIN}/privkey.pem;
+    include /etc/nginx/snippets/ssl.conf;
+    include /etc/nginx/snippets/security-headers.conf;
+
+    client_max_body_size 55m;
+    server_tokens off;
+
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 1024;
+    gzip_proxied any;
+    gzip_vary on;
+    gzip_types text/css text/plain text/xml application/javascript application/json application/xml application/rss+xml application/atom+xml image/svg+xml;
+
+    # Never expose configuration, caches or CLI tools
+    location ~ ^/(config\.inc\.php|config\.TEMPLATE\.inc\.php|cache/|tools/|lib/pkp/tools/|dbscripts/|registry/|\.git|\.env) {
+        return 404;
+    }
+
+    # Brute-force protection on sign-in, registration and password reset
+    location ~ ^/(index\.php/)?[^/]+/(login/signIn|user/registerUser|login/requestResetPassword) {
+        limit_req zone=journal_login burst=5 nodelay;
+        include /etc/nginx/snippets/proxy.conf;
+    }
+
+    location ~ ^/(index\.php/)?[^/]+/api/v1/ {
+        limit_req zone=journal_api burst=60 nodelay;
+        include /etc/nginx/snippets/proxy.conf;
+    }
+
+    # Static theme/plugin assets (fonts, images, scripts) are cacheable
+    location ~* ^/(plugins|lib/pkp/styles|lib/pkp/js|js|styles|public)/.+\.(woff2?|ttf|otf|png|jpe?g|gif|svg|webp|ico|css|js)$ {
+        include /etc/nginx/snippets/proxy.conf;
+        expires 30d;
+        add_header Cache-Control "public" always;
+        include /etc/nginx/snippets/security-headers.conf;
+    }
+
+    location / {
+        include /etc/nginx/snippets/proxy.conf;
+    }
+}

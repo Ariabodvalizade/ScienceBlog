@@ -6,7 +6,7 @@ A modern, responsive academic journal website built on **Open Journal Systems 3.
   a 3-column article layout and full responsiveness.
 - **scholarlyReader**, a generic plugin (`plugins/generic/scholarlyReader`): reference linking, inline HTML full text
   with clickable citations, and JSON-LD/OpenGraph metadata.
-- A **Docker deployment kit** (`deploy/`): nginx + Let's Encrypt, OJS, MariaDB, a cron worker, and backups.
+- A **Docker deployment kit** (`deploy/`): nginx + Let's Encrypt, OJS, MariaDB, a job worker and scheduler, and backups.
 
 OJS core is never modified. Everything here is a plugin or deployment configuration.
 

@@ -17,16 +17,18 @@
                      └───┬──────────────┬───┘
                          │              │ volumes: ojs-files (/var/www/files, private)
                          │              │          ojs-public (/var/www/html/public)
-                ┌────────▼─────┐   ┌────▼──────────────┐
-                │ db (MariaDB  │   │ cron (same image) │  scheduler.php run every minute
-                │ 11.4 LTS)    │   │                   │  jobs.php work (queue worker)
-                └──────────────┘   └───────────────────┘
+                ┌────────▼─────┐   ┌────▼──────────────────────────┐
+                │ db (MariaDB  │   │ worker    (same image)        │  jobs.php work (queue)
+                │ 11.4 LTS)    │   │ scheduler (same image)        │  scheduler.php work
+                └──────────────┘   └───────────────────────────────┘
                      certbot (webroot renew, twice daily)
 ```
 
 - **OJS core is never modified.** The official PKP image supplies OJS; our Dockerfile only adds two plugins and a
   PHP ini override.
-- **Configuration** (`config.inc.php`) is rendered from `deploy/.env` at deploy time and mounted read-only.
+- **Configuration** (`config.inc.php`) is generated inside the container at every start by `deploy/ojs/configure.php`,
+  from the stock `config.TEMPLATE.inc.php` of the running OJS version plus values from `deploy/.env`. Upgrades pick up
+  new keys automatically, and no secrets live in the image or in git.
 - **State** lives only in Docker volumes: `db-data`, `ojs-files`, `ojs-public`, and `letsencrypt`. These are what we back up.
 
 ## 2. Repository layout
@@ -36,13 +38,13 @@ docs/                          PRD and companion documents (this folder)
 plugins/themes/meridian/       Child theme of OJS "default" theme
 plugins/generic/scholarlyReader/  Reference linking, inline HTML full text, JSON-LD
 deploy/
-  docker-compose.yml           Production stack (web, ojs, cron, db, certbot)
+  docker-compose.yml           Production stack (web, ojs, worker, scheduler, db, certbot)
   docker-compose.dev.yml       Local development stack (plugins bind-mounted)
   .env.example                 All tunables (domain, DB, SMTP, OJS secrets)
-  ojs/Dockerfile               Our OJS image
-  ojs/config.inc.php.tpl       Config template (rendered by scripts/render-config.sh)
-  nginx/                       Site config, TLS and security snippets
-  scripts/                     init-ssl, render-config, backup, restore, update-ojs, deploy
+  ojs/Dockerfile               Our OJS image (official image + theme + plugin + PHP/Apache tweaks)
+  ojs/configure.php            Renders config.inc.php from env at container start
+  nginx/                       Site template, TLS, proxy and security-header snippets
+  scripts/                     generate-secrets, init-ssl, install-ojs, backup, restore, update-ojs, deploy, clear-cache
 dev/
   demo-content/                Demo journal import (native XML + generated PDFs) — never used in production
   screenshots.mjs              Playwright screenshots at 1440/834/390
@@ -111,13 +113,15 @@ Core/bundled plugins we **reuse instead of rebuilding**:
 OJS 3.5 replaced `runScheduledTasks.php` with `lib/pkp/tools/scheduler.php`, and added a job queue. In production:
 
 - `config.inc.php`: `[schedule] task_runner = Off`, `[queues] job_runner = Off`, so web requests never run background work.
-- A `cron` service (same image) runs:
-  - `php lib/pkp/tools/scheduler.php run` every minute (review reminders, DOI deposits, statistics, etc.)
-  - `php lib/pkp/tools/jobs.php work --stop-when-empty` every minute (emails, search indexing, deposits)
+- Two services run from the same image:
+  - `scheduler`: `php lib/pkp/tools/scheduler.php work` (runs due scheduled tasks every minute: review reminders,
+    DOI deposits, statistics, …)
+  - `worker`: `php lib/pkp/tools/jobs.php work --max-time=3600` (emails, search indexing, deposits). It exits hourly
+    and Docker restarts it.
 
 ## 6. Data flow — publishing an article
 
-1. Author submits (wizard) → files stored in `ojs-files` → emails queued → cron worker sends them.
+1. Author submits (wizard) → files stored in `ojs-files` → emails queued → the worker service sends them.
 2. Review, copyediting and production happen in the OJS backend.
 3. Production: the layout editor uploads a **PDF galley** (required) and optionally an **HTML galley** (+ images as
    dependent files).
@@ -134,6 +138,6 @@ OJS 3.5 replaced `runScheduledTasks.php` with `lib/pkp/tools/scheduler.php`, and
 
 ## 8. Upgrade strategy
 
-1. Read PKP release notes; bump `OJS_VERSION` build arg in `deploy/ojs/Dockerfile` (stay on the 3.5 LTS line).
-2. `scripts/backup.sh` → `docker compose build ojs` → `scripts/update-ojs.sh` (runs `tools/upgrade.php upgrade`).
+1. Read PKP release notes; set `OJS_VERSION` in `deploy/.env` (stay on the 3.5 LTS line).
+2. `scripts/update-ojs.sh` (backup → `docker compose build ojs` → `tools/upgrade.php upgrade` → restart).
 3. Diff overridden templates (list in §3) against the new core versions; run the screenshot suite; compare.

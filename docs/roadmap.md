@@ -10,7 +10,7 @@ Each milestone ends with a commit and push to the development branch, plus scree
 | M4 | **Journal pages** | Issue TOC, Archives, Article page (3-column), article list items | Current Issue, Archives, Article pages, PDF access |
 | M5 | **scholarlyReader** | Reference linking, inline HTML full text, citation popovers, JSON-LD/OpenGraph | Reference linking, Google Scholar metadata |
 | M6 | **Secondary pages & polish** | About/static pages, Editorial Team, Search, Login/Register, Announcements, errors; responsive + a11y pass | UI, Responsive, Search |
-| M7 | **Production kit** | Production compose, Dockerfile, nginx/TLS, config template, cron, backup/restore/update scripts | SSL & security, deployment |
+| M7 | **Production kit** | Production compose, Dockerfile, nginx/TLS, config renderer, worker + scheduler, backup/restore/update scripts | SSL & security, deployment |
 | M8 | **QA & handover** | Screenshot suite, metadata/OAI validation, Lighthouse, `admin-guide.md` | Final testing |
 | M9 | **Go-live** (needs client inputs) | Configure the real journal per `ojs-configuration.md`, DOI/Crossref, ORCID, SMTP, domain, launch | DOI, ORCID, Email, Launch |
 
