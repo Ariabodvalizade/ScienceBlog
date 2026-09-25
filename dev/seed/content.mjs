@@ -71,9 +71,9 @@ export const issues = [
         pages: '1–9',
         dateSubmitted: '2025-11-02',
         authors: [
-          { given: 'Leila', family: 'Karimi', affiliation: 'Department of Animal Science, Northfield University', country: 'IR', bio: 'Leila Karimi is an assistant professor of poultry nutrition whose work focuses on feed additives and gut health.' },
-          { given: 'Daniel', family: 'Okafor', affiliation: 'Institute of Poultry Research, Eastbrook College', country: 'NG' },
-          { given: 'Marta', family: 'Novak', affiliation: 'Department of Animal Science, Northfield University', country: 'PL' },
+          { given: 'Emily', family: 'Carter', affiliation: 'Department of Animal Science, Northfield University', country: 'GB', bio: 'Emily Carter is an assistant professor of poultry nutrition whose work focuses on feed additives and gut health.' },
+          { given: 'Daniel', family: 'Hughes', affiliation: 'Institute of Poultry Research, Eastbrook College', country: 'GB' },
+          { given: 'Rachel', family: 'Morgan', affiliation: 'Department of Animal Science, Northfield University', country: 'IE' },
         ],
         keywords: ['broiler', 'probiotic', 'Bacillus subtilis', 'villus height', 'feed conversion ratio'],
         abstract:
@@ -86,8 +86,8 @@ export const issues = [
         pages: '10–18',
         dateSubmitted: '2025-10-18',
         authors: [
-          { given: 'Amir', family: 'Hosseini', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'IR' },
-          { given: 'Grace', family: 'Mwangi', affiliation: 'Department of Clinical Studies, Riverside Veterinary School', country: 'KE' },
+          { given: 'Andrew', family: 'Collins', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'GB' },
+          { given: 'Grace', family: 'Whitfield', affiliation: 'Department of Clinical Studies, Riverside Veterinary School', country: 'US' },
         ],
         keywords: ['dairy cattle', 'subclinical mastitis', 'California mastitis test', 'risk factors', 'smallholder'],
         abstract:
@@ -100,8 +100,8 @@ export const issues = [
         pages: '19–23',
         dateSubmitted: '2025-12-01',
         authors: [
-          { given: 'Sofia', family: 'Ramirez', affiliation: 'Centre for Animal Welfare, Eastbrook College', country: 'MX' },
-          { given: 'Reza', family: 'Moradi', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'IR' },
+          { given: 'Sophie', family: 'Bennett', affiliation: 'Centre for Animal Welfare, Eastbrook College', country: 'GB' },
+          { given: 'Robert', family: 'Hayes', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'US' },
         ],
         keywords: ['animal welfare', 'donkey', 'working equids', 'body condition score'],
         abstract:
@@ -115,8 +115,8 @@ export const issues = [
         dateSubmitted: '2025-09-27',
         authors: [
           { given: 'Josiah', family: 'Carberry', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'US', orcid: CARBERRY_ORCID, bio: 'Josiah Carberry is ORCID’s fictitious test researcher, used here to demonstrate the ORCID badge.' },
-          { given: 'Hana', family: 'Suzuki', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'JP' },
-          { given: 'Omid', family: 'Rezaei', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'IR' },
+          { given: 'Hannah', family: 'Brooks', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'CA' },
+          { given: 'Oliver', family: 'Reed', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'GB' },
         ],
         keywords: ['feline', 'anaesthesia', 'alfaxalone', 'propofol', 'ovariohysterectomy'],
         abstract:
@@ -141,10 +141,10 @@ export const issues = [
         dateSubmitted: '2026-02-11',
         html: true,
         authors: [
-          { given: 'Sara', family: 'Rahimi', affiliation: 'Department of Animal Science, Northfield University', country: 'IR', bio: 'Sara Rahimi is an associate professor of dairy science. Her research examines how climate affects the nutrition, health and productivity of dairy cattle.' },
+          { given: 'Sarah', family: 'Mitchell', affiliation: 'Department of Animal Science, Northfield University', country: 'GB', bio: 'Sarah Mitchell is an associate professor of dairy science. Her research examines how climate affects the nutrition, health and productivity of dairy cattle.' },
           { given: 'Josiah', family: 'Carberry', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'US', orcid: CARBERRY_ORCID },
-          { given: 'Elena', family: 'Petrova', affiliation: 'Institute of Animal Physiology, Eastbrook College', country: 'BG' },
-          { given: 'Mehdi', family: 'Jafari', affiliation: 'Department of Animal Science, Northfield University', country: 'IR' },
+          { given: 'Eleanor', family: 'Price', affiliation: 'Institute of Animal Physiology, Eastbrook College', country: 'GB' },
+          { given: 'Matthew', family: 'Jenkins', affiliation: 'Department of Animal Science, Northfield University', country: 'AU' },
         ],
         keywords: ['heat stress', 'dairy cow', 'rumen fermentation', 'temperature–humidity index', 'milk yield', 'volatile fatty acids'],
         abstract:
@@ -157,8 +157,8 @@ export const issues = [
         pages: '45–60',
         dateSubmitted: '2026-01-20',
         authors: [
-          { given: 'Nadia', family: 'Farahani', affiliation: 'Department of Microbiology, Northfield University', country: 'IR' },
-          { given: 'Thomas', family: 'Becker', affiliation: 'Institute of Veterinary Public Health, Eastbrook College', country: 'DE' },
+          { given: 'Natalie', family: 'Foster', affiliation: 'Department of Microbiology, Northfield University', country: 'US' },
+          { given: 'Thomas', family: 'Walker', affiliation: 'Institute of Veterinary Public Health, Eastbrook College', country: 'GB' },
         ],
         keywords: ['antimicrobial resistance', 'dogs', 'cats', 'surveillance', 'systematic review', 'One Health'],
         abstract:
@@ -171,8 +171,8 @@ export const issues = [
         pages: '61–66',
         dateSubmitted: '2026-03-03',
         authors: [
-          { given: 'Ali', family: 'Tavakoli', affiliation: 'Laboratory Animal Centre, Northfield University', country: 'IR' },
-          { given: 'Claire', family: 'Dubois', affiliation: 'Laboratory Animal Centre, Northfield University', country: 'FR' },
+          { given: 'Alexander', family: 'Turner', affiliation: 'Laboratory Animal Centre, Northfield University', country: 'NZ' },
+          { given: 'Claire', family: 'Donovan', affiliation: 'Laboratory Animal Centre, Northfield University', country: 'IE' },
         ],
         keywords: ['laboratory animals', 'rabbit', 'reference intervals', 'clinical biochemistry', 'environmental enrichment'],
         abstract:
@@ -185,7 +185,7 @@ export const issues = [
         pages: '67–70',
         dateSubmitted: '2026-02-26',
         authors: [
-          { given: 'Kaveh', family: 'Ahmadi', affiliation: 'Small Animal Teaching Hospital, Riverside Veterinary School', country: 'IR' },
+          { given: 'Katherine', family: 'Adams', affiliation: 'Small Animal Teaching Hospital, Riverside Veterinary School', country: 'CA' },
         ],
         keywords: ['dog', 'gastric dilatation–volvulus', 'gastropexy', 'emergency surgery'],
         abstract:
@@ -198,13 +198,13 @@ export const issues = [
 
 // Fictional editorial board (dev/demo only). Group names are OJS defaults.
 export const board = [
-  { given: 'Maryam', family: 'Alavi', group: 'Journal editor', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'IR', bio: 'Professor of veterinary epidemiology.' },
+  { given: 'Margaret', family: 'Ellison', group: 'Journal editor', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'GB', bio: 'Professor of veterinary epidemiology.' },
   { given: 'James', family: 'O’Connor', group: 'Section editor', affiliation: 'School of Agriculture and Food Science, Eastbrook College', country: 'IE' },
-  { given: 'Aiko', family: 'Tanaka', group: 'Section editor', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'JP' },
-  { given: 'Lucas', family: 'Ferreira', group: 'Editorial Board Member', affiliation: 'Department of Animal Nutrition, Southgate University', country: 'BR' },
-  { given: 'Amina', family: 'Diallo', group: 'Editorial Board Member', affiliation: 'Institute of Livestock Research, Westfield University', country: 'SN' },
-  { given: 'Hans', family: 'Müller', group: 'Editorial Board Member', affiliation: 'Institute of Animal Welfare, Eastbrook College', country: 'DE' },
-  { given: 'Priya', family: 'Nair', group: 'Editorial Board Member', affiliation: 'Department of Veterinary Microbiology, Northfield University', country: 'IN' },
+  { given: 'Alice', family: 'Thompson', group: 'Section editor', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'US' },
+  { given: 'Lucas', family: 'Fletcher', group: 'Editorial Board Member', affiliation: 'Department of Animal Nutrition, Southgate University', country: 'AU' },
+  { given: 'Amelia', family: 'Dawson', group: 'Editorial Board Member', affiliation: 'Institute of Livestock Research, Westfield University', country: 'GB' },
+  { given: 'Henry', family: 'Marshall', group: 'Editorial Board Member', affiliation: 'Institute of Animal Welfare, Eastbrook College', country: 'GB' },
+  { given: 'Philippa', family: 'Nash', group: 'Editorial Board Member', affiliation: 'Department of Veterinary Microbiology, Northfield University', country: 'NZ' },
 ];
 
 // Static pages. The policy texts are TEMPLATES for the client to adapt.

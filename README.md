@@ -25,6 +25,12 @@ OJS core is never modified. Everything here is a plugin or deployment configurat
 | [docs/roadmap.md](docs/roadmap.md) | Milestones |
 | [docs/client-inputs.md](docs/client-inputs.md) | What the client must provide |
 
+## Run the demo locally (Docker only)
+
+`local-demo/` runs the site with the demo content on any machine with Docker; Node and PHP are not needed.
+Run `./local-demo/start.sh` (or `local-demo\start.ps1` on Windows), then open <http://localhost:8080/djas>.
+See [local-demo/README.md](local-demo/README.md) (Persian).
+
 ## Quick start (development)
 
 ```bash
