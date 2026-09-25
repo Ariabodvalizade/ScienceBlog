@@ -1,0 +1,190 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "plugins.themes.meridian.name"
+msgstr "Meridian"
+
+msgid "plugins.themes.meridian.description"
+msgstr "A minimal editorial theme for academic journals: serif typography, generous white space and a three-column reading layout."
+
+msgid "plugins.themes.meridian.option.accent.label"
+msgstr "Accent colour"
+
+msgid "plugins.themes.meridian.option.accent.description"
+msgstr "Used for links, focus outlines and active states. Colours that are too light to read on white (contrast below 4.5:1) are ignored."
+
+msgid "plugins.themes.meridian.option.homeSections.label"
+msgstr "Home page sections"
+
+msgid "plugins.themes.meridian.option.homeSections.description"
+msgstr "Choose which sections appear on the journal home page."
+
+msgid "plugins.themes.meridian.option.homeSections.currentIssue"
+msgstr "Current issue"
+
+msgid "plugins.themes.meridian.option.homeSections.latestArticles"
+msgstr "Latest articles"
+
+msgid "plugins.themes.meridian.option.homeSections.aims"
+msgstr "Aims & Scope (journal summary)"
+
+msgid "plugins.themes.meridian.option.homeSections.announcements"
+msgstr "Announcements"
+
+msgid "plugins.themes.meridian.option.homeSections.indexing"
+msgstr "Indexing logos"
+
+msgid "plugins.themes.meridian.option.tagline.label"
+msgstr "Tagline"
+
+msgid "plugins.themes.meridian.option.tagline.description"
+msgstr "A short line shown under the journal name on the home page."
+
+msgid "plugins.themes.meridian.option.indexingLogos.label"
+msgstr "Indexing and membership logos"
+
+msgid "plugins.themes.meridian.option.indexingLogos.description"
+msgstr "One per line, in the form: Name | Logo image URL | Link URL. The logo and link are optional."
+
+msgid "plugins.themes.meridian.menu"
+msgstr "Menu"
+
+msgid "plugins.themes.meridian.openMenu"
+msgstr "Open menu"
+
+msgid "plugins.themes.meridian.closeMenu"
+msgstr "Close menu"
+
+msgid "plugins.themes.meridian.openSearch"
+msgstr "Search the journal"
+
+msgid "plugins.themes.meridian.closeSearch"
+msgstr "Close search"
+
+msgid "plugins.themes.meridian.searchPlaceholder"
+msgstr "Search articles, authors, keywords…"
+
+msgid "plugins.themes.meridian.account"
+msgstr "Account"
+
+msgid "plugins.themes.meridian.submitManuscript"
+msgstr "Submit Manuscript"
+
+msgid "plugins.themes.meridian.authorGuidelines"
+msgstr "Author Guidelines"
+
+msgid "plugins.themes.meridian.currentIssue"
+msgstr "Current Issue"
+
+msgid "plugins.themes.meridian.viewIssue"
+msgstr "View full issue"
+
+msgid "plugins.themes.meridian.latestArticles"
+msgstr "Latest Articles"
+
+msgid "plugins.themes.meridian.aimsScope"
+msgstr "Aims & Scope"
+
+msgid "plugins.themes.meridian.aboutJournal"
+msgstr "About the journal"
+
+msgid "plugins.themes.meridian.indexedIn"
+msgstr "Indexed & Archived In"
+
+msgid "plugins.themes.meridian.allAnnouncements"
+msgstr "All announcements"
+
+msgid "plugins.themes.meridian.abstract.show"
+msgstr "Abstract"
+
+msgid "plugins.themes.meridian.articles"
+msgstr "{$count} articles"
+
+msgid "plugins.themes.meridian.pages"
+msgstr "Pages {$pages}"
+
+msgid "plugins.themes.meridian.articleInfo"
+msgstr "Article info"
+
+msgid "plugins.themes.meridian.onThisPage"
+msgstr "On this page"
+
+msgid "plugins.themes.meridian.share"
+msgstr "Share"
+
+msgid "plugins.themes.meridian.shareBy"
+msgstr "Share by {$network}"
+
+msgid "plugins.themes.meridian.moreFromIssue"
+msgstr "More from this issue"
+
+msgid "plugins.themes.meridian.archive"
+msgstr "Archive"
+
+msgid "plugins.themes.meridian.downloadPdf"
+msgstr "Download PDF"
+
+msgid "plugins.themes.meridian.copy"
+msgstr "Copy"
+
+msgid "plugins.themes.meridian.copied"
+msgstr "Copied"
+
+msgid "plugins.themes.meridian.contents"
+msgstr "Contents"
+
+msgid "plugins.themes.meridian.published"
+msgstr "Published"
+
+msgid "plugins.themes.meridian.keywords"
+msgstr "Keywords"
+
+msgid "plugins.themes.meridian.references"
+msgstr "References"
+
+msgid "plugins.themes.meridian.license"
+msgstr "License"
+
+msgid "plugins.themes.meridian.aboutAuthors"
+msgstr "About the authors"
+
+msgid "plugins.themes.meridian.relatedArticles"
+msgstr "Related articles"
+
+msgid "plugins.themes.meridian.issn.online"
+msgstr "eISSN {$issn}"
+
+msgid "plugins.themes.meridian.issn.print"
+msgstr "pISSN {$issn}"
+
+msgid "plugins.themes.meridian.footer.journal"
+msgstr "Journal"
+
+msgid "plugins.themes.meridian.footer.explore"
+msgstr "Explore"
+
+msgid "plugins.themes.meridian.footer.openAccess"
+msgstr "Open Access & Metadata"
+
+msgid "plugins.themes.meridian.footer.oai"
+msgstr "OAI-PMH endpoint"
+
+msgid "plugins.themes.meridian.footer.rss"
+msgstr "RSS / Atom feed"
+
+msgid "plugins.themes.meridian.footer.openAccessStatement"
+msgstr "All articles are published open access and are free to read, download and share."
+
+msgid "plugins.themes.meridian.volumeIssue"
+msgstr "Volume {$volume}, Issue {$number}"
+
+msgid "plugins.themes.meridian.archive.description"
+msgstr "Browse every published issue of the journal."
+
+msgid "plugins.themes.meridian.backToTop"
+msgstr "Back to top"

@@ -1,0 +1,67 @@
+# Local development stack.
+#   docker compose -f docker-compose.dev.yml up -d --build
+#   → OJS on http://localhost:8080, Mailpit (caught emails) on http://localhost:8025
+# The theme and plugin are bind-mounted, so template/LESS edits apply on reload
+# (clear the template/CSS cache from Administration if needed).
+name: journal-dev
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ojs
+      MARIADB_USER: ojs
+      MARIADB_PASSWORD: ojs-dev-password
+      MARIADB_ROOT_PASSWORD: root-dev-password
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      retries: 30
+
+  ojs:
+    build:
+      context: ..
+      dockerfile: deploy/ojs/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVERNAME: localhost
+      JOURNAL_DOMAIN: localhost
+      OJS_BASE_URL: http://localhost:8080
+      OJS_INSTALLED: ${OJS_INSTALLED:-Off}
+      OJS_APP_KEY: ${OJS_APP_KEY:-}
+      OJS_FORCE_SSL: "Off"
+      OJS_TRUST_X_FORWARDED_FOR: "Off"
+      OJS_DB_HOST: db
+      OJS_DB_NAME: ojs
+      OJS_DB_USER: ojs
+      OJS_DB_PASSWORD: ojs-dev-password
+      OJS_DISPLAY_ERRORS: "Off"   # core emits PHP 8.3 deprecations that break redirects when displayed
+      OJS_WEB_JOB_RUNNER: "On"
+      OJS_WEB_TASK_RUNNER: "On"
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+    ports:
+      - "8080:80"
+    volumes:
+      - ojs-files:/var/www/files
+      - ojs-public:/var/www/html/public
+      - ../plugins/themes/meridian:/var/www/html/plugins/themes/meridian
+      - ../plugins/generic/scholarlyReader:/var/www/html/plugins/generic/scholarlyReader
+
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+
+volumes:
+  db-data:
+  ojs-files:
+  ojs-public:

@@ -1,0 +1,13 @@
+{
+  "name": "journal-dev-tools",
+  "private": true,
+  "type": "module",
+  "description": "Development helpers: demo content generation and screenshots (never used in production).",
+  "scripts": {
+    "build-demo": "node seed/build.mjs",
+    "screenshots": "node screenshots.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.0"
+  }
+}
