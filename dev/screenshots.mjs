@@ -26,6 +26,7 @@ export const pages = {
   'article-pdf-only': `${J}/article/view/2`,
   about: `${J}/about`,
   editorial: `${J}/about/editorialMasthead`,
+  policies: `${J}/policies`,
   submissions: `${J}/about/submissions`,
   search: `${J}/search/search?query=heat`,
   login: `${J}/login`,

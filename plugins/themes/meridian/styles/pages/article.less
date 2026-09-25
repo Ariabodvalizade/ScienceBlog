@@ -581,6 +581,13 @@
 	.m-downloads {
 		display: grid;
 		gap: 0.5rem;
+
+		// Tablet/mobile show the primary downloads in the hero instead
+		@media @m-tablet-down {
+			> .m-galley {
+				display: none;
+			}
+		}
 	}
 
 	.m-doi__value {
@@ -630,8 +637,7 @@
 			margin: 0 0 1rem;
 		}
 
-		.citation_display .value,
-		#citationOutput {
+		.citation_display .value {
 			font-size: 0.875rem;
 			line-height: 1.55;
 			padding: 1rem;

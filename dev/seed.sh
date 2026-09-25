@@ -10,6 +10,7 @@ export NODE_PATH="${NODE_PATH:-$(npm root -g)}"
 
 node "$HERE/seed/build.mjs"
 node "$HERE/seed/seed.mjs" "$BASE_URL"
+node "$HERE/seed/sql.mjs" "$BASE_URL"
 
 echo "→ Importing demo issues (native XML)"
 "${COMPOSE[@]}" cp "$HERE/out/demo-issues.xml" ojs:/tmp/demo-issues.xml
@@ -18,5 +19,7 @@ echo "→ Importing demo issues (native XML)"
 "${COMPOSE[@]}" exec -T db mariadb -uojs -pojs-dev-password ojs -e \
   "UPDATE section_settings ss JOIN section_settings a ON a.section_id = ss.section_id AND a.setting_name = 'abbrev' AND a.setting_value = 'ART'
    SET ss.setting_value = 'Original Research' WHERE ss.setting_name = 'title';"
+echo "→ Demo editorial board and policy pages"
+"${COMPOSE[@]}" exec -T db mariadb -uojs -pojs-dev-password ojs < "$HERE/out/demo.sql"
 "${COMPOSE[@]}" exec -T ojs php tools/rebuildSearchIndex.php >/dev/null 2>&1 || true
 echo "✓ Demo content ready at $BASE_URL/djas"

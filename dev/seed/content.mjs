@@ -195,3 +195,74 @@ export const issues = [
     ],
   },
 ];
+
+// Fictional editorial board (dev/demo only). Group names are OJS defaults.
+export const board = [
+  { given: 'Maryam', family: 'Alavi', group: 'Journal editor', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'IR', bio: 'Professor of veterinary epidemiology.' },
+  { given: 'James', family: 'O’Connor', group: 'Section editor', affiliation: 'School of Agriculture and Food Science, Eastbrook College', country: 'IE' },
+  { given: 'Aiko', family: 'Tanaka', group: 'Section editor', affiliation: 'Department of Surgery, Riverside Veterinary School', country: 'JP' },
+  { given: 'Lucas', family: 'Ferreira', group: 'Editorial Board Member', affiliation: 'Department of Animal Nutrition, Southgate University', country: 'BR' },
+  { given: 'Amina', family: 'Diallo', group: 'Editorial Board Member', affiliation: 'Institute of Livestock Research, Westfield University', country: 'SN' },
+  { given: 'Hans', family: 'Müller', group: 'Editorial Board Member', affiliation: 'Institute of Animal Welfare, Eastbrook College', country: 'DE' },
+  { given: 'Priya', family: 'Nair', group: 'Editorial Board Member', affiliation: 'Department of Veterinary Microbiology, Northfield University', country: 'IN' },
+];
+
+// Static pages. The policy texts are TEMPLATES for the client to adapt.
+export const staticPages = [
+  {
+    path: 'aims-and-scope',
+    title: 'Aims & Scope',
+    content: `<p>The <em>[Journal Name]</em> publishes original research, reviews, short communications and case reports across animal and veterinary science.</p>
+<h2>Scope</h2>
+<ul><li>Animal health, disease and epidemiology</li><li>Animal welfare and behaviour</li><li>Nutrition, production and reproduction</li><li>Laboratory animal science and the 3Rs</li><li>Public health and One Health</li></ul>
+<h2>Article types</h2>
+<p>Original Research, Review Article, Short Communication and Case Report. See the <a href="about/submissions">Author Guidelines</a> for requirements.</p>`,
+  },
+  {
+    path: 'policies',
+    title: 'Journal Policies',
+    content: `<p class="lead">These policies describe how the journal handles manuscripts, publication ethics, access and preservation. [Template — the editorial office should review every section before launch.]</p>
+<h2 id="peer-review">Peer review process</h2>
+<p>All research articles undergo double-anonymous peer review by at least two independent reviewers. The handling editor screens submissions for scope and quality before review; the Editor-in-Chief makes the final decision. Target time to first decision: [X] weeks.</p>
+<h2 id="open-access">Open access</h2>
+<p>The journal provides immediate open access to its content on the principle that making research freely available to the public supports a greater global exchange of knowledge. There are no subscription or pay-per-view charges.</p>
+<h2 id="ethics">Publication ethics and malpractice</h2>
+<p>The journal follows the Core Practices of the Committee on Publication Ethics (COPE). Studies involving animals must state approval by an institutional animal ethics committee and comply with the ARRIVE guidelines; studies involving humans require informed consent and ethics approval.</p>
+<h2 id="plagiarism">Plagiarism</h2>
+<p>Submissions are screened with similarity-checking software. Manuscripts with substantial overlap with published work are declined; suspected misconduct is handled according to COPE flowcharts.</p>
+<h2 id="copyright">Copyright and licensing</h2>
+<p>Authors retain copyright. Articles are published under the Creative Commons Attribution 4.0 International License (CC BY 4.0), which permits use, sharing and adaptation with appropriate credit.</p>
+<h2 id="archiving">Archiving</h2>
+<p>The journal content is preserved through the PKP Preservation Network (PKP PN). [Add any national library deposit.]</p>
+<h2 id="apc">Article processing charges</h2>
+<p>[State the APC amount, or: “The journal charges no submission or publication fees.”]</p>
+<h2 id="corrections">Corrections, retractions and expressions of concern</h2>
+<p>Errors are corrected through published corrections linked to the original article. Retractions follow COPE guidance and remain openly available with a clear retraction notice.</p>
+<h2 id="conflicts">Conflicts of interest</h2>
+<p>Authors, reviewers and editors must disclose any financial or personal relationships that could influence their work. Editors do not handle manuscripts where they have a conflict of interest.</p>
+<h2 id="data">Data sharing</h2>
+<p>Authors are encouraged to deposit data in a public repository and to include a data availability statement.</p>
+<h2 id="ai">Use of AI tools</h2>
+<p>AI tools cannot be listed as authors. Any use of generative AI in preparing a manuscript must be disclosed in the methods or acknowledgements; authors remain responsible for the content.</p>
+<h2 id="complaints">Complaints and appeals</h2>
+<p>Appeals against editorial decisions and complaints should be sent to the editorial office at [email]; they are handled by an editor not involved in the original decision.</p>`,
+  },
+  {
+    path: 'indexing',
+    title: 'Indexing & Abstracting',
+    content: `<p>The journal is technically prepared for academic indexing services. Current status:</p>
+<ul><li>Google Scholar — metadata provided for every article</li><li>Crossref — DOIs registered for all articles</li><li>ORCID — author identifiers integrated</li><li>PKP Preservation Network — archiving</li><li>DOAJ — application planned once eligibility criteria are met</li></ul>
+<p>OAI-PMH endpoint for harvesters: <code>/oai</code></p>`,
+  },
+];
+
+export const announcements = [
+  {
+    title: 'Call for papers: Heat stress and animal welfare',
+    short: '<p>We invite submissions for a thematic collection on climate, heat stress and animal welfare. Deadline: 31 December 2026.</p>',
+  },
+  {
+    title: 'The journal is now accepting submissions',
+    short: '<p>Our online submission system is open. Please read the Author Guidelines before submitting your manuscript.</p>',
+  },
+];

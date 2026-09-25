@@ -6,7 +6,7 @@
 // the Meridian theme and enables plugins. The native XML import itself is run
 // by dev/seed.sh inside the container.
 
-import { journal } from './content.mjs';
+import { announcements, journal } from './content.mjs';
 
 const BASE = process.argv[2] || 'http://localhost:8080';
 const USER = process.env.ADMIN_USER || 'admin';
@@ -140,5 +140,22 @@ await api(`/contexts/${context.id}/theme`, 'PUT', {
     'PKP Preservation Network | | https://pkp.sfu.ca/pkp-pn/',
   ].join('\n'),
 }, token, journal.path).catch((e) => console.warn('! Theme options:', e.message));
+
+// 6. Announcements (skipped when some already exist)
+try {
+  const existingNews = await api('/announcements', 'GET', undefined, token, journal.path);
+  if (!existingNews.itemsMax) {
+    for (const a of announcements) {
+      await api('/announcements', 'POST', {
+        title: { en: a.title },
+        descriptionShort: { en: a.short },
+        description: { en: a.short },
+      }, token, journal.path);
+    }
+    console.log('✓ Announcements created');
+  }
+} catch (e) {
+  console.warn('! Announcements:', e.message);
+}
 
 console.log(`\nJournal: ${BASE}/${journal.path}`);

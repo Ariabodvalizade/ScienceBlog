@@ -39,7 +39,7 @@
 					{if $issueTitle}<p class="m-hero__subtitle">{$issueTitle|escape}</p>{/if}
 					<p class="m-hero__meta">
 						{if $issue->getDatePublished()}<span>{$issue->getDatePublished()|date_format:"F Y"}</span>{/if}
-						<span>{translate key="plugins.themes.meridian.articles" count=$articleCount}</span>
+						<span>{translate key="plugins.themes.meridian.articles" count=$articleCount number=$articleCount}</span>
 						{if $doiObject}<span><a href="{$doiObject->getData('resolvingUrl')|escape}">doi:{$doiObject->getData('doi')|escape}</a></span>{/if}
 					</p>
 					{if $issue->hasDescription()}

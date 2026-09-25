@@ -5,6 +5,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "plugins.themes.meridian.name"
 msgstr "Meridian"
@@ -103,7 +104,9 @@ msgid "plugins.themes.meridian.abstract.show"
 msgstr "Abstract"
 
 msgid "plugins.themes.meridian.articles"
-msgstr "{$count} articles"
+msgid_plural "plugins.themes.meridian.articles"
+msgstr[0] "{$number} article"
+msgstr[1] "{$number} articles"
 
 msgid "plugins.themes.meridian.pages"
 msgstr "Pages {$pages}"

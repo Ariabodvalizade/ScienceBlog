@@ -99,6 +99,28 @@
 		}
 	});
 
+	// Build an "On this page" list for long static pages (3+ headings)
+	var autoToc = document.querySelector('[data-m-autotoc]');
+	if (autoToc) {
+		var body = document.querySelector('.m-static__body');
+		var headings = body ? body.querySelectorAll('h2') : [];
+		if (headings.length >= 3) {
+			var list = autoToc.querySelector('ol');
+			headings.forEach(function (h, i) {
+				if (!h.id) h.id = 'section-' + (i + 1);
+				var li = document.createElement('li');
+				var a = document.createElement('a');
+				a.href = '#' + h.id;
+				a.textContent = h.textContent;
+				li.appendChild(a);
+				list.appendChild(li);
+			});
+			autoToc.hidden = false;
+			autoToc.setAttribute('data-m-outline', '');
+			autoToc.parentNode.classList.add('has-toc');
+		}
+	}
+
 	// Highlight the current section in "On this page" outlines
 	var outline = document.querySelector('[data-m-outline]');
 	if (outline && 'IntersectionObserver' in window) {
