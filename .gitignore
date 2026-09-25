@@ -1,0 +1,11 @@
+# Secrets and local env
+deploy/.env
+deploy/.env.*
+!deploy/.env.example
+deploy/config/
+deploy/backups/
+# Dev artefacts
+dev/out/
+dev/screenshots/
+node_modules/
+.DS_Store
