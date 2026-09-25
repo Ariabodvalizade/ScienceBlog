@@ -33,7 +33,7 @@ export const pages = {
   announcements: `${J}/announcement`,
   notfound: `${J}/article/view/9999`,
 };
-const widths = [1440, 834, 390];
+const widths = (process.env.WIDTHS || '1440,834,390').split(',').map(Number);
 
 const browser = await chromium.launch();
 for (const [name, url] of Object.entries(pages)) {
@@ -42,7 +42,9 @@ for (const [name, url] of Object.entries(pages)) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
     await page.goto(url, { waitUntil: 'networkidle' });
     const file = join(OUT, `${name}-${width}.png`);
-    await page.screenshot({ path: file, fullPage: true });
+    // CLIP=<px> limits the capture height (useful for reviewing the top of long pages)
+    const clip = process.env.CLIP ? { x: 0, y: Number(process.env.CLIP_Y || 0), width, height: Number(process.env.CLIP) } : undefined;
+    await page.screenshot({ path: file, fullPage: true, clip });
     await page.close();
     console.log('✓', file);
   }

@@ -188,3 +188,9 @@ msgstr "Browse every published issue of the journal."
 
 msgid "plugins.themes.meridian.backToTop"
 msgstr "Back to top"
+
+msgid "plugins.themes.meridian.openAccess"
+msgstr "Open access"
+
+msgid "plugins.themes.meridian.pagesLabel"
+msgstr "Pages"

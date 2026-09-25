@@ -1,0 +1,295 @@
+/**
+ * @file plugins/themes/meridian/styles/base.less
+ *
+ * @brief Base typography, page structure and utility classes.
+ */
+
+html,
+body {
+	background: @m-bg;
+	color: @m-text;
+	font-family: @m-font-body;
+	font-size: 16px;
+	line-height: 1.7;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	.m-link();
+}
+
+:focus-visible {
+	.m-focus();
+}
+
+::selection {
+	background: @m-accent-tint;
+	color: @m-ink;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: @m-font-display;
+	font-weight: 400;
+	color: @m-ink;
+	letter-spacing: -0.005em;
+}
+
+blockquote {
+	margin: 2rem 0;
+	padding: 0.25rem 0 0.25rem 1.5rem;
+	border-left: 2px solid @m-ink;
+	color: @m-muted;
+	font-style: italic;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid @m-rule;
+	margin: 2.5rem 0;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	font-family: @m-font-ui;
+	font-size: 0.9375rem;
+}
+
+caption {
+	caption-side: top;
+	text-align: left;
+	padding-bottom: 0.75rem;
+	color: @m-muted;
+	font-family: @m-font-body;
+	font-size: 0.9375rem;
+}
+
+th,
+td {
+	padding: 0.625rem 0.75rem;
+	border-bottom: 1px solid @m-rule;
+	text-align: left;
+	vertical-align: top;
+}
+
+th {
+	.m-meta-type();
+	color: @m-ink;
+	border-bottom-color: @m-ink;
+}
+
+// ---- Utilities
+
+.m-sr,
+.pkp_screen_reader {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.m-container {
+	.m-container();
+}
+
+.m-meta {
+	.m-meta-type();
+	color: @m-muted;
+}
+
+.m-icon {
+	width: 20px;
+	height: 20px;
+	flex: none;
+	vertical-align: middle;
+}
+
+.m-icon--sm {
+	width: 16px;
+	height: 16px;
+}
+
+.m-rule-top {
+	border-top: 1px solid @m-rule;
+}
+
+// ---- Page structure (parent overrides)
+
+.pkp_structure_page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.pkp_structure_content,
+.pkp_structure_content.has_sidebar {
+	flex: 1 0 auto;
+	width: 100% !important;
+	max-width: none;
+	margin: 0;
+	padding: 0 !important;
+}
+
+.pkp_structure_main {
+	width: 100% !important;
+	float: none !important;
+	padding: 0 !important;
+	margin: 0;
+
+	&::before,
+	&::after {
+		display: none !important;
+	}
+}
+
+// Pages Meridian doesn’t restructure keep the parent markup (.page);
+// give them a centered reading column and editorial typography.
+.pkp_structure_main > .page {
+	.m-container();
+	max-width: @m-measure + 2 * @m-gutter;
+	padding-top: 3.5rem;
+	padding-bottom: 6rem;
+
+	> h1:first-of-type,
+	> .page_title {
+		font-size: clamp(2rem, 4.5vw, 3rem);
+		line-height: 1.15;
+		margin: 1.5rem 0 2.5rem;
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 1.625rem;
+		line-height: 1.25;
+		margin: 3rem 0 1rem;
+	}
+
+	h3 {
+		font-size: 1.25rem;
+		line-height: 1.3;
+		margin: 2rem 0 0.75rem;
+	}
+
+	p,
+	ul,
+	ol {
+		font-size: 1.0625rem;
+		line-height: 1.7;
+	}
+}
+
+// Sidebar blocks, when a journal enables any
+.pkp_structure_content.has_sidebar {
+	@media @m-desktop {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 280px;
+		gap: 48px;
+		max-width: @m-container + 2 * @m-gutter;
+		margin: 0 auto;
+		padding: 0 @m-gutter !important;
+	}
+}
+
+.m-sidebar {
+	width: auto !important;
+	float: none !important;
+	padding: 3.5rem 0 !important;
+
+	.pkp_block {
+		padding: 0 0 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid @m-rule;
+	}
+
+	.title {
+		font-family: @m-font-display;
+		font-size: 1rem;
+		font-weight: 400;
+		color: @m-ink;
+	}
+}
+
+// ---- Breadcrumbs (parent markup)
+
+.cmp_breadcrumbs {
+	.m-meta-type();
+	color: @m-muted;
+	text-align: center;
+
+	ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.25rem 0.5rem;
+	}
+
+	li {
+		display: inline;
+	}
+
+	a {
+		.m-quiet-link();
+	}
+
+	.separator {
+		color: @m-rule-strong;
+	}
+
+	.current {
+		color: @m-ink;
+	}
+}
+
+// ---- Notifications
+
+.cmp_notification {
+	padding: 1rem 1.25rem;
+	margin: 1.5rem 0;
+	border-left: 3px solid @m-accent;
+	background: @m-bg-subtle;
+	font-family: @m-font-ui;
+	font-size: 0.9375rem;
+
+	&.warning,
+	&.error {
+		border-left-color: @m-danger;
+	}
+
+	&.success {
+		border-left-color: @m-success;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

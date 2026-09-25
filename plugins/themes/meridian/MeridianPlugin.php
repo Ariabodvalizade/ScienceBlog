@@ -23,7 +23,9 @@ use APP\issue\Collector as IssueCollector;
 use APP\submission\Submission;
 use PKP\plugins\Hook;
 use PKP\plugins\ThemePlugin;
+use PKP\security\Role;
 use PKP\submission\Collector as SubmissionCollector;
+use PKP\userGroup\UserGroup;
 
 class MeridianPlugin extends ThemePlugin
 {
@@ -187,7 +189,12 @@ class MeridianPlugin extends ThemePlugin
         switch ($template) {
             case 'frontend/pages/indexJournal.tpl':
                 if ($this->isHomeSectionEnabled('latestArticles')) {
-                    $templateMgr->assign('meridianLatestArticles', $this->getLatestArticles($context->getId(), 6));
+                    $templateMgr->assign('meridianLatestArticles', $this->summarize($this->getLatestArticles($context->getId(), 6)));
+                }
+                if (!$templateMgr->getTemplateVars('authorUserGroups')) {
+                    $templateMgr->assign('authorUserGroups', UserGroup::withRoleIds([Role::ROLE_ID_AUTHOR])
+                        ->withContextIds([$context->getId()])
+                        ->get());
                 }
                 break;
 
@@ -195,9 +202,17 @@ class MeridianPlugin extends ThemePlugin
                 $issue = $templateMgr->getTemplateVars('issue');
                 $article = $templateMgr->getTemplateVars('article');
                 if ($issue && $article) {
-                    $templateMgr->assign('meridianIssueArticles', $this->getIssueArticles($context->getId(), $issue->getId(), $article->getId(), 5));
+                    $templateMgr->assign('meridianIssueArticles', $this->summarize($this->getIssueArticles($context->getId(), $issue->getId(), $article->getId(), 5)));
                 }
                 $templateMgr->assign('meridianArchive', $this->getArchiveSummary($context->getId()));
+                $publication = $templateMgr->getTemplateVars('publication');
+                if ($publication) {
+                    [$authors, $affiliations] = $this->getAuthorAffiliations($publication);
+                    $templateMgr->assign([
+                        'meridianAuthors' => $authors,
+                        'meridianAffiliations' => $affiliations,
+                    ]);
+                }
                 break;
 
             case 'frontend/pages/issue.tpl':
@@ -243,6 +258,71 @@ class MeridianPlugin extends ThemePlugin
             ->take($count)
             ->values()
             ->all();
+    }
+
+    /**
+     * Authors with numbered affiliation markers, and the numbered affiliation
+     * list, as displayed under the article title.
+     *
+     * @return array{0: array<array{author: \PKP\author\Author, marks: int[]}>, 1: array<int, array{name: string, ror: ?string}>}
+     */
+    public function getAuthorAffiliations(\APP\publication\Publication $publication): array
+    {
+        $affiliations = [];
+        $authors = [];
+        foreach ($publication->getData('authors') ?? [] as $author) {
+            $marks = [];
+            foreach ($author->getAffiliations() as $affiliation) {
+                $name = trim((string) $affiliation->getLocalizedName());
+                if ($name === '') {
+                    continue;
+                }
+                $index = array_search($name, array_column($affiliations, 'name'), true);
+                if ($index === false) {
+                    $affiliations[] = ['name' => $name, 'ror' => $affiliation->getRor()];
+                    $index = count($affiliations) - 1;
+                }
+                $marks[] = $index + 1;
+            }
+            $authors[] = ['author' => $author, 'marks' => $marks];
+        }
+
+        // 1-indexed to match the superscript markers.
+        $numbered = [];
+        foreach ($affiliations as $i => $affiliation) {
+            $numbered[$i + 1] = $affiliation;
+        }
+        return [$authors, $numbered];
+    }
+
+    /**
+     * Display data for article lists outside an issue table of contents.
+     *
+     * @param Submission[] $submissions
+     *
+     * @return array<array{article: Submission, publication: \APP\publication\Publication, sectionTitle: string, authors: string, shortAuthors: string}>
+     */
+    public function summarize(array $submissions): array
+    {
+        $sections = [];
+        $items = [];
+        foreach ($submissions as $submission) {
+            $publication = $submission->getCurrentPublication();
+            if (!$publication) {
+                continue;
+            }
+            $sectionId = (int) $publication->getData('sectionId');
+            $sections[$sectionId] ??= Repo::section()->get($sectionId);
+            $authors = $publication->getData('authors');
+            $items[] = [
+                'article' => $submission,
+                'publication' => $publication,
+                'sectionTitle' => $sections[$sectionId]?->getLocalizedTitle() ?? '',
+                'authors' => $authors ? $authors->map(fn ($author) => $author->getFullName())->join(', ') : '',
+                'shortAuthors' => $publication->getShortAuthorString(),
+            ];
+        }
+        return $items;
     }
 
     /**

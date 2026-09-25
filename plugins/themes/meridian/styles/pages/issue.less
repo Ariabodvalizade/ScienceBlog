@@ -1,0 +1,141 @@
+/**
+ * @file plugins/themes/meridian/styles/pages/issue.less
+ *
+ * @brief Issue table of contents and archive.
+ */
+
+// Scoped under .m-body so these rules outrank the parent theme’s
+// .pkp_structure_main p/h2/ul typography rules.
+.m-body {
+	.m-toc__section + .m-toc__section {
+		margin-top: 3rem;
+	}
+
+	.m-toc__heading {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 0;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid @m-ink;
+		font-family: @m-font-display;
+		font-weight: 400;
+		font-size: 1.5rem;
+		line-height: 1.25;
+		color: @m-ink;
+	}
+
+	.m-toc__count {
+		.m-meta-type();
+		color: @m-muted;
+	}
+
+	// Inside a TOC section the type label repeats the heading; hide it.
+	.m-toc .m-item__type {
+		display: none;
+	}
+
+	// ---- Archive
+
+	.m-archive {
+		padding-top: 3rem;
+		padding-bottom: 5rem;
+	}
+
+	.m-archive__year + .m-archive__year {
+		margin-top: 3.5rem;
+	}
+
+	.m-archive__heading {
+		font-family: @m-font-display;
+		font-weight: 400;
+		font-size: 2rem;
+		margin: 0 0 2rem;
+		padding-bottom: 0.75rem;
+		border-bottom: 1px solid @m-ink;
+	}
+
+	.m-archive__grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 2.5rem 2rem;
+
+		@media @m-tablet-down {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		@media @m-mobile {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 2rem 1rem;
+		}
+	}
+
+	.m-issue-card__cover {
+		display: block;
+		aspect-ratio: 3 / 4;
+		margin-bottom: 1rem;
+		overflow: hidden;
+		background: @m-bg-subtle;
+		box-shadow: 0 1px 0 @m-rule, 0 14px 30px -18px rgba(0, 0, 0, 0.3);
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.3s @m-ease;
+		}
+
+		&:hover img {
+			transform: scale(1.02);
+		}
+	}
+
+	.m-issue-card__placeholder {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		padding: 1.25rem;
+		border-top: 2px solid @m-ink;
+	}
+
+	.m-issue-card__placeholder-id {
+		font-family: @m-font-display;
+		font-size: 1.5rem;
+		line-height: 1.2;
+		color: @m-ink;
+	}
+
+	.m-issue-card__title {
+		font-family: @m-font-display;
+		font-weight: 400;
+		font-size: 1.125rem;
+		line-height: 1.3;
+		margin: 0 0 0.25rem;
+
+		a {
+			color: @m-ink;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				color: @m-accent;
+			}
+		}
+	}
+
+	.m-issue-card__subtitle {
+		font-size: 0.9375rem;
+		margin: 0 0 0.25rem;
+		color: @m-text;
+	}
+
+	.m-issue-card__date {
+		margin: 0;
+	}
+}

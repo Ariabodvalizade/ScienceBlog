@@ -1,0 +1,131 @@
+/**
+ * @file plugins/themes/meridian/styles/tokens.less
+ *
+ * @brief Design tokens (see docs/design-system.md) and overrides of the
+ *  parent Default theme's LESS variables. Because LESS variables are lazily
+ *  evaluated, redefining a parent variable here changes it everywhere.
+ */
+
+// Accent: overridden at compile time from the theme option (addLessVariables).
+@m-accent: #0f5c63;
+
+@m-bg: #ffffff;
+@m-bg-subtle: #f7f7f5;
+@m-ink: #111111;
+@m-text: #222222;
+@m-muted: #6b6b6b;
+@m-rule: #e8e8e8;
+@m-rule-strong: #cfcfcf;
+@m-accent-ink: darken(@m-accent, 7%);
+@m-accent-tint: mix(@m-accent, #ffffff, 7%);
+@m-success: #1d6b3a;
+@m-warning: #8a5a00;
+@m-danger: #a42323;
+
+@m-font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+@m-font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+@m-font-ui: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+@m-container: 1140px;
+@m-measure: 700px;
+@m-gutter: 24px;
+@m-gutter-sm: 16px;
+
+@m-mobile: ~"(max-width: 640px)";
+@m-tablet-down: ~"(max-width: 1024px)";
+@m-tablet-up: ~"(min-width: 641px)";
+@m-desktop: ~"(min-width: 1025px)";
+
+@m-ease: cubic-bezier(.2, .7, .2, 1);
+
+// ---- Parent (Default theme) variable overrides
+@rem: 16px;
+@bg: @m-bg;
+@bg-shade: @m-bg-subtle;
+@bg-base: @m-bg;
+@text-bg-base: @m-ink;
+@bg-base-border-color: @m-rule;
+@bg-border-color: @m-rule;
+@primary: @m-accent;
+@primary-lift: @m-accent-ink;
+@text: @m-text;
+@text-light: @m-muted;
+@font: @m-font-body;
+@font-heading: @m-font-display;
+@font-site-title: @m-font-display;
+@bold: 600;
+@radius: 2px;
+@form-border: 1px solid @m-rule-strong;
+
+:root {
+	--m-bg: @m-bg;
+	--m-bg-subtle: @m-bg-subtle;
+	--m-ink: @m-ink;
+	--m-text: @m-text;
+	--m-muted: @m-muted;
+	--m-rule: @m-rule;
+	--m-rule-strong: @m-rule-strong;
+	--m-accent: @m-accent;
+	--m-accent-ink: @m-accent-ink;
+	--m-accent-tint: @m-accent-tint;
+	--m-font-display: @m-font-display;
+	--m-font-body: @m-font-body;
+	--m-font-ui: @m-font-ui;
+	--m-header-h: 64px;
+}
+
+// ---- Mixins
+.m-meta-type() {
+	font-family: @m-font-ui;
+	font-size: 0.6875rem;
+	line-height: 1.4;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.m-focus() {
+	outline: 2px solid @m-accent;
+	outline-offset: 2px;
+}
+
+.m-container() {
+	width: 100%;
+	max-width: @m-container + 2 * @m-gutter;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: @m-gutter;
+	padding-right: @m-gutter;
+
+	@media @m-mobile {
+		padding-left: @m-gutter-sm;
+		padding-right: @m-gutter-sm;
+	}
+}
+
+.m-link() {
+	color: @m-accent;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+	text-decoration-color: fade(@m-accent, 40%);
+
+	&:hover,
+	&:focus {
+		color: @m-accent-ink;
+		text-decoration-color: currentColor;
+	}
+}
+
+.m-quiet-link() {
+	color: inherit;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: @m-accent;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		text-decoration-thickness: 1px;
+	}
+}
