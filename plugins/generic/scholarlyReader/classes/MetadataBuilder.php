@@ -171,7 +171,11 @@ class MetadataBuilder
         if ($this->issue && ($cover = $this->issue->getLocalizedCoverImageUrl())) {
             $tags['og:image'] = $cover;
         }
-        $html = '';
+        $description = $this->plainAbstract();
+        if (mb_strlen($description) > 160) {
+            $description = rtrim(mb_substr($description, 0, 157), ' ,.;:') . '…';
+        }
+        $html = $description !== '' ? '<meta name="description" content="' . htmlspecialchars($description, ENT_QUOTES) . '">' . "\n" : '';
         foreach ($tags as $property => $content) {
             if ($content === '' || $content === null) {
                 continue;

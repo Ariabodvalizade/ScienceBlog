@@ -96,6 +96,8 @@ const plugins = [
   ['generic', 'staticpagesplugin'],
   ['generic', 'webfeedplugin'],
   ['generic', 'recommendbyauthorplugin'],
+  ['generic', 'jatstemplateplugin'],
+  ['oaiMetadataFormats', 'OAIMetadataFormatPlugin_JATS'],
 ];
 for (const [category, plugin] of plugins) {
   const res = await req(

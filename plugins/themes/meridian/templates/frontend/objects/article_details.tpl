@@ -260,7 +260,12 @@
 					<h2 class="m-section-title">{translate key="plugins.themes.meridian.license"}</h2>
 					<div class="m-license__body">
 						{if $publication->getData('licenseUrl')}
-							{if $ccLicenseBadge}
+							{if $meridianLicense}
+								{if $publication->getLocalizedData('copyrightHolder')}
+									<p>{translate key="submission.copyrightStatement" copyrightHolder=$publication->getLocalizedData('copyrightHolder') copyrightYear=$publication->getData('copyrightYear')}</p>
+								{/if}
+								<p class="m-license__badge"><a class="m-cc" href="{$meridianLicense.url|escape}" rel="license noopener" target="_blank">{$meridianLicense.label|escape}</a> {$ccLicenseBadge|strip_tags:false|regex_replace:"/^\s*Creative Commons License\s*/":""}</p>
+							{elseif $ccLicenseBadge}
 								{if $publication->getLocalizedData('copyrightHolder')}
 									<p>{translate key="submission.copyrightStatement" copyrightHolder=$publication->getLocalizedData('copyrightHolder') copyrightYear=$publication->getData('copyrightYear')}</p>
 								{/if}

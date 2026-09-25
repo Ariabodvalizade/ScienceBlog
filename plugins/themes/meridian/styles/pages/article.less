@@ -500,6 +500,22 @@
 		}
 	}
 
+	.m-cc {
+		display: inline-block;
+		margin-right: 0.5rem;
+		padding: 0.125rem 0.5rem;
+		border: 1px solid @m-ink;
+		.m-meta-type();
+		color: @m-ink;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			border-color: @m-accent;
+			color: @m-accent;
+		}
+	}
+
 	.m-license__body {
 		font-size: 0.9375rem;
 		color: @m-text;

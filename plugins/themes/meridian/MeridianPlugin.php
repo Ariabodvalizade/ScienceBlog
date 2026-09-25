@@ -73,19 +73,70 @@ class MeridianPlugin extends ThemePlugin
         $this->removeOption('typography');
         $this->removeStyle('font');
 
-        $this->addStyle('meridianFonts', 'styles/fonts.less');
-
-        // Compile Meridian's LESS together with the parent stylesheet so parent
-        // variables can be reused and overridden.
+        // Compile Meridian's fonts and LESS together with the parent stylesheet
+        // (one request; parent variables can be reused and overridden).
         $accent = $this->getAccentColour();
         $this->modifyStyle('stylesheet', [
-            'addLess' => ['styles/meridian.less'],
+            'addLess' => ['styles/fonts.less', 'styles/meridian.less'],
             'addLessVariables' => "@m-accent: {$accent};",
+        ]);
+
+        // The parent loads the Swiper carousel on every page; Meridian only needs
+        // it for home page highlights (see loadTemplateData). The parent's main.js
+        // always calls `new Swiper(...)`, so provide a no-op until it is loaded.
+        $this->removeStyle('swiper');
+        $this->removeScript('swiper');
+        $this->addScript('meridianSwiperStub', 'window.Swiper = window.Swiper || function () {};', [
+            'inline' => true,
+            'priority' => \APP\template\TemplateManager::STYLE_SEQUENCE_CORE,
         ]);
 
         $this->addScript('meridian', 'js/meridian.js');
 
+        // Preload the two faces used above the fold (title + body text)
+        $request = Application::get()->getRequest();
+        $fontBase = $request->getBaseUrl() . '/' . $this->getPluginPath() . '/fonts/';
+        foreach (['playfair-display-latin-400-normal.woff2', 'source-serif-4-latin-400-normal.woff2'] as $font) {
+            $this->addHeaderOnce('meridianPreload' . md5($font), '<link rel="preload" href="' . $fontBase . $font . '" as="font" type="font/woff2" crossorigin>');
+        }
+
         Hook::add('TemplateManager::display', $this->loadTemplateData(...));
+    }
+
+    /**
+     * Queue a <head> element for frontend pages.
+     */
+    protected function addHeaderOnce(string $name, string $html): void
+    {
+        $templateMgr = \APP\template\TemplateManager::getManager(Application::get()->getRequest());
+        $templateMgr->addHeader($name, $html, ['contexts' => 'frontend']);
+    }
+
+    /**
+     * Plain-text meta description (max ~160 characters).
+     */
+    public static function metaDescription(?string $html): string
+    {
+        $text = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags((string) $html), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        if (mb_strlen($text) > 160) {
+            $text = rtrim(mb_substr($text, 0, 157), " ,.;:") . '…';
+        }
+        return $text;
+    }
+
+    /**
+     * Creative Commons licence badge data from a licence URL (rendered locally,
+     * instead of the image OJS loads from an external server).
+     *
+     * @return ?array{label: string, url: string}
+     */
+    public static function licenseBadge(?string $url): ?array
+    {
+        if (!$url || !preg_match('#creativecommons\.org/(licenses|publicdomain)/([a-z-]+)/(\d\.\d)#i', $url, $m)) {
+            return null;
+        }
+        $label = strtolower($m[1]) === 'publicdomain' ? 'CC0 ' . $m[3] : 'CC ' . strtoupper($m[2]) . ' ' . $m[3];
+        return ['label' => $label, 'url' => $url];
     }
 
     /**
@@ -186,8 +237,31 @@ class MeridianPlugin extends ThemePlugin
             return Hook::CONTINUE;
         }
 
+        // Meta description for pages that don't get one from a plugin
+        $description = match ($template) {
+            'frontend/pages/indexJournal.tpl' => $context->getLocalizedData('description'),
+            'frontend/pages/issue.tpl' => ($issue = $templateMgr->getTemplateVars('issue')) && $issue->hasDescription()
+                ? $issue->getLocalizedDescription()
+                : $context->getLocalizedData('description'),
+            'frontend/pages/issueArchive.tpl' => $context->getLocalizedData('description'),
+            default => null,
+        };
+        if ($description && ($text = self::metaDescription($description))) {
+            $templateMgr->addHeader('meridianDescription', '<meta name="description" content="' . htmlspecialchars($text, ENT_QUOTES) . '">');
+        }
+
         switch ($template) {
             case 'frontend/pages/indexJournal.tpl':
+                $highlights = $templateMgr->getTemplateVars('highlights');
+                if ($highlights && $highlights->count()) {
+                    $min = \PKP\config\Config::getVar('general', 'enable_minified') ? '.min' : '';
+                    $swiperBase = $request->getBaseUrl() . '/plugins/themes/default/js/lib/swiper/swiper-bundle' . $min;
+                    $templateMgr->addStyleSheet('swiper', $swiperBase . '.css', ['contexts' => 'frontend']);
+                    $templateMgr->addJavaScript('swiper', $swiperBase . '.js', [
+                        'contexts' => 'frontend',
+                        'priority' => \APP\template\TemplateManager::STYLE_SEQUENCE_CORE,
+                    ]);
+                }
                 if ($this->isHomeSectionEnabled('latestArticles')) {
                     $templateMgr->assign('meridianLatestArticles', $this->summarize($this->getLatestArticles($context->getId(), 6)));
                 }
@@ -207,6 +281,7 @@ class MeridianPlugin extends ThemePlugin
                 $templateMgr->assign('meridianArchive', $this->getArchiveSummary($context->getId()));
                 $publication = $templateMgr->getTemplateVars('publication');
                 if ($publication) {
+                    $templateMgr->assign('meridianLicense', self::licenseBadge($publication->getData('licenseUrl')));
                     [$authors, $affiliations] = $this->getAuthorAffiliations($publication);
                     $templateMgr->assign([
                         'meridianAuthors' => $authors,

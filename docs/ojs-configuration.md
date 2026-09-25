@@ -153,7 +153,7 @@ This is the exact configuration to apply after installation. Paths refer to the 
 | Announcement Feed | enabled |
 | Usage Statistics | enabled (COUNTER R5; GeoIP off by default for privacy) |
 | Crossref | enabled (after credentials) |
-| OAI: DC, MARCXML, JATS | enabled |
+| OAI: DC, MARCXML, JATS | enabled (JATS also needs the *JATS Template* generic plugin) |
 | DOAJ export | enabled (for later metadata upload) |
 | Recommend Articles by Author / Similarity | enabled (feeds "Related articles") |
 | Google Analytics | off unless requested |
