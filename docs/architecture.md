@@ -119,6 +119,19 @@ Core/bundled plugins we **reuse instead of rebuilding**:
 | Theme integration | On article pages it assigns `$authorPageUrls` and `$authorPagePhotos` (keyed by contributor id); Meridian links names and shows photos |
 | SEO | schema.org `Person` JSON-LD on profiles; canonical URL includes the name slug |
 
+## 4c. Plugin "meridianAdmin" (generic, site-wide)
+
+| Feature | Mechanism |
+|---|---|
+| Brand colours in the backend | Hook `TemplateManager::setupBackendPage`. It swaps the PKP colours for `--ma-*` CSS variables in a copy of `styles/build.css` and of the compiled `pkp-lib` LESS. The copies are written to `public/site/meridianAdmin/`, registered under the core names (`build`, `pkpLib`), and regenerated when the source file changes (after an OJS upgrade or a cache clear). Using full copies instead of overrides keeps every core rule in its original order. |
+| Colour tokens | Inline `:root{--ma-*}`, derived from Meridian's `accentColour` theme option (default `#0f5c63`) |
+| Layout polish | `css/meridianAdmin.css`: header, side menus (`[data-pc-name=panelmenu]`), tabs, forms, and a stacked layout on phones |
+| Home page `/{journal}/workspace` | Hook `LoadHandler` → `WorkspaceHandler` (backend page, extends `layouts/backend.tpl`). Counts come from `Repo::submission()->getDashboardViews(…, true)`, the same source as the side-menu badges. |
+| Landing page | Bare `dashboard/editorial`, `dashboard/mySubmissions` and `submissions` URLs (used after login and by the site's *Dashboard* link) redirect to Home. Menu links carry `currentViewId`, so they are not redirected. |
+| Menu | Hook `TemplateManager::display` adds *Home* first and renames *Editor Dashboard* to *Submissions* in the `menu` state |
+| Header | Hook `Template::Layout::Backend::HeaderActions` adds *View website* |
+| Activation | `lazy-load 0` + `sitewide 1` in `version.xml`, and `getEnabled()` defaults to on. The deploy scripts register it with `lib/pkp/tools/installPluginVersion.php`. A site administrator can turn it off in *Administration › Site Settings › Plugins*. |
+
 ## 5. Scheduled tasks and jobs
 
 OJS 3.5 replaced `runScheduledTasks.php` with `lib/pkp/tools/scheduler.php`, and added a job queue. In production:

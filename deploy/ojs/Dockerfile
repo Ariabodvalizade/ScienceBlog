@@ -1,4 +1,4 @@
-# OJS image for the journal: official PKP image + our theme and plugin.
+# OJS image for the journal: official PKP image + our theme and plugins.
 # Build context is the repository root (see docker-compose files).
 ARG OJS_VERSION=3_5_0-5
 FROM pkpofficial/ojs:${OJS_VERSION}
@@ -14,6 +14,7 @@ RUN chmod 0755 /usr/local/bin/journal-entrypoint
 COPY --chown=www-data:www-data plugins/themes/meridian /var/www/html/plugins/themes/meridian
 COPY --chown=www-data:www-data plugins/generic/scholarlyReader /var/www/html/plugins/generic/scholarlyReader
 COPY --chown=www-data:www-data plugins/generic/authorPages /var/www/html/plugins/generic/authorPages
+COPY --chown=www-data:www-data plugins/generic/meridianAdmin /var/www/html/plugins/generic/meridianAdmin
 
 USER www-data
 

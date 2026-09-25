@@ -3,13 +3,14 @@
 //
 //   NODE_PATH=$(npm root -g) node dev/seed/build.mjs
 //
-// Output: dev/out/demo-issues.xml (+ the generated files, embedded as base64)
+// Output: dev/out/demo-issues.xml and dev/out/demo-inprogress.xml (+ the
+// generated files, embedded as base64)
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
-import { issues, journal, refs, sections } from './content.mjs';
+import { inProgress, issues, journal, refs, sections } from './content.mjs';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
@@ -230,6 +231,48 @@ for (const issue of issues) {
   </issue>`;
 }
 
+// Manuscripts still in the workflow: a submitted PDF each, no issue
+let inProgressXml = '';
+for (const [i, m] of inProgress.entries()) {
+  const id = 101 + i;
+  await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>${pdfCss} h1{font-size:18pt}</style></head><body>
+    <div class="masthead"><span>Manuscript submitted to ${esc(journal.name)}</span><span>${esc(m.dateSubmitted)}</span></div>
+    <h1>${esc(m.title)}</h1>
+    <div class="abstract"><strong>Abstract</strong>${m.abstract}</div>
+    <div class="kw"><strong>Keywords:</strong> ${esc(m.keywords.join('; '))}</div>
+    <div class="cols">${filler(m.keywords[0])}</div>
+    <div class="note">Demo manuscript — fictional content generated for website design review. Author details removed for anonymous review.</div>
+  </body></html>`);
+  const pdf = await page.pdf({ format: 'A4', printBackground: true });
+  const authorsXml = m.authors.map((a, j) => `
+            <author include_in_browse="true" user_group_ref="Author" seq="${j}" id="${id * 10 + j}"${j === 0 ? ' primary_contact="true"' : ''}>
+              <givenname locale="en">${esc(a.given)}</givenname>
+              <familyname locale="en">${esc(a.family)}</familyname>
+              <affiliation><name locale="en">${esc(a.affiliation)}</name></affiliation>
+              <country>${a.country}</country>
+              <email>${a.given.toLowerCase()}.${a.family.toLowerCase()}@example.org</email>
+            </author>`).join('');
+  inProgressXml += `
+  <article locale="en" date_submitted="${m.dateSubmitted}" status="1" submission_progress="" current_publication_id="${id}" stage="${m.stage}">
+    <id type="internal" advice="ignore">${id}</id>
+    <submission_file id="${fileId}" file_id="${fileId}" stage="submission" genre="Article Text" uploader="admin" created_at="${m.dateSubmitted}" updated_at="${m.dateSubmitted}" viewable="false">
+      <name locale="en">manuscript-${id}.pdf</name>
+      <file id="${fileId}" filesize="${pdf.length}" extension="pdf">
+        <embed encoding="base64">${b64(pdf)}</embed>
+      </file>
+    </submission_file>
+    <publication version="1" status="1" seq="0" section_ref="${m.section}" access_status="0">
+      <id type="internal" advice="ignore">${id}</id>
+      <title locale="en">${esc(m.title)}</title>
+      <abstract locale="en">${cdata(m.abstract)}</abstract>
+      <keywords locale="en">${m.keywords.map((k) => `<keyword><name>${esc(k)}</name></keyword>`).join('')}</keywords>
+      <authors>${authorsXml}
+      </authors>
+    </publication>
+  </article>`;
+  fileId++;
+}
+
 // Illustrative author avatar (not a real person) for the author-page demo
 await page.setViewportSize({ width: 150, height: 150 });
 await page.setContent(`<!doctype html><html><body style="margin:0"><svg width="150" height="150" viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg">
@@ -247,4 +290,9 @@ const xml = `<?xml version="1.0" encoding="utf-8"?>
 </issues>
 `;
 writeFileSync(join(OUT, 'demo-issues.xml'), xml);
+writeFileSync(join(OUT, 'demo-inprogress.xml'), `<?xml version="1.0" encoding="utf-8"?>
+<articles xmlns="http://pkp.sfu.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pkp.sfu.ca native.xsd">${inProgressXml}
+</articles>
+`);
 console.log(`✓ Wrote ${join(OUT, 'demo-issues.xml')} (${(xml.length / 1024).toFixed(0)} KB, ${articleCounter} articles)`);
+console.log(`✓ Wrote ${join(OUT, 'demo-inprogress.xml')} (${inProgress.length} manuscripts in the workflow)`);

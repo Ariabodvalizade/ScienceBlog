@@ -14,5 +14,6 @@ compose run --rm --no-deps ojs php tools/upgrade.php check
 compose run --rm --no-deps ojs php tools/upgrade.php upgrade
 
 compose up -d
+register_plugins
 "$DEPLOY_DIR/scripts/clear-cache.sh"
 ok "Upgrade complete. Run the smoke test in docs/deployment-vps.md."

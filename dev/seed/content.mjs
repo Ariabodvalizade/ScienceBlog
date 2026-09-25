@@ -197,6 +197,62 @@ export const issues = [
 ];
 
 // Fictional editorial board (dev/demo only). Group names are OJS defaults.
+// Manuscripts still in the editorial workflow (not published), so the admin
+// panel's Home page, pipeline and Submissions lists show realistic work.
+// `stage`: submission | editorial (copyediting) | production.
+// `editor`: a board member assigned as editor (username), if any.
+export const inProgress = [
+  {
+    section: 'ART',
+    stage: 'submission',
+    dateSubmitted: '2026-09-22',
+    title: 'Early detection of lameness in dairy cows from accelerometer data: a machine-learning approach',
+    authors: [
+      { given: 'Sarah', family: 'Mitchell', affiliation: 'Department of Animal Science, Northfield University', country: 'GB' },
+      { given: 'Thomas', family: 'Walker', affiliation: 'School of Computing, Eastbrook College', country: 'GB' },
+    ],
+    keywords: ['lameness', 'dairy cow', 'accelerometer', 'machine learning', 'precision livestock farming'],
+    abstract: '<p>Lameness is among the most costly welfare problems in dairy herds, yet it is often detected late. We trained gradient-boosted models on leg-mounted accelerometer data from 212 Holstein cows and compared their predictions with weekly locomotion scores. The best model identified lame cows a median of 4 days before visual scoring, with a sensitivity of 0.84 and a specificity of 0.91.</p>',
+  },
+  {
+    section: 'SC',
+    stage: 'submission',
+    dateSubmitted: '2026-09-18',
+    title: 'Dietary seaweed supplementation and enteric methane emissions in grazing sheep',
+    authors: [
+      { given: 'Oliver', family: 'Reed', affiliation: 'Centre for Sustainable Livestock, Westmoor University', country: 'GB' },
+      { given: 'Hannah', family: 'Brooks', affiliation: 'Department of Animal Nutrition, Lakeside Agricultural College', country: 'CA' },
+    ],
+    keywords: ['methane', 'sheep', 'seaweed', 'Asparagopsis', 'grazing'],
+    abstract: '<p>We measured enteric methane in 48 grazing ewes receiving 0%, 0.5% or 1% dietary <em>Asparagopsis</em> for 60 days. Methane yield fell by 31% at the highest inclusion rate without affecting live weight gain.</p>',
+  },
+  {
+    section: 'ART',
+    stage: 'editorial',
+    dateSubmitted: '2026-06-30',
+    editor: 'margaret.ellison',
+    title: 'Seroprevalence of Toxoplasma gondii in free-range backyard chickens and associated household risk factors',
+    authors: [
+      { given: 'Natalie', family: 'Foster', affiliation: 'Department of Microbiology, Northfield University', country: 'US' },
+      { given: 'Robert', family: 'Hayes', affiliation: 'State Veterinary Diagnostic Laboratory', country: 'US' },
+    ],
+    keywords: ['Toxoplasma gondii', 'chickens', 'seroprevalence', 'One Health'],
+    abstract: '<p>Free-range chickens are sentinels for environmental contamination with <em>Toxoplasma gondii</em> oocysts. Of 540 chickens from 96 households, 18.3% were seropositive by modified agglutination test. Cat ownership and a soil floor in the coop were associated with seropositivity.</p>',
+  },
+  {
+    section: 'CR',
+    stage: 'production',
+    dateSubmitted: '2026-05-12',
+    editor: 'margaret.ellison',
+    title: 'Surgical management of a congenital portosystemic shunt in a young alpaca',
+    authors: [
+      { given: 'Claire', family: 'Donovan', affiliation: 'Riverside Veterinary School', country: 'IE' },
+    ],
+    keywords: ['alpaca', 'portosystemic shunt', 'camelid surgery', 'case report'],
+    abstract: '<p>A 4-month-old alpaca presented with ill thrift and neurological signs. Computed tomography confirmed a single extrahepatic shunt, which was attenuated with an ameroid constrictor. The cria was clinically normal 6 months after surgery.</p>',
+  },
+];
+
 export const board = [
   { given: 'Margaret', family: 'Ellison', group: 'Journal editor', affiliation: 'Faculty of Veterinary Medicine, Northfield University', country: 'GB', bio: 'Professor of veterinary epidemiology.' },
   { given: 'James', family: 'O’Connor', group: 'Section editor', affiliation: 'School of Agriculture and Food Science, Eastbrook College', country: 'IE' },

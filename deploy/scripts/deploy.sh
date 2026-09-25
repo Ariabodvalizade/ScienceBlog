@@ -7,5 +7,6 @@ git -C "$DEPLOY_DIR/.." pull --ff-only
 
 info "Rebuilding and restarting"
 compose up -d --build ojs worker scheduler web
+register_plugins
 "$DEPLOY_DIR/scripts/clear-cache.sh"
 ok "Deployed $(git -C "$DEPLOY_DIR/.." rev-parse --short HEAD)"

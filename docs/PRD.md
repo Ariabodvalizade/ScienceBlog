@@ -188,10 +188,22 @@ Each item maps 1:1 to the contract. Priority: **P0** is needed for launch, **P1*
   - schema.org `Person` metadata on each profile
 - **Admin panel** (standard OJS backend for Journal Managers and Editors): issues, submissions and workflow, users and
   roles, e-mail templates, navigation menus, static pages, plugins, statistics, DOIs. Covered by `docs/admin-guide.md`.
+- **Simpler, branded admin panel** (`meridianAdmin` plugin, added at client request):
+  - the backend uses the journal's colours and typefaces, with a calmer menu, tabs, forms and buttons
+  - a **Home** page is the first menu item and the landing page after login. What it shows depends on the person:
+    - editors see what needs attention (new submissions, decisions due, revisions, overdue reviews), the publishing
+      pipeline with a count per stage, recent submissions, the current issue and shortcuts
+    - authors see their submissions with plain-language statuses, a *New submission* button, and a public-profile
+      checklist (photo, biography, affiliation, ORCID, website) that links to their author page
+    - reviewers see their pending review requests
+  - a *View website* button in the header
+  - it works on phones: the menu moves above the page
+  - it does not change OJS core, and it follows OJS updates automatically
 - **Acceptance:**
   - an author uploads a photo in their profile, and it appears on their author page and article pages
   - every published author has a working page
   - an author's page lists all of their articles
+  - after login, editors and authors land on Home, and every count there matches the Submissions list it links to
 
 ### F18 — SSL and basic security (P0)
 - Let's Encrypt TLS with automatic renewal, HTTP → HTTPS redirect, HSTS, security headers, and `force_ssl`.

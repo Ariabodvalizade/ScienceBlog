@@ -20,6 +20,28 @@ backend and the features specific to this website. Server tasks are covered in [
 3. In *Profile › Public* they can upload a **profile photo** (cropped to 150×150 px) and add a **bio** and a
    **homepage URL**. These appear on their public author page (§6).
 
+### The Home page
+
+Everyone who logs in lands on **Home** (the first item in the left menu, `/[journal]/workspace`). Every number on it
+is a link to the matching list.
+
+- **Editors and managers** see:
+  - **Needs your attention:** new submissions without an editor, submissions ready for a decision, revisions
+    received, overdue reviews
+  - **Publishing pipeline:** how many submissions are in each stage, from Submission to Published
+  - recent submissions with their status, the current issue, and shortcuts to common tasks (create an issue, post an
+    announcement, website settings, users, statistics)
+- **Authors** see:
+  - their submissions with a plain status (Draft, Submitted, In review, Copyediting, Production, Published, Declined).
+    Drafts open the submission form so they can finish it.
+  - a **New submission** button
+  - a checklist for their public profile (photo, biography, affiliation, ORCID, website) with a link to their author
+    page
+- **Reviewers** see a banner when review requests are waiting.
+
+The admin panel uses the journal's accent colour (theme option, §7), and *View website* in the header opens the public
+site. On a phone, the menu sits above the page.
+
 > Authors **submit**; editors **publish**. An article appears on the website only after peer review and after an editor
 > schedules it into an issue. Indexing services require this peer-review step.
 

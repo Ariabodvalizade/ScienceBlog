@@ -15,6 +15,9 @@ node "$HERE/seed/sql.mjs" "$BASE_URL"
 echo "→ Importing demo issues (native XML)"
 "${COMPOSE[@]}" cp "$HERE/out/demo-issues.xml" ojs:/tmp/demo-issues.xml
 "${COMPOSE[@]}" exec -T ojs php tools/importExport.php NativeImportExportPlugin import /tmp/demo-issues.xml djas admin 2>&1 | grep -v "PHP Notice"
+echo "→ Importing manuscripts still in the workflow"
+"${COMPOSE[@]}" cp "$HERE/out/demo-inprogress.xml" ojs:/tmp/demo-inprogress.xml
+"${COMPOSE[@]}" exec -T ojs php tools/importExport.php NativeImportExportPlugin import /tmp/demo-inprogress.xml djas admin 2>&1 | grep -v "PHP Notice"
 # The default "Articles" section (abbrev ART) is reused by the import; rename it.
 "${COMPOSE[@]}" exec -T db mariadb -uojs -pojs-dev-password ojs -e \
   "UPDATE section_settings ss JOIN section_settings a ON a.section_id = ss.section_id AND a.setting_name = 'abbrev' AND a.setting_value = 'ART'

@@ -3,7 +3,7 @@
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { board, staticPages } from './content.mjs';
+import { board, inProgress, staticPages } from './content.mjs';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'out', 'demo.sql');
 const q = (s) => `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "''")}'`;
@@ -23,15 +23,40 @@ board.forEach((m, i) => {
 });
 
 // A registered author account with a profile photo (matches the demo author
-// Sarah Mitchell by e-mail) to demonstrate author pages.
+// Sarah Mitchell by e-mail) to demonstrate author pages and the author panel.
+// Demo login: sarah.mitchell / author-demo-Password1 (bcrypt hash below).
 lines.push(
   'DELETE FROM user_user_groups WHERE user_id = 201;',
   'DELETE FROM user_settings WHERE user_id = 201;',
   'DELETE FROM users WHERE user_id = 201;',
-  "INSERT INTO users (user_id, username, password, email, url, country, locales, date_registered, date_validated, disabled, inline_help) VALUES (201, 'sarah.mitchell', '!disabled-demo-account', 'sarah.mitchell@example.org', 'https://example.org/~mitchell', 'GB', '[]', NOW(), NOW(), 0, 1);",
+  "INSERT INTO users (user_id, username, password, email, url, country, locales, date_registered, date_validated, disabled, inline_help) VALUES (201, 'sarah.mitchell', '$2y$10$3JRxr21Ax.2XAcCPOoPTpOBdVNZAYKtRqemwwHg1GP10gwoRD0xDW', 'sarah.mitchell@example.org', 'https://example.org/~mitchell', 'GB', '[]', NOW(), NOW(), 0, 1);",
   `INSERT INTO user_settings (user_id, locale, setting_name, setting_value) VALUES (201, 'en', 'givenName', 'Sarah'), (201, 'en', 'familyName', 'Mitchell'), (201, 'en', 'affiliation', 'Department of Animal Science, Northfield University'), (201, '', 'profileImage', ${q(JSON.stringify({ name: 'photo.png', uploadName: 'profileImage-201.png', width: 150, height: 150, dateUploaded: '2026-06-01 10:00:00' }))});`,
   "INSERT INTO user_user_groups (user_group_id, user_id, masthead) SELECT ug.user_group_id, 201, 0 FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = 'Author' LIMIT 1;",
 );
+
+// Sarah sees her own articles (published and in progress) in My Submissions
+const groupId = (name) => `(SELECT ug.user_group_id FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = ${q(name)} LIMIT 1)`;
+lines.push(
+  'DELETE FROM stage_assignments WHERE user_id = 201;',
+  `INSERT INTO stage_assignments (submission_id, user_group_id, user_id, date_assigned, recommend_only, can_change_metadata)
+   SELECT DISTINCT p.submission_id, ${groupId('Author')}, 201, NOW(), 0, 1
+   FROM authors a JOIN publications p ON p.publication_id = a.publication_id JOIN submissions s ON s.submission_id = p.submission_id
+   WHERE a.email = 'sarah.mitchell@example.org' AND s.context_id = @ctx;`,
+);
+
+// Editors assigned to the manuscripts further along the workflow
+inProgress.filter((m) => m.editor).forEach((m) => {
+  lines.push(
+    `INSERT INTO stage_assignments (submission_id, user_group_id, user_id, date_assigned, recommend_only, can_change_metadata)
+     SELECT p.submission_id, ${groupId('Journal editor')}, u.user_id, NOW(), 0, 1
+     FROM publication_settings ps JOIN publications p ON p.publication_id = ps.publication_id JOIN users u ON u.username = ${q(m.editor)}
+     WHERE ps.setting_name = 'title' AND ps.setting_value = ${q(m.title)}
+       AND NOT EXISTS (SELECT 1 FROM stage_assignments sa WHERE sa.submission_id = p.submission_id AND sa.user_id = u.user_id);`,
+  );
+});
+
+// "Plugin enabled" messages left over from seeding would greet the first login
+lines.push('DELETE FROM notifications WHERE level = 1;');
 
 staticPages.forEach((p) => {
   lines.push(

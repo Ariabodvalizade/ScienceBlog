@@ -45,5 +45,11 @@ set_env OJS_INSTALLED On
 
 info "Restarting with installed = On"
 compose up -d
+for _ in $(seq 1 30); do
+  compose exec -T ojs test -f config.inc.php 2>/dev/null && break
+  sleep 2
+done
+info "Registering the theme and plugins"
+register_plugins
 ok "OJS installed. Log in at $url/index/login as ${OJS_ADMIN_USER:-admin}."
 echo "Now remove OJS_ADMIN_PASSWORD from .env and follow docs/ojs-configuration.md."

@@ -42,6 +42,8 @@ cat <<INFO
 
   Website        $URL
   Admin login    http://localhost:8080/index/login   user: admin   password: admin-dev-Password1
+  Author login   http://localhost:8080/djas/login    user: sarah.mitchell   password: author-demo-Password1
+  Guide (fa)     local-demo/guide-fa.html
   Emails (test)  http://localhost:8025
 
   Stop:   ./stop.sh      Reset to the original demo:   ./reset.sh

@@ -1,0 +1,278 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "plugins.generic.meridianAdmin.displayName"
+msgstr "Meridian Admin"
+
+msgid "plugins.generic.meridianAdmin.description"
+msgstr "A cleaner admin panel in the journal's colours, with a Home page for editors and authors."
+
+msgid "plugins.generic.meridianAdmin.menu.home"
+msgstr "Home"
+
+msgid "plugins.generic.meridianAdmin.menu.submissions"
+msgstr "Submissions"
+
+msgid "plugins.generic.meridianAdmin.viewSite"
+msgstr "View website"
+
+msgid "plugins.generic.meridianAdmin.greeting.morning"
+msgstr "Good morning, {$name}"
+
+msgid "plugins.generic.meridianAdmin.greeting.afternoon"
+msgstr "Good afternoon, {$name}"
+
+msgid "plugins.generic.meridianAdmin.greeting.evening"
+msgstr "Good evening, {$name}"
+
+msgid "plugins.generic.meridianAdmin.lead.editor"
+msgstr "Here is what is happening at {$journal} today."
+
+msgid "plugins.generic.meridianAdmin.lead.author"
+msgstr "Welcome to your author area at {$journal}. Submit a manuscript, follow its progress and keep your public profile up to date."
+
+msgid "plugins.generic.meridianAdmin.updated"
+msgstr "updated {$date}"
+
+msgid "plugins.generic.meridianAdmin.attention.title"
+msgstr "Needs your attention"
+
+msgid "plugins.generic.meridianAdmin.attention.new"
+msgstr "New submissions"
+
+msgid "plugins.generic.meridianAdmin.attention.new.hint"
+msgstr "Waiting for an editor to be assigned"
+
+msgid "plugins.generic.meridianAdmin.attention.decide"
+msgstr "Ready for a decision"
+
+msgid "plugins.generic.meridianAdmin.attention.decide.hint"
+msgstr "Reviews are in: accept, revise or decline"
+
+msgid "plugins.generic.meridianAdmin.attention.revisions"
+msgstr "Revisions received"
+
+msgid "plugins.generic.meridianAdmin.attention.revisions.hint"
+msgstr "Authors have sent revised files"
+
+msgid "plugins.generic.meridianAdmin.attention.overdue"
+msgstr "Overdue reviews"
+
+msgid "plugins.generic.meridianAdmin.attention.overdue.hint"
+msgstr "Reviewers are past their due date"
+
+msgid "plugins.generic.meridianAdmin.attention.assigned"
+msgstr "Assigned to me"
+
+msgid "plugins.generic.meridianAdmin.attention.assigned.hint"
+msgstr "Active submissions you are working on"
+
+msgid "plugins.generic.meridianAdmin.pipeline.title"
+msgstr "Publishing pipeline"
+
+msgid "plugins.generic.meridianAdmin.pipeline.note"
+msgstr "Every article moves through these steps. Select a step to see the submissions in it."
+
+msgid "plugins.generic.meridianAdmin.stage.submission"
+msgstr "Submission"
+
+msgid "plugins.generic.meridianAdmin.stage.submission.hint"
+msgstr "Editor checks scope and format"
+
+msgid "plugins.generic.meridianAdmin.stage.review"
+msgstr "Peer review"
+
+msgid "plugins.generic.meridianAdmin.stage.review.hint"
+msgstr "Anonymous reviewers assess it"
+
+msgid "plugins.generic.meridianAdmin.stage.copyediting"
+msgstr "Copyediting"
+
+msgid "plugins.generic.meridianAdmin.stage.copyediting.hint"
+msgstr "Language and style are polished"
+
+msgid "plugins.generic.meridianAdmin.stage.production"
+msgstr "Production"
+
+msgid "plugins.generic.meridianAdmin.stage.production.hint"
+msgstr "PDF and HTML galleys are prepared"
+
+msgid "plugins.generic.meridianAdmin.stage.scheduled"
+msgstr "Scheduled"
+
+msgid "plugins.generic.meridianAdmin.stage.scheduled.hint"
+msgstr "Placed in an upcoming issue"
+
+msgid "plugins.generic.meridianAdmin.stage.published"
+msgstr "Published"
+
+msgid "plugins.generic.meridianAdmin.stage.published.hint"
+msgstr "Live on the website"
+
+msgid "plugins.generic.meridianAdmin.recent.title"
+msgstr "Recent submissions"
+
+msgid "plugins.generic.meridianAdmin.recent.all"
+msgstr "All active submissions"
+
+msgid "plugins.generic.meridianAdmin.recent.empty"
+msgstr "No active submissions right now. New manuscripts appear here as soon as authors send them."
+
+msgid "plugins.generic.meridianAdmin.issue.title"
+msgstr "Current issue"
+
+msgid "plugins.generic.meridianAdmin.issue.none"
+msgstr "No issue has been published yet."
+
+msgid "plugins.generic.meridianAdmin.issue.articles"
+msgid_plural "plugins.generic.meridianAdmin.issue.articles"
+msgstr[0] "{$number} article"
+msgstr[1] "{$number} articles"
+
+msgid "plugins.generic.meridianAdmin.issue.future"
+msgid_plural "plugins.generic.meridianAdmin.issue.future"
+msgstr[0] "{$number} upcoming issue in preparation"
+msgstr[1] "{$number} upcoming issues in preparation"
+
+msgid "plugins.generic.meridianAdmin.issue.view"
+msgstr "View on website"
+
+msgid "plugins.generic.meridianAdmin.issue.manage"
+msgstr "Manage issues"
+
+msgid "plugins.generic.meridianAdmin.actions.title"
+msgstr "Shortcuts"
+
+msgid "plugins.generic.meridianAdmin.action.submit"
+msgstr "New submission"
+
+msgid "plugins.generic.meridianAdmin.action.issues"
+msgstr "Create or publish an issue"
+
+msgid "plugins.generic.meridianAdmin.action.announce"
+msgstr "Post an announcement"
+
+msgid "plugins.generic.meridianAdmin.action.website"
+msgstr "Website look and menus"
+
+msgid "plugins.generic.meridianAdmin.action.users"
+msgstr "Users and roles"
+
+msgid "plugins.generic.meridianAdmin.action.stats"
+msgstr "Article statistics"
+
+msgid "plugins.generic.meridianAdmin.review.banner"
+msgid_plural "plugins.generic.meridianAdmin.review.banner"
+msgstr[0] "You have {$number} review request waiting for you."
+msgstr[1] "You have {$number} review requests waiting for you."
+
+msgid "plugins.generic.meridianAdmin.review.open"
+msgstr "Open reviews"
+
+msgid "plugins.generic.meridianAdmin.mine.title"
+msgstr "Your submissions"
+
+msgid "plugins.generic.meridianAdmin.mine.all"
+msgstr "Open My Submissions"
+
+msgid "plugins.generic.meridianAdmin.mine.empty"
+msgstr "You haven't submitted a manuscript yet."
+
+msgid "plugins.generic.meridianAdmin.mine.emptyHint"
+msgstr "Submitting takes about 15 minutes. You can save your progress and finish later."
+
+msgid "plugins.generic.meridianAdmin.mine.guidelines"
+msgstr "Read the author guidelines"
+
+msgid "plugins.generic.meridianAdmin.journey.title"
+msgstr "How publishing works"
+
+msgid "plugins.generic.meridianAdmin.journey.submit"
+msgstr "Submit"
+
+msgid "plugins.generic.meridianAdmin.journey.submit.hint"
+msgstr "Upload your manuscript and details"
+
+msgid "plugins.generic.meridianAdmin.journey.review"
+msgstr "Peer review"
+
+msgid "plugins.generic.meridianAdmin.journey.review.hint"
+msgstr "Experts review it anonymously"
+
+msgid "plugins.generic.meridianAdmin.journey.revise"
+msgstr "Revise"
+
+msgid "plugins.generic.meridianAdmin.journey.revise.hint"
+msgstr "Answer the reviewers' comments"
+
+msgid "plugins.generic.meridianAdmin.journey.publish"
+msgstr "Published"
+
+msgid "plugins.generic.meridianAdmin.journey.publish.hint"
+msgstr "Your article goes live with a DOI"
+
+msgid "plugins.generic.meridianAdmin.profile.title"
+msgstr "Your public profile"
+
+msgid "plugins.generic.meridianAdmin.profile.progress"
+msgstr "{$done} of {$total} complete"
+
+msgid "plugins.generic.meridianAdmin.profile.photo"
+msgstr "Profile photo"
+
+msgid "plugins.generic.meridianAdmin.profile.bio"
+msgstr "Short biography"
+
+msgid "plugins.generic.meridianAdmin.profile.affiliation"
+msgstr "Affiliation"
+
+msgid "plugins.generic.meridianAdmin.profile.orcid"
+msgstr "ORCID iD"
+
+msgid "plugins.generic.meridianAdmin.profile.url"
+msgstr "Personal website"
+
+msgid "plugins.generic.meridianAdmin.profile.done"
+msgstr "(done)"
+
+msgid "plugins.generic.meridianAdmin.profile.missing"
+msgstr "(missing)"
+
+msgid "plugins.generic.meridianAdmin.profile.note"
+msgstr "Your photo, biography and links appear on your author page and next to your published articles."
+
+msgid "plugins.generic.meridianAdmin.profile.edit"
+msgstr "Edit public profile"
+
+msgid "plugins.generic.meridianAdmin.profile.page"
+msgstr "View your author page"
+
+msgid "plugins.generic.meridianAdmin.status.draft"
+msgstr "Draft"
+
+msgid "plugins.generic.meridianAdmin.status.submission"
+msgstr "Submitted"
+
+msgid "plugins.generic.meridianAdmin.status.review"
+msgstr "In review"
+
+msgid "plugins.generic.meridianAdmin.status.copyediting"
+msgstr "Copyediting"
+
+msgid "plugins.generic.meridianAdmin.status.production"
+msgstr "Production"
+
+msgid "plugins.generic.meridianAdmin.status.scheduled"
+msgstr "Scheduled"
+
+msgid "plugins.generic.meridianAdmin.status.published"
+msgstr "Published"
+
+msgid "plugins.generic.meridianAdmin.status.declined"
+msgstr "Declined"

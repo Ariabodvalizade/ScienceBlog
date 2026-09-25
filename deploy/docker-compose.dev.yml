@@ -1,7 +1,7 @@
 # Local development stack.
 #   docker compose -f docker-compose.dev.yml up -d --build
 #   → OJS on http://localhost:8080, Mailpit (caught emails) on http://localhost:8025
-# The theme and plugin are bind-mounted, so template/LESS edits apply on reload
+# The theme and plugins are bind-mounted, so template/LESS edits apply on reload
 # (clear the template/CSS cache from Administration if needed).
 name: journal-dev
 
@@ -56,6 +56,7 @@ services:
       - ../plugins/themes/meridian:/var/www/html/plugins/themes/meridian
       - ../plugins/generic/scholarlyReader:/var/www/html/plugins/generic/scholarlyReader
       - ../plugins/generic/authorPages:/var/www/html/plugins/generic/authorPages
+      - ../plugins/generic/meridianAdmin:/var/www/html/plugins/generic/meridianAdmin
 
   mailpit:
     image: axllent/mailpit:latest

@@ -44,5 +44,7 @@ Write-Host ''
 Write-Host 'The demo journal is running'
 Write-Host "  Website        $Url"
 Write-Host '  Admin login    http://localhost:8080/index/login   user: admin   password: admin-dev-Password1'
+Write-Host '  Author login   http://localhost:8080/djas/login    user: sarah.mitchell   password: author-demo-Password1'
+Write-Host '  Guide (fa)     local-demo\guide-fa.html'
 Write-Host '  Emails (test)  http://localhost:8025'
 Write-Host '  Stop: .\stop.ps1     Reset to the original demo: .\reset.ps1'

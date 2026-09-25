@@ -34,3 +34,14 @@ set_env() {
 info() { printf '\033[1m→ %s\033[0m\n' "$*"; }
 ok() { printf '\033[32m✓ %s\033[0m\n' "$*"; }
 die() { printf '\033[31m✗ %s\033[0m\n' "$*" >&2; exit 1; }
+
+# Register (or upgrade) this project's theme and plugins in the OJS database, so
+# new plugins such as Meridian Admin are active without a visit to the plugin
+# settings. Safe to run repeatedly. Needs a running, installed OJS container.
+register_plugins() {
+  local d
+  for d in themes/meridian generic/scholarlyReader generic/authorPages generic/meridianAdmin; do
+    compose exec -T ojs php lib/pkp/tools/installPluginVersion.php "plugins/$d/version.xml" >/dev/null 2>&1 \
+      || printf '  ! could not register plugins/%s\n' "$d"
+  done
+}

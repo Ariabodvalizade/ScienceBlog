@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+<!--
+  * plugins/generic/meridianAdmin/version.xml
+  *
+  * A cleaner, branded admin panel with a role-aware Home page.
+  -->
+<version>
+	<application>meridianAdmin</application>
+	<type>plugins.generic</type>
+	<release>1.0.0.0</release>
+	<date>2026-09-25</date>
+	<lazy-load>0</lazy-load>
+	<sitewide>1</sitewide>
+	<class>MeridianAdminPlugin</class>
+</version>

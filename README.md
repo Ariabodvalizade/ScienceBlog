@@ -8,9 +8,14 @@ A modern, responsive academic journal website built on **Open Journal Systems 3.
   with clickable citations, and JSON-LD/OpenGraph metadata.
 - **authorPages**, a generic plugin (`plugins/generic/authorPages`): an author directory and a public page per author
   with photo, affiliation, ORCID, biography and articles.
+- **meridianAdmin**, a generic plugin (`plugins/generic/meridianAdmin`): a simpler, branded admin panel. It adds a
+  Home page for editors (what needs attention, the publishing pipeline, the current issue) and for authors (their
+  submissions and a profile checklist), and works on phones.
 - A **Docker deployment kit** (`deploy/`): nginx + Let's Encrypt, OJS, MariaDB, a job worker and scheduler, and backups.
 
 OJS core is never modified. Everything here is a plugin or deployment configuration.
+
+A Persian how-to guide for the whole site is in [local-demo/guide-fa.html](local-demo/guide-fa.html).
 
 ## Documentation
 

@@ -13,7 +13,7 @@ COMPOSE=(docker compose -f "$DEPLOY/docker-compose.dev.yml" --env-file "$DEPLOY/
 mkdir -p "$OUT"
 
 echo "→ Database"
-"${COMPOSE[@]}" exec -T db sh -c 'exec mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" --single-transaction --skip-dump-date --routines --triggers "$MARIADB_DATABASE"' \
+"${COMPOSE[@]}" exec -T db sh -c 'exec mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" --single-transaction --skip-dump-date --routines --triggers --ignore-table-data="$MARIADB_DATABASE.sessions" "$MARIADB_DATABASE"' \
   | gzip -9n > "$OUT/db.sql.gz"
 
 echo "→ Uploaded files and public files"
