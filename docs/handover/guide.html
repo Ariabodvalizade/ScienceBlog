@@ -546,7 +546,7 @@ tr { break-inside: avoid; }
 		<li><a href="#ch8"><span class="num">08</span><span class="title">Authors and the author area<small>Registration, submission and author pages</small></span><span class="page" data-page="ch8"></span></a></li>
 		<li><a href="#ch9"><span class="num">09</span><span class="title">Users, roles and the editorial team<small>Inviting people and showing the board</small></span><span class="page" data-page="ch9"></span></a></li>
 		<li><a href="#ch10"><span class="num">10</span><span class="title">Website settings<small>Look, menus, pages, announcements and emails</small></span><span class="page" data-page="ch10"></span></a></li>
-		<li><a href="#ch11"><span class="num">11</span><span class="title">DOIs and statistics<small>Identifiers and readership numbers</small></span><span class="page" data-page="ch11"></span></a></li>
+		<li><a href="#ch11"><span class="num">11</span><span class="title">DOIs, statistics and readership<small>Identifiers, readers by country, live visitors</small></span><span class="page" data-page="ch11"></span></a></li>
 		<li><a href="#ch12"><span class="num">12</span><span class="title">Your password and account<small>Changing your password, refreshing the site</small></span><span class="page" data-page="ch12"></span></a></li>
 		<li><a href="#ch13"><span class="num">13</span><span class="title">Quick reference<small>Where to find things, and common questions</small></span><span class="page" data-page="ch13"></span></a></li>
 	</ol>
@@ -566,18 +566,19 @@ tr { break-inside: avoid; }
 <!-- ================================================== 1 -->
 <section class="chapter" id="ch1">
 	<div class="chapter__head"><span class="chapter__num">01</span><p class="chapter__eyebrow">CHAPTER 01</p><h2>Your website at a glance</h2></div>
-	<p class="lead">Your journal website is built on Open Journal Systems (OJS) 3.5, the software used by tens of thousands of scholarly journals. It has been given its own design, a simpler admin panel, clickable references and author pages.</p>
+	<p class="lead">Your journal website is built on Open Journal Systems (OJS) 3.5, the software used by tens of thousands of scholarly journals. It has been given its own design, a simpler admin panel, clickable references, author pages and readership statistics with a world map.</p>
 
 	<h3>What the website does</h3>
 	<table>
 		<tr><th style="width:34%">Feature</th><th>What it means for you</th></tr>
 		<tr><td><b>Online submission</b></td><td>Authors register and send manuscripts through a guided form. You receive them in the admin panel.</td></tr>
-		<tr><td><b>Peer review</b></td><td>Double-anonymous review with invitations, deadlines and automatic reminders to reviewers.</td></tr>
+		<tr><td><b>Peer review</b></td><td>Double-anonymous review with invitations, deadlines and automatic reminders to reviewers. A reviewer who declines tells you why and can suggest someone else.</td></tr>
 		<tr><td><b>Issues and archive</b></td><td>Articles are published in issues (volume, number, year) with a cover. All past issues stay in the archive.</td></tr>
 		<tr><td><b>PDF and HTML full text</b></td><td>Every article has a PDF that opens in the browser. Optionally, the full text can also be shown on the article page.</td></tr>
 		<tr><td><b>Clickable references</b></td><td>Citations such as [1] or (Smith, 2020) link to the reference list and show the reference when the reader points at them.</td></tr>
 		<tr><td><b>Author pages</b></td><td>Every published author gets a public page with photo, affiliation, ORCID, biography and articles.</td></tr>
 		<tr><td><b>Identifiers and indexing</b></td><td>DOIs through Crossref, ORCID iDs, Google Scholar metadata and OAI-PMH, which indexing services use to harvest your articles.</td></tr>
+		<tr><td><b>Readership statistics</b></td><td>Views, downloads and readers by country on a world map, the most-read articles, and how many people are on the site right now. The map can also appear on the home page.</td></tr>
 		<tr><td><b>Email notifications</b></td><td>Authors, reviewers and editors receive emails automatically at each step.</td></tr>
 	</table>
 
@@ -641,8 +642,8 @@ tr { break-inside: avoid; }
 		<li data-n="2"><b>Needs your attention.</b> New submissions without an editor, submissions ready for a decision, revisions from authors and overdue reviews.</li>
 		<li data-n="3"><b>Publishing pipeline.</b> How many submissions are in each of the six steps.</li>
 		<li data-n="4"><b>Recent submissions</b> with their current status. Click a title to open it.</li>
-		<li data-n="5"><b>Current issue</b>, with links to view it on the website or manage issues.</li>
-		<li data-n="6"><b>Shortcuts</b> to common tasks.</li>
+		<li data-n="5"><b>Current issue</b>, with links to view it on the website or manage issues. Below it, <b>Declined review requests</b> lists reviewers who declined in the last 60 days and why (chapter 5).</li>
+		<li data-n="6"><b>Shortcuts</b> to common tasks, including <span class="ui">Readership &amp; countries</span> (chapter 11).</li>
 		<li data-n="7"><span class="ui">View website</span> opens the public site in a new tab.</li>
 		<li data-n="8"><span class="ui">New submission</span> lets you submit a manuscript on someone's behalf.</li>
 	</ol>
@@ -790,6 +791,42 @@ tr { break-inside: avoid; }
 		<li>Follow progress in the <b>Reviewers</b> panel; you receive an email when a review is submitted.</li>
 		<li>When enough reviews are in, read them and record your decision. If you request revisions, the author uploads a revised file on the same page, and you can start a new review round with <span class="ui">Create New Review Round</span>.</li>
 	</ol>
+
+	<h3 class="page-break">When a reviewer declines</h3>
+	<p>A reviewer who cannot review must tell you why. They can also write to you and suggest up to two other reviewers. This is what they see when they click <span class="ui">Decline Review Request</span>:</p>
+	<figure class="shot shot--tall">
+		<img src="shots/rev-decline.jpg" alt="The reviewer's decline form">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Reason</b> (required): no time, a conflict of interest, outside their expertise, or another reason they describe. Reviewers who only need more time are asked to accept and request an extension instead.</li>
+		<li data-n="2"><b>Comments to the editor</b> (optional).</li>
+		<li data-n="3"><b>Suggest alternative reviewers?</b> Yes or No.</li>
+		<li data-n="4">Up to two people, each with a name, an email address and an institution.</li>
+		<li data-n="5">Sends the decline. You receive the usual "unable to review" email, with the reason, comments and suggestions at the top.</li>
+	</ol>
+
+	<h3 class="page-break">Seeing why, and inviting a suggested reviewer</h3>
+	<figure class="shot shot--short">
+		<img src="shots/adm-declines.jpg" alt="Declined review requests on the Home page" style="max-height:52mm">
+		<figcaption>On <b>Home</b>, <b>Declined review requests</b> shows each decline from the last 60 days with its reason and how many reviewers were suggested. Click it to open the submission.</figcaption>
+	</figure>
+	<figure class="shot shot--short">
+		<img src="shots/adm-decline-history.jpg" alt="The reviewer's History with the decline details">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">In the submission's <b>Reviewers</b> panel, open the reviewer's <span class="ui">⋯</span> menu › <span class="ui">History</span> to see the reason, their comments and the people they suggested.</li>
+	</ol>
+	<figure class="shot shot--short">
+		<img src="shots/adm-suggestions.jpg" alt="Reviewer suggestions in Add Reviewer">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">Click <span class="ui">Add Reviewer</span>. Suggested people appear at the top, under <b>Select a Reviewer from Reviewer Suggestions</b>, with who suggested them.</li>
+		<li data-n="2"><span class="ui">Select Reviewer</span> creates their reviewer account from the suggestion. You then set the deadlines and send the invitation as usual, with nothing to retype.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">Reviewer suggestions setting</span>
+		<p>Suggestions appear while <span class="path">Settings › Workflow › Review › Reviewer Suggestions</span> is on, which it is on your site. With this setting, authors can also suggest reviewers when they submit. You are never obliged to use a suggestion.</p>
+	</div>
 </section>
 
 <!-- ================================================== 6 -->
@@ -1021,8 +1058,8 @@ tr { break-inside: avoid; }
 
 <!-- ================================================== 11 -->
 <section class="chapter" id="ch11">
-	<div class="chapter__head"><span class="chapter__num">11</span><p class="chapter__eyebrow">CHAPTER 11</p><h2>DOIs and statistics</h2></div>
-	<p class="lead">A DOI is a permanent link to an article, required by most indexing services. Statistics show how often your articles are read and downloaded.</p>
+	<div class="chapter__head"><span class="chapter__num">11</span><p class="chapter__eyebrow">CHAPTER 11</p><h2>DOIs, statistics and readership</h2></div>
+	<p class="lead">A DOI is a permanent link to an article, required by most indexing services. Statistics show how often your articles are read and downloaded, from which countries, and who is on the site right now.</p>
 
 	<h3>DOIs</h3>
 	<figure class="shot">
@@ -1040,6 +1077,62 @@ tr { break-inside: avoid; }
 		<img src="shots/adm-stats.jpg" alt="Article statistics">
 		<figcaption><span class="path">Statistics › Articles</span>: abstract views and file downloads over time, per article, with filters and a downloadable report. <b>Editorial Activity</b> shows submission numbers, acceptance rates and review times.</figcaption>
 	</figure>
+
+	<h3 class="page-break">Readership: countries, articles and visitors online</h3>
+	<p><span class="path">Statistics › Readership</span> (also a shortcut on Home) puts the most useful numbers on one page.</p>
+	<figure class="shot shot--tall">
+		<img src="shots/adm-readership.jpg" alt="The Readership page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Readership</b> in the Statistics menu.</li>
+		<li data-n="2">The period: all time, the last 12 months or the last 30 days.</li>
+		<li data-n="3"><b>Page views</b> (home page, issues and articles), <b>downloads</b> (PDFs and other files), <b>readers</b> (one person reading an article in one visit counts once) and <b>countries</b>.</li>
+		<li data-n="4"><b>Online now</b>: people on the website in the last 5 minutes. It refreshes every minute.</li>
+		<li data-n="5">The <b>world map</b>. The darker the country, the more readers it has. Point at a country to see its number. Orange dots show where people are online now.</li>
+		<li data-n="6">What each shade means.</li>
+	</ol>
+
+	<figure class="shot shot--tall">
+		<img src="shots/adm-readership-lists.jpg" alt="Readers by country and the most read articles">
+	</figure>
+	<ol class="legend">
+		<li data-n="1"><b>Readers by country</b>, with each country's share. Click a country to open it.</li>
+		<li data-n="2">The articles that country's readers read most.</li>
+		<li data-n="3"><b>Most read articles</b>, with their views and downloads. Further down, a chart of the last 12 months and the views of each kind of page.</li>
+	</ol>
+	<div class="box">
+		<span class="box__title">When the numbers update</span>
+		<p>OJS counts visits once a day, overnight, so views, downloads and countries run up to yesterday. <b>Online now</b> is live. Search engines and other bots are never counted. Countries come from the visitor's internet address, which is not stored.</p>
+	</div>
+
+	<h3 class="page-break">Readers around the world on your home page</h3>
+	<figure class="shot shot--short">
+		<img src="shots/pub-readers.jpg" alt="Readers around the world on the home page">
+	</figure>
+	<ol class="legend">
+		<li data-n="1">The world map of your readers, with orange dots for people online now.</li>
+		<li data-n="2">How many readers are on the site right now.</li>
+		<li data-n="3">Articles published, page views, downloads and countries, since the start.</li>
+		<li data-n="4">The five countries with the most readers.</li>
+	</ol>
+	<p>Visitors see the same map near the bottom of your home page. To show or hide it, tick or untick <b>Readers around the world</b> in <span class="path">Settings › Website › Appearance › Theme › Home page sections</span> and click <span class="ui">Save</span>.</p>
+
+	<h3 class="page-break">Google Analytics for more detail (optional)</h3>
+	<p>For even more detail in real time (visitors' cities, which pages are being read at this moment, and where visitors came from), connect Google Analytics. It is free.</p>
+	<figure class="shot shot--short">
+		<img src="shots/adm-ga.jpg" alt="Google Analytics plugin settings">
+	</figure>
+	<ol class="steps">
+		<li>At <b>analytics.google.com</b>, create an account and a <b>GA4 property</b> for {{SITE}}, with a <b>Web</b> data stream.</li>
+		<li>Copy the stream's <b>Measurement ID</b>; it starts with <b>G-</b>.</li>
+		<li>In the admin panel, open <span class="path">Settings › Website › Plugins</span>, find <b>Google Analytics</b>, click the arrow next to it and choose <span class="ui">Settings</span>.</li>
+		<li>Paste the Measurement ID into the field (1) and click <span class="ui">OK</span>.</li>
+		<li>In Google Analytics, <b>Reports › Realtime</b> now shows visitors as they arrive. The other reports fill up within a day.</li>
+	</ol>
+	<div class="box box--warm">
+		<span class="box__title">Readership, Google Analytics or Search Console?</span>
+		<p><b>Readership</b> is built in and counts every reader, with no extra setup. <b>Google Analytics</b> adds real-time detail and uses cookies, so if many readers are in Europe, add a short cookie notice. <b>Google Search Console</b> is different again: it shows how your articles appear in Google search results and which searches lead to them, but not who reads them.</p>
+	</div>
 </section>
 
 <!-- ================================================== 12 -->
@@ -1103,7 +1196,10 @@ tr { break-inside: avoid; }
 		<tr><td>Edit automatic emails</td><td><span class="path">Settings › Workflow › Emails</span></td></tr>
 		<tr><td>Invite editors and reviewers</td><td><span class="path">Settings › Users &amp; Roles</span></td></tr>
 		<tr><td>DOIs and Crossref</td><td><span class="path">DOIs</span> and <span class="path">Settings › Distribution › DOIs</span></td></tr>
-		<tr><td>Readership numbers</td><td><span class="path">Statistics</span></td></tr>
+		<tr><td>Readers by country, most read articles, online now</td><td><span class="path">Statistics › Readership</span></td></tr>
+		<tr><td>Detailed article statistics and reports</td><td><span class="path">Statistics › Articles</span> / <span class="path">Reports</span></td></tr>
+		<tr><td>Invite a reviewer suggested by another reviewer</td><td>Open the submission › <span class="ui">Add Reviewer</span> › Reviewer Suggestions</td></tr>
+		<tr><td>Connect Google Analytics</td><td><span class="path">Settings › Website › Plugins › Google Analytics › Settings</span></td></tr>
 		<tr><td>Change my password</td><td>Your initials › <span class="ui">Edit Profile</span> › Password</td></tr>
 	</table>
 
@@ -1117,6 +1213,9 @@ tr { break-inside: avoid; }
 
 		<dt>An author's photo doesn't appear on their author page.</dt>
 		<dd>The photo comes from the author's own account (<span class="path">Profile › Public</span>). The email address in the account must match the one on the article, or the article must have the author's ORCID iD.</dd>
+
+		<dt>Why does the map show few countries, or none?</dt>
+		<dd>Countries are counted from the day the website went live, and figures appear the day after the first visits. A new journal starts with few readers; the map fills in as your articles are found and shared.</dd>
 
 		<dt>A reviewer didn't receive the invitation.</dt>
 		<dd>Ask them to check their spam folder. In the Reviewers panel of the submission you can resend the request or email the reviewer directly.</dd>

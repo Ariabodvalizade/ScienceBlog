@@ -7,6 +7,9 @@
 //
 // Note: the "adm-wf-review" shot records a real "Send for Review" decision on
 // demo submission #10, so run it on a demo you can reset (local-demo/reset.sh).
+// The reviewer shots need the demo review requests on #10 (dev/seed/review-demo.mjs).
+// "Online now" on the readership shots only shows people browsing at that
+// moment (sessions from the last 5 minutes, located with the GeoIP database).
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -24,6 +27,7 @@ mkdirSync(OUT, { recursive: true });
 const LOGINS = {
   admin: ['admin', 'admin-dev-Password1'],
   author: ['sarah.mitchell', 'author-demo-Password1'],
+  reviewer: ['peter.lawson', 'reviewer-demo-Password1'],
 };
 
 const settle = async (p, ms = 900) => {
@@ -66,6 +70,15 @@ const SHOTS = [
       await p.getByText('Sarah Mitchell').first().click();
       await settle(p);
     }, marks: [] },
+  { id: 'pub-readers', as: null, h: 900, go: async (p) => {
+      await go('')(p);
+      await p.locator('.m-home-readers').scrollIntoViewIfNeeded(); await p.waitForTimeout(300);
+    }, marks: [m(1, '.m-readers__map', 'tl'), m(2, '.m-readers__live', 'tr'), m(3, '.m-readers__stats', 'tl'), m(4, '.m-readers__top', 'tl')],
+    clip: async (p) => {
+      const b = await p.locator('.m-home-readers').boundingBox();
+      const y = await p.evaluate(() => scrollY);
+      return { x: 0, y: b.y + y, width: 1440, height: b.height };
+    } },
   { id: 'pub-team', as: null, h: 900, go: go('/about/editorialMasthead'), marks: [] },
   { id: 'pub-login', as: null, h: 880, go: go('/login'), marks: [
     m(1, 'input[name=username]', 'tl'), m(2, 'input[name=password]', 'tl'),
@@ -73,7 +86,7 @@ const SHOTS = [
   { id: 'pub-register', as: null, h: 900, go: go('/user/register'), marks: [] },
 
   // ------------------------------------------------ admin panel
-  { id: 'adm-home', as: 'admin', h: 1300, go: go('/workspace'), marks: [
+  { id: 'adm-home', as: 'admin', h: 1640, go: go('/workspace'), marks: [
     m(1, '#app-nav', 'tr'), m(2, '.ma-attention', 'tl'), m(3, '.ma-pipeline', 'tl'),
     m(4, (p) => p.locator('.ma-grid > .ma-panel').first(), 'tl'), m(5, '.ma-issue', 'tl'),
     m(6, (p) => p.locator('.ma-side > .ma-panel').last(), 'tl'), m(7, '.ma-siteLink', 'bl'),
@@ -105,6 +118,28 @@ const SHOTS = [
     }, marks: [
     m(1, { role: 'button', name: 'Add Reviewer' }, 'tl'), m(2, { role: 'button', name: 'Request Revisions' }, 'tl'),
     m(3, { role: 'button', name: 'Accept Submission' }, 'tl'), m(4, { role: 'button', name: 'Decline Submission' }, 'tl')] },
+  { id: 'adm-decline-history', as: 'admin', h: 900, go: async (p) => {
+      await go('/dashboard/editorial?workflowSubmissionId=10')(p);
+      await p.locator('tr', { hasText: 'Helen Carter' }).first().locator('button').last().click();
+      await p.waitForTimeout(600);
+      await p.getByText('History', { exact: true }).first().click();
+      await settle(p, 1500);
+    }, marks: [m(1, '.rd-history', 'tl')],
+    after: async (p) => { await p.keyboard.press('Escape'); await p.waitForTimeout(500); } },
+  { id: 'adm-suggestions', as: 'admin', h: 900, go: async (p) => {
+      await go('/dashboard/editorial?workflowSubmissionId=10')(p);
+      await p.getByRole('button', { name: 'Add Reviewer' }).click();
+      await settle(p, 2000);
+    }, marks: [
+      m(1, (p) => p.getByText(/Reviewer Suggestions/).first(), 'tl'),
+      m(2, (p) => p.locator('button:visible', { hasText: 'Select Reviewer' }).first(), 'tr')],
+    after: async (p) => { await p.keyboard.press('Escape'); await p.waitForTimeout(500); } },
+  { id: 'adm-declines', as: 'admin', h: 1300, go: go('/workspace'), marks: [m(1, '.ma-declines__link', 'tl')],
+    clip: async (p) => {
+      const b = await p.locator('.ma-declines').boundingBox();
+      const y = await p.evaluate(() => scrollY);
+      return { x: b.x - 40, y: b.y + y - 24, width: b.width + 64, height: b.height + 48 };
+    } },
   { id: 'adm-wf-copyedit', as: 'admin', h: 900, go: go('/dashboard/editorial?workflowSubmissionId=11'), marks: [
     m(1, { role: 'button', name: 'Send To Production' }, 'tl'), m(2, (p) => p.getByText('Margaret Ellison').first(), 'tl')] },
   { id: 'adm-galleys', as: 'admin', h: 900, go: async (p) => {
@@ -167,6 +202,26 @@ const SHOTS = [
     }, marks: [] },
   { id: 'adm-dois', as: 'admin', h: 900, go: go('/dois'), marks: [] },
   { id: 'adm-stats', as: 'admin', h: 900, go: go('/stats/publications/publications'), marks: [] },
+  { id: 'adm-readership', as: 'admin', h: 1180, go: go('/readership'), marks: [
+    m(1, (p) => p.locator('#app-nav').getByText('Readership', { exact: true }), 'tr'), m(2, '.rs-periods', 'tl'),
+    m(3, '.rs-tiles', 'tl'), m(4, '.rs-tile--live', 'tr'), m(5, '.rs-map', 'tl'), m(6, '.rs-legend', 'tl')] },
+  { id: 'adm-readership-lists', as: 'admin', h: 1000, go: async (p) => {
+      await go('/readership')(p);
+      await p.locator('.rs-country summary').nth(1).click();
+      await p.locator('.rs-countries').scrollIntoViewIfNeeded();
+      await p.evaluate(() => scrollBy(0, -90)); await p.mouse.move(5, 5); await p.waitForTimeout(600);
+    }, marks: [
+      m(1, '.rs-country[open] summary', 'tl'), m(2, '.rs-country[open] .rs-country__articles', 'bl'),
+      m(3, (p) => p.locator('.rs-article').first(), 'tl')] },
+  { id: 'adm-ga', as: 'admin', h: 800, go: async (p) => {
+      await go('/management/settings/website')(p);
+      await tab(p, 'Plugins').click(); await settle(p, 1500);
+      const row = p.locator('tr', { hasText: 'Google Analytics' }).first();
+      await row.locator('a.show_extras, .show_extras').first().click(); await p.waitForTimeout(500);
+      await p.locator('tr', { hasText: 'Google Analytics' }).locator('xpath=following-sibling::tr[1]').getByText('Settings', { exact: true }).click();
+      await settle(p, 1500);
+    }, marks: [m(1, 'input[name=googleAnalyticsSiteId]', 'tl')],
+    after: async (p) => { await p.keyboard.press('Escape'); await p.waitForTimeout(500); } },
   { id: 'adm-password', as: 'admin', h: 700, go: go('/user/profile#changePassword'), marks: [
     m(1, 'input[name=oldPassword]', 'tl'), m(2, 'input[name=password]', 'tl'), m(3, 'input[name=password2]', 'tl'),
     m(4, (p) => p.locator('#changePasswordForm button[type=submit], form button:has-text("Save")').last(), 'tl')] },
@@ -178,6 +233,23 @@ const SHOTS = [
     m(1, '.ma-hero__actions a', 'tl'), m(2, (p) => p.locator('.ma-grid > .ma-panel').first().locator('.ma-list'), 'tl'),
     m(3, '.ma-profile .ma-checks', 'tl'), m(4, (p) => p.getByText('View your author page'), 'bl')] },
   { id: 'aut-submit', as: 'author', h: 1100, go: go('/submission'), marks: [] },
+  { id: 'rev-decline', as: 'reviewer', h: 1150, go: async (p) => {
+      await go('/reviewer/submission/10')(p);
+      await p.getByText(/Decline Review Request/i).first().click();
+      await settle(p, 2000);
+      await p.check('input[name=declineReason][value=expertise]');
+      await p.fill('#declineComments', 'The study is on rumen microbiology, which is outside my area. Dr Ahmed works on methane in small ruminants and would be a good reviewer.');
+      await p.check('input[name=suggestAlternatives][value=yes]');
+      await p.locator('input[name="suggestName[]"]').first().fill('Samir Ahmed');
+      await p.locator('input[name="suggestEmail[]"]').first().fill('samir.ahmed@example.org');
+      await p.locator('input[name="suggestAffiliation[]"]').first().fill('Institute of Animal Science, Eastbrook College');
+      await p.locator('#declineReviewForm').evaluate((f) => f.closest('.pkp_modal_panel, [role=dialog]')?.querySelector('.content, .pkp_modal_panel > .content')?.scrollTo(0, 0));
+      await p.waitForTimeout(300);
+    }, marks: [
+      m(1, (p) => p.locator('#declineReviewForm fieldset').first(), 'tl'), m(2, '#declineComments', 'tl'),
+      m(3, (p) => p.locator('#declineReviewForm fieldset').nth(1).locator('legend'), 'tl'), m(4, '.rd-suggestions', 'tl'),
+      m(5, '#declineReviewForm button[type=submit]', 'tl')],
+    after: async (p) => { await p.keyboard.press('Escape'); await p.waitForTimeout(500); } },
   { id: 'aut-profile', as: 'author', h: 760, go: go('/user/profile#publicProfile'), marks: [
     m(1, (p) => p.getByText('Profile Image').first(), 'tl'), m(2, (p) => p.getByRole('button', { name: /Upload File/ }).first(), 'tr')] },
 ];

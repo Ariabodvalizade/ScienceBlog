@@ -37,6 +37,7 @@ powershell -ExecutionPolicy Bypass -File .\start.ps1
 | ورود مدیر (پنل ادمین) | <http://localhost:8080/index/login>، نام کاربری `admin`، رمز `admin-dev-Password1` |
 | ایمیل‌های تستی (همه‌ی ایمیل‌های سایت اینجا جمع می‌شوند) | <http://localhost:8025> |
 | ورود نویسنده‌ی نمونه (پنل نویسنده) | <http://localhost:8080/djas/login>، نام کاربری `sarah.mitchell`، رمز `author-demo-Password1` |
+| ورود داور نمونه (رد درخواست داوری با دلیل) | <http://localhost:8080/djas/login>، نام کاربری `peter.lawson`، رمز `reviewer-demo-Password1` |
 
 بعد از ورود، هر کس به صفحه‌ی **Home** پنل می‌رسد. سردبیر آنجا می‌بیند چه کاری منتظر اوست و هر مقاله در کدام مرحله است. نویسنده هم مقاله‌هایش را با وضعیت هر کدام، دکمه‌ی *New submission* و چک‌لیست پروفایل عمومی‌اش (عکس، بیوگرافی، ORCID) را می‌بیند.
 

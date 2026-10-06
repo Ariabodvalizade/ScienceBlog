@@ -37,6 +37,10 @@
 docs/                          PRD and companion documents (this folder)
 plugins/themes/meridian/       Child theme of OJS "default" theme
 plugins/generic/scholarlyReader/  Reference linking, inline HTML full text, JSON-LD
+plugins/generic/authorPages/   Public author pages and directory
+plugins/generic/meridianAdmin/ Branded admin panel and role-aware Home page
+plugins/generic/reviewDecline/ Reasons, comments and suggested reviewers when declining a review
+plugins/generic/readership/    Readership page, world map, live visitors, public "Readers around the world"
 deploy/
   docker-compose.yml           Production stack (web, ojs, worker, scheduler, db, certbot)
   docker-compose.dev.yml       Local development stack (plugins bind-mounted)
@@ -131,6 +135,29 @@ Core/bundled plugins we **reuse instead of rebuilding**:
 | Menu | Hook `TemplateManager::display` adds *Home* first and renames *Editor Dashboard* to *Submissions* in the `menu` state |
 | Header | Hook `Template::Layout::Backend::HeaderActions` adds *View website* |
 | Activation | `lazy-load 0` + `sitewide 1` in `version.xml`, and `getEnabled()` defaults to on. The deploy scripts register it with `lib/pkp/tools/installPluginVersion.php`. A site administrator can turn it off in *Administration › Site Settings › Plugins*. |
+
+## 4d. Plugin "reviewDecline" (generic, site-wide)
+
+| Feature | Mechanism |
+|---|---|
+| Decline form | Overrides the core `reviewer/review/modal/regretMessage.tpl` through `TemplateResource::getFilename` (`_overridePluginTemplates`). It still posts to the core `saveDeclineReview` op. The core decline e-mail body travels in the hidden `declineReviewMessage` field. |
+| Storage | `Schema::get::reviewAssignment` adds `declineReason`, `declineReasonOther`, `declineComments` and `declineSuggestions` (array). They are saved in `review_assignment_settings` from hook `ReviewAssignment::edit` when `declined` is set. They are set on the new object in the same edit, because a later save that omits them would delete them. |
+| Editor e-mail | Hook `ReviewerAction::confirmReview` prepends the reason, comments and suggestions to the mailable's body |
+| Suggested reviewers | Core `ReviewerSuggestion` rows (Eloquent), skipping e-mails already suggested for the submission. They are shown by core in *Add Reviewer* when `reviewerSuggestionEnabled` is on. |
+| History | Overrides `workflow/reviewHistory.tpl`; hook `TemplateManager::fetch` assigns the stored details |
+| Home list | Hook `TemplateManager::display` on Meridian Admin's `workspace.tpl` assigns the last 60 days of declines (`rdDeclines`) |
+
+## 4e. Plugin "readership" (generic, site-wide)
+
+| Feature | Mechanism |
+|---|---|
+| Data | `classes/ReadershipData.php` runs direct queries on the core statistics tables: `metrics_submission` (assoc type 1048585 = article page, 515/531 = files), `metrics_context`, `metrics_issue`, `metrics_counter_submission_{daily,monthly}` (unique readers), `metrics_submission_geo_{daily,monthly}` (countries). *Last 30 days* uses the daily tables, which OJS keeps for the current and previous month; the other periods use the monthly tables. Results are cached with Laravel `Cache` (page: 1 h, public section: 6 h, online now: 30 s). |
+| Online now | `sessions` rows with `last_activity` in the last 5 minutes. Bots (`Core::isUserAgentBot`) and empty user agents are skipped, and visitors are de-duplicated by IP + user agent. When country statistics are on, IPs are resolved to a country with the GeoIP2 `Reader` on `PKPStatisticsHelper::getGeoDBPath()`, and only the per-country counts are kept. |
+| Map | `assets/world.json`: Natural Earth 1:110m (via `world-atlas`), pre-projected with Equal Earth, one SVG path and dot position per ISO alpha-2 code, plus dots for small states. It is built once by `tools/build-world-map.mjs`. `classes/WorldMap.php` renders inline SVG with five shading classes (by rank, so the busiest country is darkest), `<title>` tooltips, and live dots. There is no JavaScript on the public page. |
+| Page `/{journal}/readership` | Hook `LoadHandler` → `ReadershipHandler` (backend page, `ContextAccessPolicy`, roles admin, manager and sub-editor). `/readership/live` returns JSON, polled every 60 s by `js/readership.js`. |
+| Menu and Home | Hook `TemplateManager::display` adds *Readership* first in the Statistics submenu, and a shortcut to Meridian Admin's Home actions |
+| Public section | Meridian's `indexJournal.tpl` calls `$readership->homeData($currentJournal)` when the `readers` home section is on; styles are in `styles/pages/home.less` |
+| GeoIP database | `deploy/ojs/update-geodb.php` runs the core `UpdateIPGeoDB` task once at install and deploy (`ensure_geo_db` in `deploy/scripts/lib.sh`). After that, the scheduler refreshes it on the 10th of each month. |
 
 ## 5. Scheduled tasks and jobs
 

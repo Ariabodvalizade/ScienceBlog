@@ -30,7 +30,9 @@ is a link to the matching list.
     received, overdue reviews
   - **Publishing pipeline:** how many submissions are in each stage, from Submission to Published
   - recent submissions with their status, the current issue, and shortcuts to common tasks (create an issue, post an
-    announcement, website settings, users, statistics)
+    announcement, website settings, users, statistics, readership)
+  - **Declined review requests** from the last 60 days, with the reviewer's reason and how many replacement reviewers
+    they suggested
 - **Authors** see:
   - their submissions with a plain status (Draft, Submitted, In review, Copyediting, Production, Published, Declined).
     Drafts open the submission form so they can finish it.
@@ -58,6 +60,11 @@ Submission ──► Review ──► Copyediting ──► Production ──►
 2. **Review** (double-anonymous by default):
    - *Add Reviewer*: search existing reviewers or create one. Set the response and review due dates (defaults: 7 / 21
      days). OJS sends automatic reminders.
+   - When a reviewer **declines**, they choose a reason (no time, conflict of interest, outside their expertise,
+     other). They can also write to you and suggest up to two other reviewers. You receive this in the "unable to
+     review" e-mail, it appears under *Reviewers › ⋯ › History*, and it is listed on Home. To invite a suggested
+     reviewer, click *Add Reviewer* → *Select a Reviewer from Reviewer Suggestions* → approve, then send the request
+     as usual.
    - When the reviews are in, record a decision: *Accept*, *Request Revisions*, *Resubmit for Review*, or *Decline*.
 3. **Copyediting:** assign a copyeditor, or upload the final version yourself.
 4. **Production:** upload **galleys** in *Publication › Galleys*:
@@ -147,7 +154,17 @@ them.
 
 ## 9. Housekeeping
 
-- **Statistics:** *Statistics › Articles / Editorial Activity / Users*.
+- **Statistics:**
+  - **Readership** (*Statistics › Readership*): page views, downloads, unique readers and countries, for all time,
+    the last 12 months or the last 30 days. It also has a world map, readers by country (open a country to see what
+    its readers read), the most-read articles, a 12-month chart and **online now** (refreshed every minute).
+  - The figures update once a day, overnight. Search engines and bots are not counted.
+  - The same map and totals can appear on the home page: tick *Readers around the world* in *Settings › Website ›
+    Appearance › Theme › Home page sections*.
+  - For more real-time detail (cities, pages viewed right now, where visitors came from), use **Google Analytics**:
+    create a GA4 property, then paste its Measurement ID (`G-…`) in *Settings › Website › Plugins › Google Analytics
+    › Settings*.
+  - *Statistics › Articles / Journal / Editorial Activity / Users / Reports* hold the standard OJS reports.
 - **Clear caches** after changing theme options, if pages look stale: *Administration › Delete Data Caches* and
   *Delete Template Cache*.
 - **Backups** run nightly on the server. Ask the administrator to test a restore every few months.

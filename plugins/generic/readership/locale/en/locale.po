@@ -139,6 +139,9 @@ msgstr "Country statistics are switched off."
 msgid "plugins.generic.readership.footer"
 msgstr "OJS counts visits once a day, overnight, so views, downloads and countries are up to yesterday (calculated {$time}). \"Online now\" is live and refreshes every minute. Search engines and bots are not counted."
 
+msgid "plugins.generic.readership.credit"
+msgstr "IP geolocation by <a href=\"https://db-ip.com\" rel=\"noopener\">DB-IP</a>"
+
 msgid "plugins.generic.readership.public.title"
 msgstr "Readers around the world"
 

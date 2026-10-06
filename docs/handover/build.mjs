@@ -17,7 +17,7 @@ const CONFIG = {
   SITE: 'https://raazpublishnp.com',
   USER: 'admin',
   PASS: 'admin-dev-Password1',
-  DATE: 'September 2026',
+  DATE: 'October 2026',
   OUT: 'Journal-Website-Guide.pdf',
 };
 CONFIG.SITE_HOST = CONFIG.SITE.replace(/^https?:\/\//, '').replace(/\/$/, '');

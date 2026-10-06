@@ -205,6 +205,59 @@ Each item maps 1:1 to the contract. Priority: **P0** is needed for launch, **P1*
   - an author's page lists all of their articles
   - after login, editors and authors land on Home, and every count there matches the Submissions list it links to
 
+### F21 — Reasons when a reviewer declines (P0 — added at client request)
+*As an editor, when a reviewer declines, I want to know why and who else could review, so I can find a replacement quickly.*
+- **Decline form** (`reviewDecline` plugin). It replaces the core "Decline review request" dialog, and the core
+  decline email is still sent.
+  - **reason** (required): *I do not have time right now* (with a hint to accept and ask for an extension instead),
+    *There is a conflict of interest*, *It is outside my area of expertise*, *Other* (free text)
+  - **comments to the editor** (optional)
+  - **suggest alternative reviewers?** Yes/No. *Yes* shows two rows of name, e-mail and institution; the first row
+    is required and e-mails are validated.
+- **The editor sees it**:
+  - at the top of the "unable to review" e-mail (also kept in the submission's e-mail log)
+  - in the reviewer's *History* (Reviewers › ⋯ › History)
+  - in a *Declined review requests* list on the admin Home page (last 60 days, with the reason and how many reviewers
+    were suggested)
+- **One-click invitation**: suggested reviewers become core *reviewer suggestions*. They appear in *Add Reviewer* →
+  *Select a Reviewer from Reviewer Suggestions*, where the editor approves and invites them. This needs *Settings ›
+  Workflow › Review › Reviewer suggestions* to be on, which also lets authors suggest reviewers when they submit.
+- **Acceptance:**
+  - a reviewer cannot decline without a reason
+  - the reason, comments and suggestions reach the editor by e-mail and appear in History
+  - a suggested reviewer can be invited from Add Reviewer without retyping their details
+
+### F22 — Readership statistics, countries and live visitors (P0 — added at client request)
+*As the journal manager, I want to see how many people read the journal, from which countries, what they read, and
+who is on the site right now.*
+- **Source**: the usage statistics OJS already records (COUNTER-compliant, bots excluded). There is no extra
+  tracking script. **Country statistics** are switched on (site and journal, country level only), and the GeoIP
+  database (DB-IP Lite, CC BY 4.0) is downloaded at install and refreshed monthly by the scheduler. OJS processes
+  visits once a day, so these figures are up to yesterday.
+- **Readership page** (`readership` plugin; *Statistics › Readership*; managers, admins and section editors):
+  - period: all time, last 12 months, last 30 days
+  - tiles: page views (home, issues, articles), downloads, unique readers, countries, and **online now**
+  - a **world map** shaded by readers per country, with a tooltip per country and pulsing dots where people are
+    online now
+  - readers by country (top 20, with share). Opening a country shows the articles its readers read most.
+  - the most-read articles (views and downloads), the last 12 months as a chart, and views by kind of page
+  - "online now" refreshes every minute
+- **Online now** counts sessions active in the last 5 minutes, without bots. Visitors' IP addresses are only resolved
+  to a country, in memory, and are never shown or stored by the plugin.
+- **Public section** "Readers around the world" (Meridian home page, optional in *Home page sections*): the map,
+  articles published, page views, downloads, countries, the top five countries, and "N readers online now". It is
+  hidden until there are figures.
+- **Google Analytics 4** (optional, core plugin) adds real-time detail: visitors' cities, pages being viewed now,
+  traffic sources. The journal pastes its Measurement ID in the plugin settings. Search Console is a separate Google
+  tool for search traffic and indexing; it does not show visitors.
+- **Acceptance:**
+  - the Readership page shows views, downloads, readers and countries for each period, and they match the core
+    Statistics pages
+  - the map colours countries by readers, and hovering shows the country and its number of readers
+  - "online now" rises when someone opens the site, and bots are not counted
+  - the public section shows the same figures; it causes no horizontal scrolling on phones, and the home page keeps
+    its Lighthouse scores
+
 ### F18 — SSL and basic security (P0)
 - Let's Encrypt TLS with automatic renewal, HTTP → HTTPS redirect, HSTS, security headers, and `force_ssl`.
 - Login rate limiting at Nginx, captcha, least-privilege containers, firewall (22/80/443), automatic OS security updates.

@@ -11,6 +11,11 @@ A modern, responsive academic journal website built on **Open Journal Systems 3.
 - **meridianAdmin**, a generic plugin (`plugins/generic/meridianAdmin`): a simpler, branded admin panel. It adds a
   Home page for editors (what needs attention, the publishing pipeline, the current issue) and for authors (their
   submissions and a profile checklist), and works on phones.
+- **reviewDecline**, a generic plugin (`plugins/generic/reviewDecline`): reviewers who decline give a reason, can write
+  to the editor and suggest replacement reviewers, whom the editor invites in one click.
+- **readership**, a generic plugin (`plugins/generic/readership`): *Statistics › Readership*, with views, downloads,
+  readers by country on a world map, the most-read articles and a live "online now" counter. It also powers the
+  optional public "Readers around the world" home page section.
 - A **Docker deployment kit** (`deploy/`): nginx + Let's Encrypt, OJS, MariaDB, a job worker and scheduler, and backups.
 
 OJS core is never modified. Everything here is a plugin or deployment configuration.

@@ -17,8 +17,9 @@ echo "→ Database"
   | gzip -9n > "$OUT/db.sql.gz"
 
 echo "→ Uploaded files and public files"
-"${COMPOSE[@]}" exec -T --user root ojs sh -c 'tar czf - -C /var/www files' > "$OUT/files.tar.gz"
-"${COMPOSE[@]}" exec -T --user root ojs sh -c 'tar czf - -C /var/www/html public' > "$OUT/public.tar.gz"
+# Not the GeoIP database (large, licensed separately, downloaded on the server) or raw visit logs
+"${COMPOSE[@]}" exec -T --user root ojs sh -c 'tar czf - -C /var/www --exclude=files/usageStats/IPGeoDB.mmdb --exclude="files/usageStats/usageEventLogs/*" files' > "$OUT/files.tar.gz"
+"${COMPOSE[@]}" exec -T --user root ojs sh -c 'tar czf - -C /var/www/html --exclude=public/site/meridianAdmin public' > "$OUT/public.tar.gz"
 
 echo "→ Settings"
 app_key="$(grep '^OJS_APP_KEY=' "$DEPLOY/.env.dev" | cut -d= -f2- | tr -d '"')"

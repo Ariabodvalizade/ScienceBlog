@@ -188,6 +188,7 @@
 
 	<p class="rs-foot">
 		{translate key="plugins.generic.readership.footer" time=$rsUpdated}
+		{if $rsGeo}{translate key="plugins.generic.readership.credit"}.{/if}
 	</p>
 </div>
 {/block}

@@ -197,6 +197,7 @@
 								{/foreach}
 							</ol>
 						{/if}
+						{if $readers.map}<p class="m-readers__credit">{translate key="plugins.generic.readership.credit"}</p>{/if}
 					</div>
 				</div>
 			</div>

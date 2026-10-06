@@ -79,6 +79,8 @@ This is the exact configuration to apply after installation. Paths refer to the 
   - automated reminders: 3 days before the response deadline, 7 days before the completion deadline
   - "one-click reviewer access" on
   - restrict reviewer file access to the review files
+  - **Reviewer suggestions on**. Reviewers who decline can suggest alternatives, and editors invite them from *Add
+    Reviewer* (`reviewDecline` plugin, PRD F21). Authors may also suggest reviewers when they submit.
 - **Review › Reviewer Guidance:** competing interests statement, review guidelines.
 - **Review › Review Forms:** *Standard Research Article Review* with these criteria:
   - originality
@@ -110,6 +112,12 @@ This is the exact configuration to apply after installation. Paths refer to the 
   - enable depositing references (reference linking)
 - **Search indexing:** description (meta), custom tags: none; the sitemap is at `/sitemap`.
 - **Access:** open access (no subscriptions).
+- **Statistics** (*Settings › Distribution › Statistics*):
+  - **Geographic usage data: Country**. This is also set site-wide in *Administration › Site Settings ›
+    Statistics*, and the journal setting cannot exceed the site setting.
+  - Region and city stay off for privacy.
+  - It feeds *Statistics › Readership* and the public "Readers around the world" section (PRD F22).
+  - The GeoIP database (DB-IP Lite) is downloaded by the deploy scripts and refreshed monthly by the scheduler.
 - **Archiving:** enable the PKP PN plugin once the ISSN is registered (it requires an ISSN).
 
 ## 6. Users & Roles
@@ -143,6 +151,8 @@ This is the exact configuration to apply after installation. Paths refer to the 
 | scholarlyReader | **enabled** |
 | Author Pages | **enabled** — also add an *Authors* item (custom URL `/[journal]/authors`) under About in the primary menu |
 | Meridian Admin | **on by default** (site-wide: *Administration › Site Settings › Plugins*): a branded, simpler admin panel with a Home page |
+| Review Decline Reasons | **on by default** (site-wide): reasons, comments and suggested reviewers when a reviewer declines |
+| Readership | **on by default** (site-wide): *Statistics › Readership*, world map, online now, public "Readers around the world" |
 | Google Scholar Indexing | enabled |
 | Dublin Core 1.1 meta-data | enabled |
 | PDF.js PDF Viewer | enabled |
@@ -152,11 +162,11 @@ This is the exact configuration to apply after installation. Paths refer to the 
 | Custom Block Manager | enabled (optional rail blocks) |
 | Web Feed | enabled (Atom/RSS, homepage only) |
 | Announcement Feed | enabled |
-| Usage Statistics | enabled (COUNTER R5; GeoIP off by default for privacy) |
+| Usage Statistics | enabled (COUNTER R5; geographic data at **country** level, see §5) |
 | Crossref | enabled (after credentials) |
 | OAI: DC, MARCXML, JATS | enabled (JATS also needs the *JATS Template* generic plugin) |
 | DOAJ export | enabled (for later metadata upload) |
 | Recommend Articles by Author / Similarity | enabled (feeds "Related articles") |
-| Google Analytics | off unless requested |
+| Google Analytics | **enabled**; paste the journal's GA4 Measurement ID (`G-…`) in its *Settings* for real-time visitors. Without an ID, it adds nothing to the pages. In the EU/UK, add a cookie notice. |
 | Lens galley | off (superseded by the inline full text) |
 | Browse, Developed By, Information, Language Toggle blocks | off (Meridian's rails replace them) |
