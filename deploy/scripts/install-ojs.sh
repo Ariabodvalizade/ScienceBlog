@@ -51,5 +51,7 @@ for _ in $(seq 1 30); do
 done
 info "Registering the theme and plugins"
 register_plugins
+info "Downloading the GeoIP database (statistics by country)"
+ensure_geo_db
 ok "OJS installed. Log in at $url/index/login as ${OJS_ADMIN_USER:-admin}."
 echo "Now remove OJS_ADMIN_PASSWORD from .env and follow docs/ojs-configuration.md."

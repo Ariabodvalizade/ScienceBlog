@@ -139,6 +139,26 @@
 					</section>
 				{/if}
 
+				{if $rdDeclines}
+					<section class="ma-panel ma-declines" aria-labelledby="ma-declines-title">
+						<h2 id="ma-declines-title" class="ma-h2">{translate key="plugins.generic.reviewDecline.home.title"}</h2>
+						<ul class="ma-declines__list">
+							{foreach from=$rdDeclines item=decline}
+								<li>
+									<a class="ma-declines__link" href="{$decline.url|escape}">
+										<span class="ma-declines__title">{$decline.title|escape}</span>
+										<span class="ma-declines__meta">{$decline.reviewer|escape} · {$decline.date|escape}</span>
+										<span class="ma-chip ma-chip--declined">{$decline.reason|escape}</span>
+										{if $decline.suggestions}
+											<span class="ma-declines__suggested">{translate key="plugins.generic.reviewDecline.home.suggested" count=$decline.suggestions|@count number=$decline.suggestions|@count}</span>
+										{/if}
+									</a>
+								</li>
+							{/foreach}
+						</ul>
+					</section>
+				{/if}
+
 				<section class="ma-panel" aria-labelledby="ma-actions-title">
 					<h2 id="ma-actions-title" class="ma-h2">{translate key="plugins.generic.meridianAdmin.actions.title"}</h2>
 					<ul class="ma-actions">

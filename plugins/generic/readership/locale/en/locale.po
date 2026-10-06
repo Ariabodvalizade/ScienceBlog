@@ -1,0 +1,169 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "plugins.generic.readership.displayName"
+msgstr "Readership"
+
+msgid "plugins.generic.readership.description"
+msgstr "Views, downloads, readers by country on a world map, the most-read articles and a live \"online now\" counter, from the statistics OJS already records. Also provides the \"Readers around the world\" home page section of the Meridian theme."
+
+msgid "plugins.generic.readership.title"
+msgstr "Readership"
+
+msgid "plugins.generic.readership.shortcut"
+msgstr "Readership & countries"
+
+msgid "plugins.generic.readership.lead"
+msgstr "Who reads the journal, where they are, and what they read."
+
+msgid "plugins.generic.readership.period"
+msgstr "Period"
+
+msgid "plugins.generic.readership.period.all"
+msgstr "All time"
+
+msgid "plugins.generic.readership.period.12m"
+msgstr "Last 12 months"
+
+msgid "plugins.generic.readership.period.30d"
+msgstr "Last 30 days"
+
+msgid "plugins.generic.readership.totals"
+msgstr "Totals"
+
+msgid "plugins.generic.readership.views"
+msgstr "Page views"
+
+msgid "plugins.generic.readership.views.short"
+msgstr "views"
+
+msgid "plugins.generic.readership.views.hint"
+msgstr "Home page, issues and article pages"
+
+msgid "plugins.generic.readership.downloads"
+msgstr "Downloads"
+
+msgid "plugins.generic.readership.downloads.short"
+msgstr "downloads"
+
+msgid "plugins.generic.readership.downloads.hint"
+msgstr "PDFs and other article files"
+
+msgid "plugins.generic.readership.readers"
+msgstr "Readers"
+
+msgid "plugins.generic.readership.readers.hint"
+msgstr "One person reading an article in one visit counts once"
+
+msgid "plugins.generic.readership.countries"
+msgstr "Countries"
+
+msgid "plugins.generic.readership.countries.hint"
+msgstr "Countries readers came from"
+
+msgid "plugins.generic.readership.online"
+msgstr "Online now"
+
+msgid "plugins.generic.readership.online.hint"
+msgstr "People on the website in the last {$minutes} minutes"
+
+msgid "plugins.generic.readership.online.from"
+msgstr "Online now from:"
+
+msgid "plugins.generic.readership.map.title"
+msgstr "Readers around the world"
+
+msgid "plugins.generic.readership.map.label"
+msgstr "World map: countries shaded by number of readers"
+
+msgid "plugins.generic.readership.map.empty"
+msgstr "No country figures yet. They appear the day after the first visits."
+
+msgid "plugins.generic.readership.tooltip"
+msgstr "{$country}: {$count} readers"
+
+msgid "plugins.generic.readership.byCountry"
+msgstr "Readers by country"
+
+msgid "plugins.generic.readership.byCountry.hint"
+msgstr "Open a country to see what its readers read"
+
+msgid "plugins.generic.readership.byCountry.more"
+msgstr "…and {$number} more countries."
+
+msgid "plugins.generic.readership.articles"
+msgstr "Most read articles"
+
+msgid "plugins.generic.readership.articles.hint"
+msgstr "By article page views"
+
+msgid "plugins.generic.readership.trend"
+msgstr "Last 12 months"
+
+msgid "plugins.generic.readership.pages"
+msgstr "What people looked at"
+
+msgid "plugins.generic.readership.pages.home"
+msgstr "Journal home page"
+
+msgid "plugins.generic.readership.pages.issues"
+msgstr "Issue pages (tables of contents)"
+
+msgid "plugins.generic.readership.pages.articles"
+msgstr "Article pages"
+
+msgid "plugins.generic.readership.pages.downloads"
+msgstr "Article downloads"
+
+msgid "plugins.generic.readership.pages.more"
+msgstr "Detailed statistics and reports"
+
+msgid "plugins.generic.readership.empty"
+msgstr "Nothing yet for this period. Figures appear the day after the first visits."
+
+msgid "plugins.generic.readership.geoOff"
+msgstr "Country statistics are switched off, so readers' countries are not recorded."
+
+msgid "plugins.generic.readership.geoOff.link"
+msgstr "Turn them on (Settings › Distribution › Statistics)"
+
+msgid "plugins.generic.readership.geoOff.short"
+msgstr "Country statistics are switched off."
+
+msgid "plugins.generic.readership.footer"
+msgstr "OJS counts visits once a day, overnight, so views, downloads and countries are up to yesterday (calculated {$time}). \"Online now\" is live and refreshes every minute. Search engines and bots are not counted."
+
+msgid "plugins.generic.readership.public.title"
+msgstr "Readers around the world"
+
+msgid "plugins.generic.readership.public.lead"
+msgstr "Where our articles are read"
+
+msgid "plugins.generic.readership.public.mapLabel"
+msgstr "World map of the countries our readers come from"
+
+msgid "plugins.generic.readership.public.articles"
+msgstr "Articles published"
+
+msgid "plugins.generic.readership.public.views"
+msgstr "Page views"
+
+msgid "plugins.generic.readership.public.downloads"
+msgstr "Downloads"
+
+msgid "plugins.generic.readership.public.countries"
+msgstr "Countries"
+
+msgid "plugins.generic.readership.public.top"
+msgstr "Top countries"
+
+msgid "plugins.generic.readership.public.online"
+msgid_plural "plugins.generic.readership.public.online"
+msgstr[0] "{$number} reader online now"
+msgstr[1] "{$number} readers online now"

@@ -37,6 +37,9 @@ msgstr "Aims & Scope (journal summary)"
 msgid "plugins.themes.meridian.option.homeSections.announcements"
 msgstr "Announcements"
 
+msgid "plugins.themes.meridian.option.homeSections.readers"
+msgstr "Readers around the world (map and reader figures, from the Readership plugin)"
+
 msgid "plugins.themes.meridian.option.homeSections.indexing"
 msgstr "Indexing logos"
 

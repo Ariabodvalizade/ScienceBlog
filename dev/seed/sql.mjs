@@ -34,6 +34,45 @@ lines.push(
   "INSERT INTO user_user_groups (user_group_id, user_id, masthead) SELECT ug.user_group_id, 201, 0 FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = 'Author' LIMIT 1;",
 );
 
+// Two demo reviewers (login: <username> / reviewer-demo-Password1), used by
+// dev/seed/review-demo.mjs to show review requests and declines.
+const REVIEWER_HASH = '$2y$10$MBjR.zxSRrGx2dkHPhybLurtJBKNsK2HCxzA7bcj9oqIC3cTHHRHu';
+[
+  [211, 'peter.lawson', 'Peter', 'Lawson', 'School of Veterinary Medicine, Westmoor University', 'GB', 'ruminant nutrition, methane, sheep'],
+  [212, 'helen.carter', 'Helen', 'Carter', 'Department of Animal Health, Lakeside Agricultural College', 'CA', 'animal welfare, dairy cattle'],
+].forEach(([id, username, given, family, affiliation, country, interests]) => {
+  lines.push(
+    `DELETE FROM user_interests WHERE user_id = ${id};`,
+    `DELETE FROM user_user_groups WHERE user_id = ${id};`,
+    `DELETE FROM user_settings WHERE user_id = ${id};`,
+    `DELETE FROM users WHERE user_id = ${id};`,
+    `INSERT INTO users (user_id, username, password, email, country, locales, date_registered, date_validated, disabled, inline_help) VALUES (${id}, ${q(username)}, ${q(REVIEWER_HASH)}, ${q(username + '@example.org')}, ${q(country)}, '[]', NOW(), NOW(), 0, 1);`,
+    `INSERT INTO user_settings (user_id, locale, setting_name, setting_value) VALUES (${id}, 'en', 'givenName', ${q(given)}), (${id}, 'en', 'familyName', ${q(family)}), (${id}, 'en', 'affiliation', ${q(affiliation)});`,
+    `INSERT INTO user_user_groups (user_group_id, user_id, masthead) SELECT ug.user_group_id, ${id}, 0 FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = 'Reviewer' LIMIT 1;`,
+  );
+});
+
+// Reviewers may suggest alternatives when declining; editors invite them from
+// "Add Reviewer" (core reviewer suggestions)
+lines.push(
+  "DELETE FROM journal_settings WHERE journal_id = @ctx AND setting_name = 'reviewerSuggestionEnabled';",
+  "INSERT INTO journal_settings (journal_id, locale, setting_name, setting_value) VALUES (@ctx, '', 'reviewerSuggestionEnabled', '1');",
+);
+
+// Statistics by country (core usage statistics; GeoIP database downloaded on the server)
+lines.push(
+  "UPDATE site_settings SET setting_value = 'country' WHERE setting_name = 'enableGeoUsageStats';",
+  "DELETE FROM journal_settings WHERE journal_id = @ctx AND setting_name = 'enableGeoUsageStats';",
+  "INSERT INTO journal_settings (journal_id, locale, setting_name, setting_value) VALUES (@ctx, '', 'enableGeoUsageStats', 'country');",
+);
+
+// Google Analytics plugin switched on, waiting for the journal's own
+// Measurement ID (Settings › Website › Plugins › Google Analytics › Settings)
+lines.push(
+  "DELETE FROM plugin_settings WHERE plugin_name = 'googleanalyticsplugin' AND context_id = @ctx;",
+  "INSERT INTO plugin_settings (plugin_name, context_id, setting_name, setting_value, setting_type) VALUES ('googleanalyticsplugin', @ctx, 'enabled', '1', 'bool');",
+);
+
 // Sarah sees her own articles (published and in progress) in My Submissions
 const groupId = (name) => `(SELECT ug.user_group_id FROM user_groups ug JOIN user_group_settings s ON s.user_group_id = ug.user_group_id AND s.setting_name = 'name' AND s.locale = 'en' WHERE ug.context_id = @ctx AND s.setting_value = ${q(name)} LIMIT 1)`;
 lines.push(

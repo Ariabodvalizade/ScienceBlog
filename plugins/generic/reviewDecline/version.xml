@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+<!--
+  * plugins/generic/reviewDecline/version.xml
+  *
+  * Reasons, comments and alternative reviewers when a reviewer declines.
+  -->
+<version>
+	<application>reviewDecline</application>
+	<type>plugins.generic</type>
+	<release>1.0.0.0</release>
+	<date>2026-10-06</date>
+	<lazy-load>0</lazy-load>
+	<sitewide>1</sitewide>
+	<class>ReviewDeclinePlugin</class>
+</version>

@@ -32,7 +32,7 @@ class MeridianPlugin extends ThemePlugin
     public const DEFAULT_ACCENT = '#0f5c63';
 
     /** Home page sections that can be toggled in the theme options. */
-    public const HOME_SECTIONS = ['currentIssue', 'latestArticles', 'aims', 'announcements', 'indexing'];
+    public const HOME_SECTIONS = ['currentIssue', 'latestArticles', 'aims', 'announcements', 'readers', 'indexing'];
 
     /**
      * @copydoc ThemePlugin::init()

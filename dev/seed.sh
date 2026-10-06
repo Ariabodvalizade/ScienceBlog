@@ -24,6 +24,10 @@ echo "→ Importing manuscripts still in the workflow"
    SET ss.setting_value = 'Original Research' WHERE ss.setting_name = 'title';"
 echo "→ Demo editorial board and policy pages"
 "${COMPOSE[@]}" exec -T db mariadb -uojs -pojs-dev-password ojs < "$HERE/out/demo.sql"
+echo "→ Demo readership statistics"
+"${COMPOSE[@]}" exec -T db mariadb -uojs -pojs-dev-password ojs < "$HERE/seed/stats.sql"
 "${COMPOSE[@]}" cp "$HERE/out/profileImage-201.png" ojs:/var/www/html/public/site/profileImage-201.png
 "${COMPOSE[@]}" exec -T ojs php tools/rebuildSearchIndex.php >/dev/null 2>&1 || true
+echo "→ Demo peer review (invitations and a declined request)"
+node "$HERE/seed/review-demo.mjs" "$BASE_URL"
 echo "✓ Demo content ready at $BASE_URL/djas"

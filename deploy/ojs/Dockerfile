@@ -8,6 +8,7 @@ USER root
 COPY deploy/ojs/php.ini /usr/local/etc/php/conf.d/zz-journal.ini
 COPY deploy/ojs/apache-proxy.conf /etc/apache2/conf-enabled/zz-journal-proxy.conf
 COPY deploy/ojs/configure.php /usr/local/bin/journal-configure.php
+COPY deploy/ojs/update-geodb.php /usr/local/bin/journal-update-geodb.php
 COPY deploy/ojs/entrypoint.sh /usr/local/bin/journal-entrypoint
 RUN chmod 0755 /usr/local/bin/journal-entrypoint
 
@@ -15,6 +16,8 @@ COPY --chown=www-data:www-data plugins/themes/meridian /var/www/html/plugins/the
 COPY --chown=www-data:www-data plugins/generic/scholarlyReader /var/www/html/plugins/generic/scholarlyReader
 COPY --chown=www-data:www-data plugins/generic/authorPages /var/www/html/plugins/generic/authorPages
 COPY --chown=www-data:www-data plugins/generic/meridianAdmin /var/www/html/plugins/generic/meridianAdmin
+COPY --chown=www-data:www-data plugins/generic/reviewDecline /var/www/html/plugins/generic/reviewDecline
+COPY --chown=www-data:www-data plugins/generic/readership /var/www/html/plugins/generic/readership
 
 USER www-data
 

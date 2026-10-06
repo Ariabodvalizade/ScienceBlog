@@ -2,7 +2,8 @@
  * plugins/themes/meridian/templates/frontend/pages/indexJournal.tpl
  *
  * @brief Journal home page: hero, current issue, latest articles, aims &
- *  scope, announcements and indexing strip (sections toggled in theme options).
+ *  scope, announcements, readers around the world and indexing strip
+ *  (sections toggled in theme options).
  *
  * @uses $currentJournal Journal
  * @uses $journalDescription string
@@ -13,6 +14,7 @@
  * @uses $meridianLatestArticles array
  * @uses $meridianTagline string
  * @uses $meridianIndexingLogos array
+ * @uses $readership ReadershipPlugin|null Figures and map for "Readers around the world"
  *
  * @hook Templates::Index::journal []
  *}
@@ -152,6 +154,51 @@
 						</li>
 					{/foreach}
 				</ul>
+			</div>
+		</section>
+	{/if}
+
+	{* Readers around the world (needs the Readership plugin) *}
+	{if $readership && $meridian->isHomeSectionEnabled('readers')}
+		{assign var="readers" value=$readership->homeData($currentJournal)}
+	{/if}
+	{if $readers}
+		<section class="m-home-section m-home-readers" aria-labelledby="m-readers-title">
+			<div class="m-container">
+				<header class="m-section-head">
+					<div>
+						<p class="m-meta">{translate key="plugins.generic.readership.public.lead"}</p>
+						<h2 class="m-section-head__title" id="m-readers-title">{translate key="plugins.generic.readership.public.title"}</h2>
+					</div>
+					{if $readers.count}
+						<p class="m-readers__live"><span class="m-readers__pulse" aria-hidden="true"></span>{translate key="plugins.generic.readership.public.online" count=$readers.count number=$readers.countF}</p>
+					{/if}
+				</header>
+				<div class="m-readers{if !$readers.map} m-readers--nomap{/if}">
+					{if $readers.map}
+						<div class="m-readers__map">{$readers.map.svg}</div>
+					{/if}
+					<div class="m-readers__side">
+						<dl class="m-readers__stats">
+							<div><dt>{translate key="plugins.generic.readership.public.articles"}</dt><dd>{$readers.articlesF}</dd></div>
+							<div><dt>{translate key="plugins.generic.readership.public.views"}</dt><dd>{$readers.viewsF}</dd></div>
+							<div><dt>{translate key="plugins.generic.readership.public.downloads"}</dt><dd>{$readers.downloadsF}</dd></div>
+							{if $readers.countries}<div><dt>{translate key="plugins.generic.readership.public.countries"}</dt><dd>{$readers.countriesF}</dd></div>{/if}
+						</dl>
+						{if $readers.top}
+							<h3 class="m-meta m-readers__topTitle">{translate key="plugins.generic.readership.public.top"}</h3>
+							<ol class="m-readers__top">
+								{foreach from=$readers.top item=country}
+									<li>
+										<span class="m-readers__name">{$country.name|escape}</span>
+										<span class="m-readers__bar" aria-hidden="true"><span style="width: {$country.bar}%"></span></span>
+										<span class="m-readers__share">{$country.share}%</span>
+									</li>
+								{/foreach}
+							</ol>
+						{/if}
+					</div>
+				</div>
 			</div>
 		</section>
 	{/if}

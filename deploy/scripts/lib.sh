@@ -40,8 +40,15 @@ die() { printf '\033[31m✗ %s\033[0m\n' "$*" >&2; exit 1; }
 # settings. Safe to run repeatedly. Needs a running, installed OJS container.
 register_plugins() {
   local d
-  for d in themes/meridian generic/scholarlyReader generic/authorPages generic/meridianAdmin; do
+  for d in themes/meridian generic/scholarlyReader generic/authorPages generic/meridianAdmin generic/reviewDecline generic/readership; do
     compose exec -T ojs php lib/pkp/tools/installPluginVersion.php "plugins/$d/version.xml" >/dev/null 2>&1 \
       || printf '  ! could not register plugins/%s\n' "$d"
   done
+}
+
+# Download the GeoIP database used for statistics by country, if it is missing.
+# The OJS scheduler refreshes it monthly; a failure here only delays country data.
+ensure_geo_db() {
+  compose exec -T ojs php /usr/local/bin/journal-update-geodb.php 2>/dev/null \
+    || printf '  ! GeoIP database not downloaded yet; the scheduler will retry on the 10th of the month\n'
 }

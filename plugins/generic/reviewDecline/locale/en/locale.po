@@ -1,0 +1,82 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "plugins.generic.reviewDecline.displayName"
+msgstr "Review Decline Reasons"
+
+msgid "plugins.generic.reviewDecline.description"
+msgstr "Reviewers who decline choose a reason, can write to the editor and can suggest alternative reviewers."
+
+msgid "plugins.generic.reviewDecline.intro"
+msgstr "Thank you for letting us know. Please tell the editor why you are declining; it helps them find another reviewer quickly."
+
+msgid "plugins.generic.reviewDecline.reason"
+msgstr "Reason for declining"
+
+msgid "plugins.generic.reviewDecline.reason.noTime"
+msgstr "I do not have time right now"
+
+msgid "plugins.generic.reviewDecline.reason.noTime.hint"
+msgstr "If you only need more time, please accept the invitation and ask the editor for an extension instead."
+
+msgid "plugins.generic.reviewDecline.reason.conflict"
+msgstr "There is a conflict of interest"
+
+msgid "plugins.generic.reviewDecline.reason.expertise"
+msgstr "It is outside my area of expertise"
+
+msgid "plugins.generic.reviewDecline.reason.other"
+msgstr "Other"
+
+msgid "plugins.generic.reviewDecline.reason.otherLabel"
+msgstr "Please describe the reason"
+
+msgid "plugins.generic.reviewDecline.comments"
+msgstr "Comments to the editor"
+
+msgid "plugins.generic.reviewDecline.comments.placeholder"
+msgstr "Write your comments here (optional)"
+
+msgid "plugins.generic.reviewDecline.suggestions"
+msgstr "Suggested alternative reviewers"
+
+msgid "plugins.generic.reviewDecline.suggest.question"
+msgstr "Would you like to suggest alternative reviewers?"
+
+msgid "plugins.generic.reviewDecline.suggest.help"
+msgstr "If possible, suggest one or two suitable reviewers. Please do not suggest anyone from the same institution as the authors."
+
+msgid "plugins.generic.reviewDecline.suggest.person"
+msgstr "Reviewer {$number}"
+
+msgid "plugins.generic.reviewDecline.suggest.name"
+msgstr "Full name"
+
+msgid "plugins.generic.reviewDecline.suggest.email"
+msgstr "Email"
+
+msgid "plugins.generic.reviewDecline.suggest.affiliation"
+msgstr "Institution"
+
+msgid "plugins.generic.reviewDecline.suggestionReason"
+msgstr "Suggested by {$reviewer} when declining the review request."
+
+msgid "plugins.generic.reviewDecline.history.title"
+msgstr "Why the reviewer declined"
+
+msgid "plugins.generic.reviewDecline.history.inviteHint"
+msgstr "To invite a suggested reviewer, use Add Reviewer: they are listed under the reviewer suggestions."
+
+msgid "plugins.generic.reviewDecline.home.title"
+msgstr "Declined review requests"
+
+msgid "plugins.generic.reviewDecline.home.suggested"
+msgid_plural "plugins.generic.reviewDecline.home.suggested"
+msgstr[0] "{$number} reviewer suggested"
+msgstr[1] "{$number} reviewers suggested"

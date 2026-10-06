@@ -1,0 +1,143 @@
+/* Review Decline Reasons: decline form, review history, Home list */
+
+.rd-form {
+	display: grid;
+	gap: 1.25rem;
+	font-size: .9375rem;
+	line-height: 1.5;
+}
+
+.rd-intro { margin: 0; }
+
+.rd-group {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	min-width: 0;
+}
+
+.rd-group legend,
+.rd-label {
+	display: block;
+	margin-bottom: .5rem;
+	padding: 0;
+	font-weight: 700;
+}
+
+.rd-group .req { color: var(--ma-negative, #b42318); }
+
+.rd-choice {
+	display: flex;
+	gap: .6rem;
+	align-items: flex-start;
+	padding: .4rem 0;
+	cursor: pointer;
+}
+
+.rd-choice input { margin-top: .3rem; }
+
+.rd-choice small {
+	display: block;
+	color: var(--ma-muted, #5b6564);
+	font-size: .8125rem;
+}
+
+.rd-choice--inline {
+	display: inline-flex;
+	margin-inline-end: 1.5rem;
+}
+
+.rd-help {
+	margin: 0 0 .5rem;
+	color: var(--ma-muted, #5b6564);
+	font-size: .875rem;
+}
+
+.rd-form input[type=text],
+.rd-form input[type=email],
+.rd-form textarea {
+	width: 100%;
+	padding: .5rem .65rem;
+	border: 1px solid var(--ma-field, #a3adac);
+	border-radius: 6px;
+	font: inherit;
+}
+
+.rd-other { margin: .25rem 0 0 1.6rem; }
+
+.rd-suggestions {
+	display: grid;
+	gap: .75rem;
+	margin-top: .75rem;
+}
+
+.rd-person {
+	padding: .75rem 1rem 1rem;
+	border: 1px solid var(--ma-line, #dde2e2);
+	border-radius: 10px;
+	background: var(--ma-accent-softer, #f3f8f8);
+}
+
+.rd-person__title {
+	margin: 0 0 .5rem;
+	font-weight: 700;
+	font-size: .875rem;
+}
+
+.rd-person__fields {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+	gap: .6rem;
+}
+
+.rd-person__fields label {
+	display: grid;
+	gap: .2rem;
+	font-size: .8125rem;
+	font-weight: 600;
+}
+
+/* Review history */
+.rd-history {
+	margin-top: 1.25rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--ma-line, #dde2e2);
+}
+
+.rd-history__title {
+	margin: 0 0 .5rem;
+	font-size: 1rem;
+}
+
+.rd-history dl { margin: 0; }
+.rd-history dt { margin-top: .6rem; font-weight: 700; }
+.rd-history dd { margin: .15rem 0 0; }
+.rd-history ul { margin: .25rem 0; padding-left: 1.2rem; }
+
+.rd-history__hint {
+	margin: .4rem 0 0;
+	color: var(--ma-muted, #5b6564);
+	font-size: .8125rem;
+}
+
+/* The legacy form styles make every label bold and block-level */
+#declineReviewForm .rd-choice,
+#declineReviewForm .rd-choice span {
+	font-weight: 400;
+}
+
+#declineReviewForm .rd-choice {
+	display: flex;
+}
+
+#declineReviewForm .rd-choice--inline {
+	display: inline-flex;
+}
+
+#declineReviewForm .rd-choice small {
+	font-weight: 400;
+}
+
+#declineReviewForm [hidden] {
+	display: none !important;
+}
