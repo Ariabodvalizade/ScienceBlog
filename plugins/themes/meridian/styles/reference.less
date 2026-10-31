@@ -1,0 +1,380 @@
+/**
+ * Reference OJS layout used by the client example.
+ * Keep this as a small override layer so the rest of Meridian remains available
+ * on article, issue and workflow pages.
+ */
+
+.m-body {
+	background: #fff;
+	color: #4b4b4b;
+	font-family: @m-font-ui;
+	font-size: 15px;
+	line-height: 1.6;
+
+	.pkp_structure_head.m-header {
+		position: relative;
+		background: #fff;
+		border-bottom: 1px solid #ddd;
+		backdrop-filter: none;
+	}
+
+	.m-header__bar {
+		max-width: @m-container + 2 * @m-gutter;
+		height: auto;
+		min-height: 96px;
+		padding-top: 30px;
+		padding-bottom: 10px;
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+	}
+
+	.m-header__start {
+		display: none;
+	}
+
+	.m-header__brand {
+		text-align: left;
+		margin-right: auto;
+	}
+
+	.m-brand--text {
+		font-family: @m-font-ui;
+		font-size: 1.55rem;
+		font-weight: 600;
+		letter-spacing: 0;
+	}
+
+	.m-brand--logo img {
+		max-height: 74px;
+		margin: 0;
+	}
+
+	.m-header__end {
+		position: absolute;
+		top: 0;
+		right: @m-gutter;
+		gap: 0.75rem;
+	}
+
+	.pkp_navigation_user.m-usernav {
+		gap: 0.75rem;
+
+		> li > a {
+			font-size: 0.8125rem;
+			font-weight: 400;
+			letter-spacing: 0;
+			text-transform: none;
+			padding: 0.4rem 0;
+		}
+	}
+
+	.m-header__nav {
+		border-top: 1px solid #e5e5e5;
+	}
+
+	.pkp_navigation_primary.m-nav {
+		justify-content: flex-start;
+		gap: 0;
+		text-align: left;
+
+		> li > a {
+			font-size: 0.875rem;
+			font-weight: 400;
+			letter-spacing: 0;
+			text-transform: none;
+			height: 46px;
+			padding: 0 1rem;
+			border-bottom: 0;
+		}
+
+		> li:first-child > a {
+			padding-left: 0;
+		}
+	}
+
+	.m-reference-home {
+		padding: 30px 0 60px;
+	}
+
+	.m-reference-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+		gap: 32px;
+		align-items: start;
+	}
+
+	.m-reference-main {
+		min-width: 0;
+	}
+
+	.m-reference-homepage-image {
+		margin-bottom: 26px;
+		border: 1px solid #eee;
+
+		img {
+			display: block;
+			width: 100%;
+			height: 150px;
+			object-fit: cover;
+		}
+	}
+
+	.m-reference-description {
+		font-size: 1.05rem;
+		line-height: 1.65;
+		text-align: left;
+
+		p {
+			margin: 0 0 1rem;
+		}
+
+		strong {
+			color: #3c3c3c;
+		}
+	}
+
+	.m-reference-facts {
+		margin-top: 1.5rem;
+
+		p {
+			margin-bottom: 0.75rem;
+		}
+	}
+
+	.m-reference-current-issue {
+		margin-top: 34px;
+	}
+
+	.m-reference-section-header {
+		border-bottom: 1px solid #e5e5e5;
+		margin-bottom: 12px;
+
+		h2 {
+			font-family: @m-font-ui;
+			font-size: 1.4rem;
+			font-weight: 600;
+			margin: 0;
+
+			a {
+				color: #444;
+				text-decoration: none;
+			}
+		}
+	}
+
+	.m-reference-issue-title {
+		font-size: 1.2rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.m-reference-published {
+		font-size: 0.95rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.m-reference-issue-section {
+		margin-top: 1.5rem;
+
+		h3 {
+			font-family: @m-font-ui;
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin: 0 0 0.25rem;
+			padding-bottom: 0.45rem;
+			border-bottom: 1px solid #e5e5e5;
+		}
+	}
+
+	.m-reference-article-list {
+		.m-item {
+			padding: 0.9rem 0;
+			border-bottom: 1px solid #eee;
+
+			.m-item__title {
+				font-family: @m-font-ui;
+				font-size: 1rem;
+				font-weight: 600;
+				line-height: 1.45;
+			}
+
+			.m-item__authors,
+			.m-item__meta {
+				font-size: 0.875rem;
+			}
+		}
+	}
+
+	.m-reference-button {
+		display: inline-block;
+		margin-top: 1.25rem;
+		padding: 0.65rem 1rem;
+		background: #337ab7;
+		color: #fff;
+		font-size: 0.9rem;
+		text-decoration: none;
+		border-radius: 3px;
+
+		&:hover,
+		&:focus {
+			background: #286090;
+			color: #fff;
+		}
+	}
+
+	.m-reference-sidebar {
+		min-width: 0;
+
+		.m-reference-block {
+			margin-bottom: 22px;
+			border: 1px solid #d9d9d9;
+			border-radius: 4px;
+			background: #fff;
+			box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+			overflow: hidden;
+
+			&__title {
+				margin: 0;
+				padding: 0.8rem 1rem;
+				background: #f5f5f5;
+				border-bottom: 1px solid #d9d9d9;
+				font-family: @m-font-ui;
+				font-size: 1.2rem;
+				font-weight: 400;
+				color: #333;
+			}
+
+			> ul {
+				list-style: none;
+				margin: 0;
+				padding: 0.75rem 1rem;
+			}
+
+			> ul li {
+				border-bottom: 1px solid #e6e6e6;
+
+				&:last-child {
+					border-bottom: 0;
+				}
+			}
+
+			> ul a {
+				display: block;
+				padding: 0.65rem 0.4rem;
+				color: #337ab7;
+				font-size: 0.98rem;
+				text-decoration: none;
+
+				&:hover,
+				&:focus {
+					color: #23527c;
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	.m-reference-block--action {
+		.m-reference-action {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.7rem;
+			min-height: 92px;
+			margin: 1rem;
+			padding: 0.75rem;
+			border: 1px solid #555;
+			border-radius: 8px;
+			background: #fff;
+			color: #1d3557;
+			font-size: 1rem;
+			font-weight: 600;
+			text-align: center;
+			text-decoration: none;
+
+			&:hover,
+			&:focus {
+				border-color: #337ab7;
+				color: #337ab7;
+				background: #fafafa;
+			}
+		}
+
+		.m-reference-action__icon {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 34px;
+			height: 34px;
+			border: 2px solid currentColor;
+			border-radius: 4px;
+			font-size: 1.35rem;
+			line-height: 1;
+		}
+
+		.m-reference-action__icon--doc {
+			width: 46px;
+			font-size: 0.65rem;
+			font-weight: 700;
+		}
+	}
+
+	.m-reference-block--indexing {
+		.m-reference-block__title {
+			font-size: 1.35rem;
+		}
+	}
+
+	.pkp_structure_footer_wrapper.m-footer {
+		margin-top: 0;
+		padding: 2rem 0 1rem;
+		background: #f5f5f5;
+		border-top: 1px solid #ddd;
+		font-family: @m-font-ui;
+	}
+
+	@media @m-tablet-down {
+		.m-header__start {
+			display: block;
+		}
+
+		.m-header__bar {
+			align-items: center;
+			min-height: 72px;
+			padding-top: 18px;
+		}
+
+		.m-header__brand {
+			text-align: center;
+			margin: 0 auto;
+		}
+
+		.m-header__end {
+			top: 14px;
+			right: @m-gutter-sm;
+		}
+
+		.m-reference-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.m-reference-sidebar {
+			order: 2;
+		}
+	}
+
+	@media @m-mobile {
+		.m-reference-home {
+			padding-top: 16px;
+		}
+
+		.m-reference-homepage-image img {
+			height: 95px;
+		}
+
+		.m-reference-layout {
+			padding-left: @m-gutter-sm;
+			padding-right: @m-gutter-sm;
+		}
+	}
+}

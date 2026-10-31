@@ -1,232 +1,107 @@
 {**
- * plugins/themes/meridian/templates/frontend/pages/indexJournal.tpl
+ * Meridian journal home page.
  *
- * @brief Journal home page: hero, current issue, latest articles, aims &
- *  scope, announcements, readers around the world and indexing strip
- *  (sections toggled in theme options).
- *
- * @uses $currentJournal Journal
- * @uses $journalDescription string
- * @uses $issue Issue Current issue (with $publishedSubmissions)
- * @uses $announcements array, $numAnnouncementsHomepage int
- * @uses $highlights Collection
- * @uses $additionalHomeContent string
- * @uses $meridianLatestArticles array
- * @uses $meridianTagline string
- * @uses $meridianIndexingLogos array
- * @uses $readership ReadershipPlugin|null Figures and map for "Readers around the world"
+ * The layout follows the classic OJS journal template used by the client
+ * reference: journal content on the left and information blocks on the right.
  *
  * @hook Templates::Index::journal []
  *}
 {include file="frontend/components/header.tpl" pageTitleTranslated=$currentJournal->getLocalizedName()}
 
-<div class="page_index_journal m-home">
-
+<div id="main-content" class="page_index_journal m-reference-home">
 	{call_hook name="Templates::Index::journal"}
 
-	<section class="m-home-hero">
-		<div class="m-container m-home-hero__inner">
-			<p class="m-home-hero__eyebrow">
-				{if $currentJournal->getData('onlineIssn')}<span>{translate key="plugins.themes.meridian.issn.online" issn=$currentJournal->getData('onlineIssn')|escape}</span>{/if}
-				{if $currentJournal->getData('printIssn')}<span>{translate key="plugins.themes.meridian.issn.print" issn=$currentJournal->getData('printIssn')|escape}</span>{/if}
-				<span>{translate key="plugins.themes.meridian.openAccess"}</span>
-			</p>
-			<p class="m-home-hero__title">{$currentJournal->getLocalizedName()|escape}</p>
-			{if $meridianTagline}<p class="m-home-hero__tagline">{$meridianTagline|escape}</p>{/if}
-			{if $journalDescription}
-				<div class="m-home-hero__desc">{$journalDescription|strip_unsafe_html}</div>
+	<div class="m-reference-layout m-container">
+		<main class="m-reference-main" role="main">
+			{if $homepageImage}
+				<div class="m-reference-homepage-image">
+					<img src="{$publicFilesDir}/{$homepageImage.uploadName|escape:"url"}"{if $homepageImage.altText} alt="{$homepageImage.altText|escape}"{else} alt=""{/if} fetchpriority="high">
+				</div>
+			{else}
+				<div class="m-reference-homepage-image">
+					<img src="{$baseUrl}/plugins/themes/meridian/images/editorial/journal-hero.webp" alt="" width="1600" height="900" fetchpriority="high">
+				</div>
 			{/if}
-			<div class="m-home-hero__actions">
-				<a class="m-btn m-btn--primary" href="{url page="submission"}">{translate key="plugins.themes.meridian.submitManuscript"}</a>
-				<a class="m-btn m-btn--secondary" href="{url page="about" op="submissions"}">{translate key="plugins.themes.meridian.authorGuidelines"}</a>
-			</div>
-		</div>
-	</section>
 
-	{if $highlights->count()}
-		<div class="m-container m-home-highlights">
-			{include file="frontend/components/highlights.tpl" highlights=$highlights}
-		</div>
-	{/if}
+			<section class="m-reference-description" aria-labelledby="journal-description-title">
+				<h1 id="journal-description-title" class="m-sr">{$currentJournal->getLocalizedName()|escape}</h1>
+				{if $journalDescription}{$journalDescription|strip_unsafe_html}{/if}
+				<div class="m-reference-facts">
+					{if $currentJournal->getLocalizedName()}<p><strong>Journal Name:</strong> {$currentJournal->getLocalizedName()|escape}</p>{/if}
+					{if $currentJournal->getData('initials')}<p><strong>Journal initials:</strong> {$currentJournal->getData('initials')|escape}</p>{/if}
+					{if $currentJournal->getData('abbreviation')}<p><strong>Journal Abbreviation:</strong> {$currentJournal->getData('abbreviation')|escape}</p>{/if}
+					{if $currentJournal->getData('onlineIssn')}<p><strong>ISSN:</strong> {$currentJournal->getData('onlineIssn')|escape}</p>{/if}
+					{if $currentJournal->getData('publisherInstitution')}<p><strong>Publisher:</strong> {$currentJournal->getData('publisherInstitution')|escape}</p>{/if}
+					{if $meridianTagline}<p><strong>Frequency:</strong> {$meridianTagline|escape}</p>{/if}
+				</div>
+			</section>
 
-	{if $homepageImage}
-		<div class="m-container m-home-image">
-			<img src="{$publicFilesDir}/{$homepageImage.uploadName|escape:"url"}"{if $homepageImage.altText} alt="{$homepageImage.altText|escape}"{else} alt=""{/if}>
-		</div>
-	{/if}
-
-	{* Current issue *}
-	{if $issue && $meridian->isHomeSectionEnabled('currentIssue')}
-		{assign var=issueCover value=$issue->getLocalizedCoverImageUrl()}
-		{capture assign="issueUrl"}{url page="issue" op="view" path=$issue->getBestIssueId()}{/capture}
-		<section class="m-home-section m-home-issue">
-			<a id="homepageIssue"></a>
-			<div class="m-container m-home-issue__grid{if !$issueCover} m-home-issue__grid--nocover{/if}">
-				{if $issueCover}
-					<a class="m-home-issue__cover" href="{$issueUrl}">
-						<img src="{$issueCover|escape}" alt="{$issue->getLocalizedCoverImageAltText()|escape|default:$issue->getIssueIdentification()|escape}">
-					</a>
-				{/if}
-				<div class="m-home-issue__toc">
-					<header class="m-section-head">
-						<div>
-							<p class="m-meta">{$issue->getIssueIdentification(['showTitle' => false])|escape}{if $issue->getDatePublished()} · {$issue->getDatePublished()|date_format:"F Y"}{/if}</p>
-							<h2 class="m-section-head__title">{translate key="plugins.themes.meridian.currentIssue"}</h2>
-						</div>
-						<a class="m-more" href="{$issueUrl}">
-							{translate key="plugins.themes.meridian.viewIssue"}
-							<svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-arrow"/></svg>
-						</a>
+			{if $issue}
+				{capture assign="issueUrl"}{url page="issue" op="view" path=$issue->getBestIssueId()}{/capture}
+				<section class="m-reference-current-issue" aria-labelledby="current-issue-title">
+					<header class="m-reference-section-header">
+						<h2 id="current-issue-title"><a href="{$issueUrl}">{translate key="plugins.themes.meridian.currentIssue"}</a></h2>
 					</header>
-					<ul class="m-list">
-						{assign var="shown" value=0}
+					<p class="m-reference-issue-title">{$issue->getIssueIdentification()|escape}</p>
+					{if $issue->getDatePublished()}<p class="m-reference-published"><strong>{translate key="issue.published"}:</strong> {$issue->getDatePublished()|date_format:$dateFormatLong}</p>{/if}
+
+					<div class="m-reference-issue-sections">
 						{foreach from=$publishedSubmissions item=section}
-							{foreach from=$section.articles item=article}
-								{if $shown < 4}
-									<li>{include file="frontend/objects/article_summary.tpl" heading="h3" typeLabel=$section.title hideGalleys=false}</li>
-									{assign var="shown" value=$shown+1}
-								{/if}
-							{/foreach}
+							<section class="m-reference-issue-section">
+								{if $section.title}<h3>{$section.title|escape}</h3>{/if}
+								<div class="m-reference-article-list">
+									{foreach from=$section.articles item=article}
+										{include file="frontend/objects/article_summary.tpl" heading="h4" typeLabel=$section.title hideGalleys=false}
+									{/foreach}
+								</div>
+							</section>
 						{/foreach}
-					</ul>
-				</div>
-			</div>
-		</section>
-	{/if}
-
-	{* Latest articles *}
-	{if $meridianLatestArticles}
-		<section class="m-home-section m-home-latest">
-			<div class="m-container">
-				<header class="m-section-head">
-					<h2 class="m-section-head__title">{translate key="plugins.themes.meridian.latestArticles"}</h2>
-					<a class="m-more" href="{url page="issue" op="archive"}">
-						{translate key="journal.viewAllIssues"}
-						<svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-arrow"/></svg>
-					</a>
-				</header>
-				<ul class="m-cards">
-					{foreach from=$meridianLatestArticles item=item}
-						<li>{include file="frontend/objects/meridian_card.tpl" item=$item}</li>
-					{/foreach}
-				</ul>
-			</div>
-		</section>
-	{/if}
-
-	{* Aims & scope *}
-	{if $meridian->isHomeSectionEnabled('aims') && $currentJournal->getLocalizedData('about')}
-		<section class="m-home-section m-home-aims">
-			<div class="m-container m-home-aims__grid">
-				<h2 class="m-section-head__title">{translate key="plugins.themes.meridian.aimsScope"}</h2>
-				<div class="m-home-aims__text">
-					<p>{$currentJournal->getLocalizedData('about')|strip_tags|truncate:520:"…"}</p>
-					<a class="m-more" href="{url page="about"}">
-						{translate key="plugins.themes.meridian.aboutJournal"}
-						<svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-arrow"/></svg>
-					</a>
-				</div>
-			</div>
-		</section>
-	{/if}
-
-	{* Announcements *}
-	{if $meridian->isHomeSectionEnabled('announcements') && $numAnnouncementsHomepage && $announcements|@count}
-		<section class="m-home-section m-home-news">
-			<a id="homepageAnnouncements"></a>
-			<div class="m-container">
-				<header class="m-section-head">
-					<h2 class="m-section-head__title">{translate key="announcement.announcements"}</h2>
-					<a class="m-more" href="{url page="announcement"}">
-						{translate key="plugins.themes.meridian.allAnnouncements"}
-						<svg class="m-icon m-icon--sm" aria-hidden="true"><use href="#m-i-arrow"/></svg>
-					</a>
-				</header>
-				<ul class="m-news">
-					{foreach name=announcements from=$announcements item=announcement}
-						{if $smarty.foreach.announcements.iteration > $numAnnouncementsHomepage}{break}{/if}
-						<li class="m-news__item">
-							<p class="m-meta">{$announcement->datePosted->format($dateFormatLong)}</p>
-							<h3 class="m-news__title">
-								<a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="announcement" op="view" path=$announcement->id}">{$announcement->getLocalizedData('title')|escape}</a>
-							</h3>
-							<div class="m-news__summary">{$announcement->getLocalizedData('descriptionShort')|strip_unsafe_html}</div>
-						</li>
-					{/foreach}
-				</ul>
-			</div>
-		</section>
-	{/if}
-
-	{* Readers around the world (needs the Readership plugin) *}
-	{if $readership && $meridian->isHomeSectionEnabled('readers')}
-		{assign var="readers" value=$readership->homeData($currentJournal)}
-	{/if}
-	{if $readers}
-		<section class="m-home-section m-home-readers" aria-labelledby="m-readers-title">
-			<div class="m-container">
-				<header class="m-section-head">
-					<div>
-						<p class="m-meta">{translate key="plugins.generic.readership.public.lead"}</p>
-						<h2 class="m-section-head__title" id="m-readers-title">{translate key="plugins.generic.readership.public.title"}</h2>
 					</div>
-					{if $readers.count}
-						<p class="m-readers__live"><span class="m-readers__pulse" aria-hidden="true"></span>{translate key="plugins.generic.readership.public.online" count=$readers.count number=$readers.countF}</p>
-					{/if}
-				</header>
-				<div class="m-readers{if !$readers.map} m-readers--nomap{/if}">
-					{if $readers.map}
-						<div class="m-readers__map">{$readers.map.svg}</div>
-					{/if}
-					<div class="m-readers__side">
-						<dl class="m-readers__stats">
-							<div><dt>{translate key="plugins.generic.readership.public.articles"}</dt><dd>{$readers.articlesF}</dd></div>
-							<div><dt>{translate key="plugins.generic.readership.public.views"}</dt><dd>{$readers.viewsF}</dd></div>
-							<div><dt>{translate key="plugins.generic.readership.public.downloads"}</dt><dd>{$readers.downloadsF}</dd></div>
-							{if $readers.countries}<div><dt>{translate key="plugins.generic.readership.public.countries"}</dt><dd>{$readers.countriesF}</dd></div>{/if}
-						</dl>
-						{if $readers.top}
-							<h3 class="m-meta m-readers__topTitle">{translate key="plugins.generic.readership.public.top"}</h3>
-							<ol class="m-readers__top">
-								{foreach from=$readers.top item=country}
-									<li>
-										<span class="m-readers__name">{$country.name|escape}</span>
-										<span class="m-readers__bar" aria-hidden="true"><span style="width: {$country.bar}%"></span></span>
-										<span class="m-readers__share">{$country.share}%</span>
-									</li>
-								{/foreach}
-							</ol>
-						{/if}
-						{if $readers.map}<p class="m-readers__credit">{translate key="plugins.generic.readership.credit"}</p>{/if}
-					</div>
-				</div>
-			</div>
-		</section>
-	{/if}
+					<a class="m-reference-button" href="{url page="issue" op="archive"}">{translate key="journal.viewAllIssues"} <span aria-hidden="true">›</span></a>
+				</section>
+			{/if}
+		</main>
 
-	{* Indexing & archiving *}
-	{if $meridian->isHomeSectionEnabled('indexing') && $meridianIndexingLogos}
-		<section class="m-home-section m-home-indexing">
-			<div class="m-container">
-				<h2 class="m-meta m-home-indexing__title">{translate key="plugins.themes.meridian.indexedIn"}</h2>
-				<ul class="m-home-indexing__list">
-					{foreach from=$meridianIndexingLogos item=logo}
-						<li>
-							{if $logo.url}<a href="{$logo.url|escape}" rel="noopener">{/if}
-							{if $logo.logo}<img src="{$logo.logo|escape}" alt="{$logo.name|escape}" loading="lazy">{else}<span>{$logo.name|escape}</span>{/if}
-							{if $logo.url}</a>{/if}
-						</li>
-					{/foreach}
+		<aside class="m-reference-sidebar" id="sidebar" aria-label="{translate|escape key="common.navigation"}">
+			<section class="m-reference-block">
+				<h2 class="m-reference-block__title">{translate key="plugins.themes.meridian.footer.explore"}</h2>
+				<ul>
+					<li><a href="{url page="about"}">{translate key="about.aboutContext"}</a></li>
+					<li><a href="{url page="about" op="submissions"}">{translate key="about.submissions"}</a></li>
+					<li><a href="{url page="about" op="editorialMasthead"}">{translate key="common.editorialMasthead"}</a></li>
 				</ul>
-			</div>
-		</section>
-	{/if}
+			</section>
 
-	{if $additionalHomeContent}
-		<section class="m-home-section m-home-additional">
-			<div class="m-container m-prose">{$additionalHomeContent}</div>
-		</section>
-	{/if}
+			<section class="m-reference-block m-reference-block--action">
+				<h2 class="m-reference-block__title m-sr">Make A Submission</h2>
+				<a class="m-reference-action" href="{url page="about" op="submissions"}" title="Make a submission">
+					<span class="m-reference-action__icon" aria-hidden="true">✎</span>
+					<span>Make a Submission</span>
+				</a>
+			</section>
+
+			<section class="m-reference-block m-reference-block--action">
+				<h2 class="m-reference-block__title">Journal Template</h2>
+				{* shortcut: the client template file is not in this repository; link to submission guidance until it is uploaded. *}
+				<a class="m-reference-action" href="{url page="about" op="submissions"}#authorGuidelines" title="Journal template">
+					<span class="m-reference-action__icon m-reference-action__icon--doc" aria-hidden="true">DOCX</span>
+					<span>Manuscript Template</span>
+				</a>
+			</section>
+
+			<section class="m-reference-block m-reference-block--indexing">
+				<h2 class="m-reference-block__title">Indexing and Archiving</h2>
+				<ul>
+					<li><a href="https://www.ebsco.com/" target="_blank" rel="noopener">EBSCO</a></li>
+					<li><a href="https://cassi.cas.org/" target="_blank" rel="noopener">CAS</a></li>
+					<li><a href="https://search.crossref.org/" target="_blank" rel="noopener">Crossref</a></li>
+					<li><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a></li>
+					<li><a href="{url page="gateway" op="plugin" path="PKPPreservationPlugin"}" target="_blank" rel="noopener">PKP (LOCKSS)</a></li>
+					<li><a href="https://www.portico.org/" target="_blank" rel="noopener">Portico</a></li>
+				</ul>
+			</section>
+		</aside>
+	</div>
 </div>
 
 {include file="frontend/components/footer.tpl"}
