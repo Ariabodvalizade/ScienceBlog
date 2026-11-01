@@ -1,5 +1,22 @@
 # Design System — theme "Meridian"
 
+## Active client reference — 2026-11-01
+
+The homepage and shared header now follow the classic two-column OJS layout at
+https://jlar.rovedar.com/index.php/JLAR, retaining this journal's own identity.
+`styles/reference.less` is the final override layer: sans-serif journal introduction,
+facts and editorial statistics; bordered sidebar panels for submission, manuscript
+template and indexing resources; a single-column layout below 1025px.
+The original editorial specification below remains relevant to the existing article
+and issue components, but its homepage hero, image cards and indexing strip are superseded.
+
+Until the editorial office supplies verified values, frequency and statistics say
+"Not announced". The manuscript template is visibly unavailable, with a separate
+working link to author guidelines. Indexing resources say "Pending verification";
+their presence does not assert that this journal is indexed by those services.
+ISSN and DOI prefix read existing OJS settings; initials and abbreviation use localized settings.
+See `DEPLOY-NOTE-2026-11-01.md` and `TEST-NOTE-2026-11-01.md` for release evidence.
+
 The visual language is taken from the client's reference, a minimalist editorial blog layout called "blank". It is
 translated into an academic journal context. Its principles:
 
